@@ -1,11 +1,9 @@
 # how to wobsite
 
-idk yo
+very carefully
 
-Try to put a blank line before...
+![hello](assets/hello.png)
 
 ---
-
-...and after a horizontal rule.
 
 [back to homepage](index.html)
