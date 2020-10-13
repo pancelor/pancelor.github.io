@@ -11,4 +11,4 @@ Places to follow me, if you like:
 
 ## blog
 
-* 2020-09-22 [Hello World](post0.html)
+* 2020-09-22 [test](post0.html)
