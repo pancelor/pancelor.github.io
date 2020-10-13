@@ -36,8 +36,6 @@ This was a really fun project that taught me a lot about scoping a game, and how
 
 (with music from [The Smurfs' Nightmare](https://www.youtube.com/watch?list=PLFAB3E682EBF46BDB&v=Z4lqyFcEn3Q))
 
-![video](https://twitter.com/i/status/1307774529565896705)
-
 ### how do I run it?
 
 Ah, I haven't published this one online anywhere. But you can check out this [twitter thread](https://twitter.com/pancelor/status/1307774529565896705?s=20) showing my step-by-step progress, from individual triangles all the way up to a lit 3D scene.
@@ -96,7 +94,7 @@ I'm surprised that this went as smoothly as it did. I scraped together some html
 
 ## worms PICO-8 tweetcart (aug 2020)
 
-![video](https://twitter.com/i/status/1298093163878391808)
+<iframe width="560" height="315" src="https://twitter.com/i/status/1298093163878391808" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ### how do I run it?
 
