@@ -26,7 +26,7 @@ Play online [here](https://pancelor.itch.io/necrodecorator).
 
 ### what is it?
 
-A game about decorating an inn to make the denizens from [Crypt of the NecroDancer](https://braceyourselfgames.com/crypt-of-the-necrodancer/) feel cozy when they visit. Made for a 7-day game jam with [cryss](twitter.com/princryss); I did all the code and cryss did all of the art/sound.
+A game about decorating an inn to make the denizens from [Crypt of the NecroDancer](https://braceyourselfgames.com/crypt-of-the-necrodancer/) feel cozy when they visit. Made for a 7-day game jam with [cryss](https://www.twitter.com/princryss); I did all the code and cryss did all of the art/sound.
 
 This was a really fun project that taught me a lot about scoping a game, and how difficult even the most basic 3D stuff can be. (the game is hardly 3D but I spent most of my time making the objects render in the correct order)
 
@@ -36,8 +36,7 @@ This was a really fun project that taught me a lot about scoping a game, and how
 
 (with music from [The Smurfs' Nightmare](https://www.youtube.com/watch?list=PLFAB3E682EBF46BDB&v=Z4lqyFcEn3Q))
 
-https://twitter.com/i/status/1307774529565896705
-TODO delete this
+![video](https://twitter.com/i/status/1307774529565896705)
 
 ### how do I run it?
 
@@ -45,7 +44,7 @@ Ah, I haven't published this one online anywhere. But you can check out this [tw
 
 ### what is it?
 
-This is a 3D renderer that doesn't use the GPU at all; it does all the triangle math manually on the CPU and calls a `SetPixel` function many times. This was a fun experience learning a bit about how 3D graphics work. I only use "fast" operations while rasterizing the triangles (i.e. no floating-point division).
+This is a 3D renderer that doesn't use the GPU at all; it does all the triangle math manually on the CPU and individually sets the color of each pixel shown onscreen. This was a fun experience learning a bit about how 3D graphics work. I only use "fast" operations while rasterizing the triangles (i.e. no floating-point division).
 
 I looked up [how to draw 2D lines](https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm) but had to figure out the rest on my own.
 
@@ -71,7 +70,7 @@ I'm very happy with the result! I think it blends into the existing engine prett
 
 ### how do I run it?
 
-Play online [here](https://pancelor.itch.io/upgo)
+Play online [here](https://pancelor.itch.io/upgo).
 
 ### what is it?
 
@@ -97,7 +96,7 @@ I'm surprised that this went as smoothly as it did. I scraped together some html
 
 ## worms PICO-8 tweetcart (aug 2020)
 
-https://twitter.com/i/status/1298093163878391808
+![video](https://twitter.com/i/status/1298093163878391808)
 
 ### how do I run it?
 
@@ -111,8 +110,8 @@ A fun little animation, written as a pico-8 cartridge that fits inside a tweet.
 
 I've organized and run 2 gamejams:
 
-* https://itch.io/jam/gamejamdor
-* https://itch.io/jam/gamejamdor2
+* <https://itch.io/jam/gamejamdor>
+* <https://itch.io/jam/gamejamdor2>
 
 These were both Crypt of the NecroDancer-themed game jams and were wildly successful by my metric: other people besides me joined and had a good time :)
 Both had about 6 submissions.
