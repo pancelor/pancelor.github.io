@@ -40,13 +40,15 @@ This was a really fun project that taught me a lot about scoping a game, and how
 
 ### how do I run it?
 
-Ah, I haven't published this one online anywhere. But you can check out this [twitter thread](https://twitter.com/pancelor/status/1307774529565896705?s=20) showing my step-by-step progress, from individual triangles all the way up to a lit 3D scene.
+Ah, I haven't published the code for this online anywhere yet. But you can check out this [twitter thread](https://twitter.com/pancelor/status/1307774529565896705) showing my step-by-step progress, from individual triangles all the way up to a lit 3D scene.
 
 ### what is it?
 
 This is a 3D renderer that doesn't use the GPU at all; it does all the triangle math manually on the CPU and individually sets the color of each pixel shown onscreen. This was a fun experience learning a bit about how 3D graphics work. I only use "fast" operations while rasterizing the triangles (i.e. no floating-point division).
 
 I looked up [how to draw 2D lines](https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm) but had to figure out the rest on my own.
+
+The teapot is made of 3752 triangles / 1976 vertices, and the renderer runs at around 5ms per frame. I haven't done the research to figure out how good that really is (and I haven't attempted to optimize the renderer, beyond my "fast math" design restrictions) but I can spin this particular teapot around at 60fps with plenty of time to spare :)
 
 ## puzzlescript level select (july 2020)
 
