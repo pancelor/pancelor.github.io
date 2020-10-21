@@ -2,6 +2,8 @@
 
 ## tursokoduckenban (feb 2019 - ?)
 
+this video has some minor spoilers! (puzzle solutions)
+
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/J1mCT1-diaI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ### how do I run it?
@@ -16,7 +18,7 @@ Inspired by <https://juner.itch.io/sokosoko>
 
 ## escalator world (aug 2020)
 
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/suoa5GiEE6o" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/suoa5GiEE6o?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ### how do I run it?
 
@@ -34,7 +36,7 @@ Oh, this was also my first time writing game music!
 
 ## necrodecorator (july 2020)
 
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/O1a1a4KAaHk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/O1a1a4KAaHk?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ### how do I run it?
 
@@ -48,7 +50,7 @@ This was a really fun project that taught me a lot about scoping a game, and how
 
 ## software renderer (sep 2020)
 
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/XfQZR6Vfens" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/XfQZR6Vfens?rel=0&enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 (with music from [The Smurfs' Nightmare](https://www.youtube.com/watch?list=PLFAB3E682EBF46BDB&v=Z4lqyFcEn3Q))
 
@@ -66,7 +68,7 @@ The teapot is made of 3752 triangles / 1976 vertices, and the renderer runs at a
 
 ## puzzlescript level select (july 2020)
 
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/rg0t26K9egw" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/rg0t26K9egw?rel=0&enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ### how do I run it?
 
@@ -98,7 +100,7 @@ I wish I had spent more time making this into a real game - there's some good pl
 
 ## hexringer (mar 2020)
 
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/nd7OK5OZI4o" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/nd7OK5OZI4o?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ### how do I run it?
 
