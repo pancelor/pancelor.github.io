@@ -1,5 +1,19 @@
 # portfolio
 
+## tursokoduckenban (feb 2019 - ?)
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/J1mCT1-diaI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+### how do I run it?
+
+It's not publically available yet; I'm hoping to publish it on itch soon!
+
+### what is it?
+
+A puzzle game about pushing boxes into other boxes. I've put a lot of time and polish into this one :)
+
+Inspired by <https://juner.itch.io/sokosoko>
+
 ## escalator world (aug 2020)
 
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/suoa5GiEE6o" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
