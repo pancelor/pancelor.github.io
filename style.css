@@ -31,16 +31,18 @@ body::-webkit-scrollbar-thumb:hover { border-right: 8px solid #FFA300; }
   position: fixed;
   top: 0;
   z-index: 1000;
+  /*display: grid;*/
+  /*grid-template-columns: 400px min-content;*/
 }
 .header-banner {
   margin:auto;
   width: 800px;
   height: 128px;
 }
-/*
+
 .header-list {
   display: grid;
-  grid-template-columns: max-content 1fr min-content;
+  grid-template-columns: 50% 50%;
 }
 .header-item {
   text-decoration: none;
@@ -49,7 +51,7 @@ body::-webkit-scrollbar-thumb:hover { border-right: 8px solid #FFA300; }
   margin: auto;
   padding: 10px;
 }
-*/
+
 /*
 .footer {
   font-size: 16px;
