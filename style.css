@@ -1,0 +1,126 @@
+body {
+  background: #E0964C;
+  font-size: 20px;
+  font-family: 'Open Sans', sans-serif;
+
+  overflow-y: scroll;
+  text-decoration-color: #291814;
+  margin-bottom: 0;
+}
+p { color: #291814; }
+h1 { color: #291814; }
+h2 { color: #291814; }
+h3 { color: #291814; }
+
+/*see also https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Scrollbars*/
+body::-webkit-scrollbar { width: 1em; }
+body::-webkit-scrollbar-thumb { border-right: 8px solid #F2CFB8; }
+body::-webkit-scrollbar-thumb:hover { border-right: 8px solid #FFA300; }
+
+.wrapper {
+  background-color: #F2CFB8;
+  background-position: left top;
+  background-attachment: fixed;
+  width: 800px;
+  margin-top: 0;
+  margin-right: auto;
+  margin-bottom: 0;
+  margin-left: auto;
+}
+.header {
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+}
+.header-banner {
+  margin:auto;
+  width: 800px;
+  height: 128px;
+}
+/*
+.header-list {
+  display: grid;
+  grid-template-columns: max-content 1fr min-content;
+}
+.header-item {
+  text-decoration: none;
+  color: #000000;
+  background-color: #C2C3C7;
+  margin: auto;
+  padding: 10px;
+}
+*/
+/*
+.footer {
+  font-size: 16px;
+  margin: auto;
+  width: 100%;
+}
+*/
+
+.main-content {
+  /*display: block;*/
+  margin: auto;
+  max-width: 90%;
+  top: 128px;
+  position: relative;
+}
+/* TODO this shouldn't need to exist, but it offsets main-content's position */
+.end-spacer {
+  /*height: 128px;*/
+  /*extra room to breathe:*/
+  height: 256px;
+}
+.project-card-list {
+  display: block;
+}
+.project-card {
+  text-decoration: none;
+
+  display: grid;
+  grid-template-columns: 33% 64%;
+  grid-column-gap: 3%;
+  align-content: center;
+
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+  padding: 2vh;
+  height: 20vh;
+  /*TODO this^ 20vh is big enough to not make the imgs spill out; figure this out better*/
+
+  border-radius: 2vh;
+  /*background-color: #FFA300;*/
+  /*background-color: #BCACE2;*/
+  background-color: #8ECC74;
+}
+.project-card:hover {
+  /*background-color: #000000;*/
+  /*background-color: #CCC3E5;*/
+  background-color: #BCACE2;
+}
+.project-card-info {
+  font-size: 16px;
+}
+.project-card img {
+  border-radius: 1vh;
+  margin:auto;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.codeblock {
+  font-family: 'Consolas', monospace;
+  font-weight: bold;
+  padding: 1ch 2ch;
+  /*
+  border-left: 1px solid #000;
+  background: #000;
+  color: #fff;
+  padding: 24px;
+  */
+}
+
+code {
+  font-family: 'Consolas', monospace;
+  font-weight: bold;
+}
