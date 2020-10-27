@@ -110,6 +110,7 @@ body::-webkit-scrollbar-thumb:hover { border-right: 8px solid #FFA300; }
   max-width: 100%;
 }
 
+/*unused, for now*/
 .codeblock {
   font-family: 'Consolas', monospace;
   font-weight: bold;
@@ -122,7 +123,33 @@ body::-webkit-scrollbar-thumb:hover { border-right: 8px solid #FFA300; }
   */
 }
 
+blockquote {
+  font-style: italic;
+  padding: 1rem 1rem 1rem;
+  border-left: 3px solid #919191;
+}
+pre {
+  font-size: 1rem;
+  padding: .66001rem 9.5px 9.5px;
+  line-height: 1.2rem;
+  background: #f5f7fa;
+  background-size: 100% 4rem;
+}
 code {
+  background: #f5f7fa;
   font-family: 'Consolas', monospace;
   font-weight: bold;
+  overflow-x: scroll;
+}
+figure img {
+  margin: auto;
+}
+figure {
+  display: grid;
+  padding: 4px;
+}
+figcaption {
+  font-style: italic;
+  padding: 2px;
+  text-align: center;
 }
