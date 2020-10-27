@@ -12,6 +12,15 @@ h1 { color: #291814; }
 h2 { color: #291814; }
 h3 { color: #291814; }
 
+video {
+  max-width: 100%;
+  max-height: 100%;
+}
+img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
 /*see also https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Scrollbars*/
 body::-webkit-scrollbar { width: 1em; }
 body::-webkit-scrollbar-thumb { border-right: 8px solid #F2CFB8; }
@@ -110,12 +119,12 @@ body::-webkit-scrollbar-thumb:hover { border-right: 8px solid #FFA300; }
   height: 10em;
   width: 10em;
 }
-.project-card-preview img {
+.project-card-preview > img {
   margin:auto;
   max-height: 100%;
   max-width: 100%;
 }
-.project-card-preview video {
+.project-card-preview > video {
   display:none;
   margin:auto;
   max-height: 100%;
@@ -144,11 +153,11 @@ pre {
   font-size: 1rem;
   padding: .66001rem 9.5px 9.5px;
   line-height: 1.2rem;
-  background: #f5f7fa;
+  background: #FFF1E8;
   background-size: 100% 4rem;
 }
 code {
-  background: #f5f7fa;
+  background: #FFF1E8;
   font-family: 'Consolas', monospace;
   font-weight: bold;
   overflow-x: scroll;

@@ -4,6 +4,12 @@
 <link rel="icon" type="image/png" href="../favicon.png">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap">
 <link rel="stylesheet" href="../style.css">
+<style type="text/css">
+  .long-scroll {
+    height: 60vh;
+    overflow-y: scroll;
+  }
+</style>
 </head>
 <body>
 <div class="wrapper">
@@ -12,7 +18,197 @@
 </div>
 <section class="main-content">
   <h1>Purple Gun Game (jul 2020)</h1>
-  <p>(this page is under construction!)</p>
+  <p>At some point (probably due to the many annoyances inherent in making a <a href="./tsdb.html">game engine in javascript</a>), I decided to finally write some C++ games. I'd used C++ before, but it always felt so cumbersome to use, like I didn't really know what I was doing. I sat down and started watching the excellent <a href="https://handmadehero.org/watch">handmade hero series</a>, and began following along on my own. It was really nice having someone explain everything and candidly talk about the annoyances that he found in this workflow, but also how to minimize that friction.</p>
+  <p>Also, the architecture that Casey sets up in the first ~25 episodes of Handmade Hero is <em>really</em> cool. It's a slow burn but the <a href="https://guide.handmadehero.org/code/day023/">payoff</a> is worth it! If you don't have 25 hours to spend watching that, then just read the rest of this blog post talking; hopefully I can explain it well enough to show you why I think it's so cool!</p>
+
+  <h3>so what's so cool about the handmade hero architecture</h3>
+  <p>This:</p>
+
+  <figure>
+    <video loop controls autoplay muted>
+      <source src="../assets/pgg-loop.mp4" type="video/mp4">
+    </video>
+    <figcaption>live looped code editing</figcaption>
+  </figure>
+
+  <p>I'm editing C++, compiling, and seeing the results of my changes instantly, without needing to context-switch and interact with my game!</p>
+
+  <h3>okay I'm interested, tell me more</h3>
+  <p>When you write a game that runs on a platform such as Windows, you likely have your project split into a layer of game code (this moves monsters around, draws the player, etc) and a layer of platform code (this translates draw calls or memory allocations into a format the platform you're running on can understand).</p>
+  <p>(Your "platform code" might be as simple as importing SDL2 or some similar library, but <em>someone</em> wrote that code, and I'm always interested in digging to the bottom and understanding what's going on, so I'm not using SDL yet!)</p>
+  <p>The default way these two code halves interact is usually like this:</p>
+
+  <figure>
+    <img src="../assets/pgg-hmh1.png">
+    <figcaption>"normal" game architecture</figcaption>
+  </figure>
+
+  <p>The game layer is always in control, and when it needs to, it calls out to services that the platform layer provides to interact with the physical platform it's running on. For example, when the game needs to load a sprite, it calls <code>Platform-&gt;LoadImage(&quot;player.png&quot;);</code>, and when it wants to draw a sprite, it calls <code>Platform-&gt;DrawImage(mySprite);</code>.</p>
+  <p>However, there's a wacky alternate way that ends up enabling some extremely cool stuff later on:</p>
+
+  <figure>
+    <img src="../assets/pgg-hmh2.png">
+    <figcaption>handmade hero game architecture</figcaption>
+  </figure>
+
+  <p>In this architecture, the <em>platform layer</em> is always in control, and the game layer is providing its services to the platform, instead of the other way around. In fact, the game code <em>doesn't even import <code>windows.h</code></em>; the only way it can communicate with the user is by setting pixels in the screen array that the platform layer passes it! (Okay, it can also send sound output and receive user input, but all of this is mediated through the platform layer; the game never does any of this directly.)</p>
+  <p>What "services" does the game provide? Just two: it responds to a <code>UpdateAndRender(game_state *State)</code> call and a <code>GetSoundSamples(game_state *State)</code> call. You'll notice these functions both are passed a pointer to the current game state – <em>this is because the game does not own it's state; the game state is owned by the platform layer!</em></p>
+  <p>Now I know this sounds <em>bizarre</em>, but it has some incredible advantages. For example, you can <strong>hot-reload the game code</strong>. Like, you can tweak the player's friction value, press "recompile", and tab over to the running game and see your new physics changes <em>immediately</em> in effect. (This sort of thing was super useful when tweaking how quickly my <a href="./tetrisclone.html">tetris pieces</a> moved in response to button presses)</p>
+
+  <h3>hot-loading C++ game code??</h3>
+  <p>How does this work, exactly? Well, you compile the platform layer as the main EXE, and then compile your game layer as a separate DLL. Then, every frame, the platform layer checks to see whether the game layer DLL has been updated. If it has, it updates the two pointers it knows about (<code>UpdateAndRender</code> and <code>GetSoundSamples</code>), and continues to simulate the game, without disrupting the game state at all, <em>because the platform layer is the one holding onto the memory for the game state</em>.</p>
+  <p>Also, with this architecture, you can easily record a sequence of inputs, and then restore the game state back to the start of the recording and replay the inputs, sort of like a looping synthesizer. This is incredible for, e.g., tuning physics parameters, because you can tweak the values and see the results <em>immediately</em>, without needing to relaunch the game, get back to the specific cliff you're testing your jump code at, and try to execute the same inputs manually. (This is what's happening in the video up at the top of this post.)</p>
+
+  <h3>show me some code!</h3>
+  <p>Here's a pared-down version of this game architecture. (this code is all in the platform layer, in the EXE)</p>
+<pre class="long-scroll"><code>struct win32_game_code {
+  HMODULE Library;
+  uint64 LastWriteTime;
+  // function pointers to the "services"
+  //  the game provides:
+  game_get_sound_samples *GetSoundSamples;
+  game_update_and_render *UpdateAndRender;
+};
+
+void Win32RefreshGameCode(win32_game_code *GameCode) {
+  // Check to see if the game DLL has been updated
+  //   since the last time we checked (last frame)
+  // If it has been updated, call LoadLibrary()
+  //   and update the function pointers in GameCode
+}
+
+int WinMain(/*...*/) {
+  while (true) {
+    // code hot-reloading!
+    Win32RefreshGameCode(&GameCode);
+
+    ReadUserInput(&GameInput);
+
+    if (RecordingHarness.PlaybackHandle) {
+      // hijack the input!
+      Win32RecordingHarnessPlaybackOnce(
+        &RecordingHarness, GameInput);
+    }
+    if (RecordingHarness.RecordingHandle) {
+      Win32RecordingHarnessRecordOnce(
+        &RecordingHarness, GameInput);
+    }
+
+    if (GameCode.UpdateAndRender) {
+      GameCode.UpdateAndRender(&GameState);
+    }
+
+
+    if (GameCode.GetSoundSamples) {
+      GameCode.GetSoundSamples(&GameState);
+    }
+
+    // Sleep() until 1 frame's worth of time
+    // has elapsed
+  }
+}</code></pre>
+
+  <p>Does the <code>game_state</code> structure get unwieldy? Yeah, a bit. It gets a bit annoying to type <code>State-&gt;Foo</code> everywhere instead of just using a global variable <code>Foo</code>, but the code hot-reloading is absolutely worth it. With proper sub-structures, it's really not a big deal, in terms of code understandability. Here's an example of the final <code>game_state</code> struct from my tetris clone:</p>
+<pre class="long-scroll"><code>struct game_state {
+  int Size; // size of this struct (helps
+            // prevent hotreloading issues)
+  simple_arena TempArena;
+  simple_arena Arena;
+  bool32 Muted;
+  continuous_sound Music;
+  game_sound MusicTitle;
+  game_sound MusicTypeA;
+  game_sound MusicTypeB;
+  game_sound MusicTypeC;
+  game_sound MusicLose;
+  simple_pool CurrentSFX;
+  game_sound SfxMenuSelectHigh;
+  game_sound SfxMenuSelectLow;
+  game_sound SfxPieceMove;
+  game_sound SfxPieceRotate;
+  game_sound SfxPieceLand;
+  game_sound SfxGameOver;
+  game_sound SfxLineClear;
+  game_sound SfxLineFall;
+  game_sound SfxLevelUp;
+  game_sound SfxGotTetris;
+  game_sound SfxBootClick;
+  rng_state RngState;
+  bool32 HasShownDemo;
+  game_bitmap TileBitmap;
+  tile *ScreenArea;
+  tile *PlayArea;
+  struct {
+    highscore_entry Entries[3];
+  } HighscoresByLevel[10];
+  int CurrentLevel;
+
+  game_mode Mode;
+  game_mode NextMode;
+  struct {
+    bool32 IsInitialized;
+    int64 FrameCount;
+    tetris_piece CurrentPiece;
+    piece_tag NextPieceTag;
+    float32 AutoFallDelaySeconds;
+    int64 FrameForNextFall;
+    int Score;
+    int LinesCleared;
+    int Level;
+    bool32 ShouldSpawnPiece;
+    int StartOfDropY;
+  } PlayState;
+  struct {
+    game_mode ReturnMode;
+  } PauseState;
+  struct {
+    game_mode ReturnMode;
+    int64 FrameCount;
+    int YToClear[4];
+    int LinesCleared;
+    int YCursor;
+  } LineClearState;
+  struct {
+    int64 FrameCount;
+    int YCursor;
+  } LoseState;
+  struct {
+    int64 FrameCount;
+    bool32 IsInEntryMode;
+    highscore_entry *Entry;
+    int Rank; // 1-3; 0 for no high score
+    int EntryCursor;
+    int LevelSelectCursor;
+  } HighScoreState;
+  struct {
+    int64 FrameCount;
+  } CopyrightState;
+  struct {
+    int64 FrameCount;
+    int SelectedOption;
+  } TitleState;
+  struct {
+    int64 FrameCount;
+    int SequenceIndex;
+  } DemoState;
+  struct {
+    int64 FrameCount;
+    void *RecordingBuffer;
+    int RecordingBufferSize;
+    int RecordingBufferCap;
+  } RecDemoState;
+  struct {
+    int64 FrameCount;
+    bool32 IsInMusicSelect;
+    int GameCursor;
+    int MusicCursor;
+  } TypeSelectState;
+};</code></pre>
+  <p>Yup.</p>
+
+  <h3>wait wasn't this supposed to be about something called "purple gun game"</h3>
+  <p>Yeah, but the game itself isn't particularily interesting, especially when compared against how cool the code architecture is! Okay, also, I <em>technically</em> did all of this architecture work for the first time while building <a href="./tetrisclone.html">Tetris</a>, but that post was long enough as-is, and I reused the architecture for this game too. (It's the default thing I use nowadays when I start something in C++.)</p>
+  <p>Also, purple gun game is released and publically available! If you want to check it out (windows-only), download it <a href="https://pancelor.itch.io/purple-gun-game">here</a>! The goal of this project wasn't to make a fun game, it was to try out making a prototype in this cool architecture, so keep that in mind when playing!</p>
 </section>
 <div class="end-spacer"></div>
 <div class="footer">© pancelor 2020</div>
