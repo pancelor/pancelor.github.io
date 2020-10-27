@@ -52,13 +52,14 @@ body::-webkit-scrollbar-thumb:hover { border-right: 8px solid #FFA300; }
   padding: 10px;
 }
 
-/*
 .footer {
   font-size: 16px;
   margin: auto;
   width: 100%;
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
-*/
 
 .main-content {
   /*display: block;*/
@@ -87,8 +88,6 @@ body::-webkit-scrollbar-thumb:hover { border-right: 8px solid #FFA300; }
   margin-top: 2vh;
   margin-bottom: 2vh;
   padding: 2vh;
-  height: 20vh;
-  /*TODO this^ 20vh is big enough to not make the imgs spill out; figure this out better*/
 
   border-radius: 2vh;
   /*background-color: #FFA300;*/
