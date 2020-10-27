@@ -102,8 +102,21 @@ body::-webkit-scrollbar-thumb:hover { border-right: 8px solid #FFA300; }
 .project-card-info {
   font-size: 16px;
 }
-.project-card img {
+
+.project-card-preview {
+  display: grid;
   border-radius: 1vh;
+  margin:auto;
+  height: 10em;
+  width: 10em;
+}
+.project-card-preview img {
+  margin:auto;
+  max-height: 100%;
+  max-width: 100%;
+}
+.project-card-preview video {
+  display:none;
   margin:auto;
   max-height: 100%;
   max-width: 100%;
