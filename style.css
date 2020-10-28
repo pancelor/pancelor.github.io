@@ -47,6 +47,8 @@ body::-webkit-scrollbar-thumb:hover { border-right: 8px solid #FFA300; }
   margin:auto;
   width: 800px;
   height: 128px;
+  max-width: none;
+  max-height: none;
 }
 
 .header-list {
