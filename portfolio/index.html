@@ -192,7 +192,7 @@
        title="Minotaur Lore">
       <div class="project-card-preview">
         <img src="../assets/minotaurlore.png">
-        <!-- <video preload="auto" loop muted src="../assets/minotaurlore.mp4"></video> -->
+        <video preload="auto" loop muted src="../assets/minotaurlore.mp4"></video>
       </div>
       <div class="project-card-info">
         <h3>Minotaur Lore</h3>
@@ -248,17 +248,15 @@
 
     if (!previews.video) { continue; }
     elem.addEventListener("mouseover",(e)=>{
-      // console.log("mouseover",e.path.includes(elem));
+      // hide image, show video
       previews.img.style.display="none";
-      previews.video.style.display="block"; // visible
-      // previews.video.currentTime=0;
-      previews.video.play()
+      previews.video.style.display="block";
+      previews.video.play(); // idempotent
     })
     elem.addEventListener("mouseout",(e)=>{
-      // console.log("mouseout",e.path.includes(elem));
-      previews.img.style.display="block"; // visible
+      // show image, hide video
+      previews.img.style.display="block";
       previews.video.style.display="none";
-      // previews.video.pause()
     })
   }
 </script>
