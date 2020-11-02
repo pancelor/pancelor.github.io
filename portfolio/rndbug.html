@@ -14,6 +14,19 @@
   <h1>PICO-8 rnd() Bug (aug 2020)</h1>
   <p>(this page is under construction!)</p>
 
+<!--
+  initial symptoms
+  test cases
+    rnd(tab)->rnd() fixed it
+  is rnd(tab) busted? decompiler time
+  how does rnd() work
+  how does rnd(tab) work
+  (summarize convo with val about why the IDA code gets 2<<16 v.s. 2)
+  (lmao pico-8 is 1<<16 indexed)
+  proof.c
+  ping riley, ms rabbit
+ -->
+
 <pre><code>// run this with `clang proof.c &amp;&amp; ./a.exe`
 
 #include &lt;stdio.h&gt;
