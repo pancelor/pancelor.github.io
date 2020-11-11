@@ -167,6 +167,9 @@ code {
 figure img {
   margin: auto;
 }
+figure video {
+  margin: auto;
+}
 figure {
   display: grid;
   padding: 4px;
