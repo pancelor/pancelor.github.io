@@ -61,10 +61,16 @@
 
   <h3>show me some code!</h3>
   <p>Here's a pared-down version of this game architecture. (this code is all in the platform layer, in the EXE)</p>
-<pre class="long-scroll"><code>struct win32_game_code {
+<pre class="long-scroll"><code>typedef void game_update_and_render(
+  game_state *GameState,
+  game_input *GameInput,
+  /*...*/);
+typedef void game_get_sound_samples(/*...*/);
+
+struct win32_game_code {
   HMODULE Library;
   uint64 LastWriteTime;
-  // function pointers to the "services"
+  // function pointers to the &quot;services&quot;
   //  the game provides:
   game_get_sound_samples *GetSoundSamples;
   game_update_and_render *UpdateAndRender;
@@ -77,34 +83,43 @@ void Win32RefreshGameCode(win32_game_code *GameCode) {
   //   and update the function pointers in GameCode
 }
 
+struct recording_harness {
+  /*...*/
+};
+
 int WinMain(/*...*/) {
+  win32_game_code GameCode = {};
+  game_input GameInput = {};
+  game_state GameState = {};
+  recording_harness RecordingHarness = {};
   while (true) {
     // code hot-reloading!
-    Win32RefreshGameCode(&GameCode);
+    Win32RefreshGameCode(&amp;GameCode);
 
-    ReadUserInput(&GameInput);
-
+    ReadUserInput(&amp;GameInput);
     if (RecordingHarness.PlaybackHandle) {
       // hijack the input!
       Win32RecordingHarnessPlaybackOnce(
-        &RecordingHarness, GameInput);
+        &amp;RecordingHarness, &amp;GameInput);
     }
     if (RecordingHarness.RecordingHandle) {
+      // record the input, for later playback
       Win32RecordingHarnessRecordOnce(
-        &RecordingHarness, GameInput);
+        &amp;RecordingHarness, &amp;GameInput);
     }
 
     if (GameCode.UpdateAndRender) {
-      GameCode.UpdateAndRender(&GameState);
+      GameCode.UpdateAndRender(
+        &amp;GameState, &amp;GameInput, /*...*/);
     }
 
+    // do some sound prep here
 
     if (GameCode.GetSoundSamples) {
-      GameCode.GetSoundSamples(&GameState);
+      GameCode.GetSoundSamples(&amp;GameState);
     }
 
-    // Sleep() until 1 frame's worth of time
-    // has elapsed
+    // Sleep() until it's time for the next frame
   }
 }</code></pre>
 
