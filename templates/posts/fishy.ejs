@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+<%- include ("/_header.ejs") %>
+<style type="text/css">
+  .long-scroll {
+    height: 60vh;
+    overflow-y: scroll;
+    overflow-x: scroll;
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+<div class="header">
+  <a href="/index#fishy"><img class="header-banner" src="/assets/banner.png"></a>
+</div>
+<section class="main-content">
+  <h1>Fishy (nov 2020)</h1>
+
+  <p>This was a submission to <a href="https://itch.io/jam/tweet-tweet-jam-5">TweetTweetJam 5</a>, a game jame where your entire game must fit into 560 characters (aka the length of two tweets).</p>
+
+  <p>Play it online <a href="https://pancelor.itch.io/fishy">here</a>! It's pretty small but I'm proud of how fun I managed to make it, given the space constraints.</p>
+
+  <h3>gameplay video</h3>
+
+  <figure>
+    <video loop controls autoplay muted>
+      <source src="/assets/fishy.mp4" type="video/mp4">
+    </video>
+    <figcaption>my highscore is getting to level 11; <a href="https://twitter.com/pancelor/status/1326391289676443648">let me know</a> if you manage to get farther!</figcaption>
+  </figure>
+
+  <h3>the code</h3>
+  <p>In the end, the final character count was 555:</p>
+<pre><code>l=1poke2(12800,582)r=rnd::t::q=&quot;&quot;g=128h=1.5f={64,64,h,0}for i=5,g,4do
+f[i]=r(g)f[i+1]=r(g)f[i+2]=r(2+l/4)f[i+3]=r(3)-1end::b::cls(1)u=0for i=1,#f,4do
+x=f[i]+f[i+3]if i&lt;2then
+b=btn()x+=b\2%2-b%2f[i+1]+=b\8%2-b\4%2end
+f[i]=x%g
+y=f[i+1]s=f[i+2]u+=s
+for j=i+4,#f,4do
+w=f[j+2]e=s+w
+if e&gt;abs(x-f[j])and e&gt;abs(y-f[j+1])then
+k=j+i
+if(s&lt;w)j=i
+k-=j
+f[j]=j
+sfx(0)f[j+1]=-9f[j+2]=0f[k+2]+=w/8if(j&lt;2)q=&quot;lose\n ❎&quot;end
+end
+ovalfill(x-s*h,y-s,x+s*h,y+s,8+i%7+sgn(i-2))end
+?l,62,4,7
+if(u==f[3])q=&quot;win!\n ❎&quot;l+=1
+flip()::a::
+if(btnp(5))goto t
+if(#q&lt;1)goto b
+?q,56,64,7
+goto a</code></pre>
+
+  <h3>okay what</h3>
+  <p>Yeah, it's certainly not optimized for readability, heh. Here's a much earlier version that will give you an idea of how it works:</p>
+<code><pre>r=rnd
+
+n=6
+-- 0,1,2   ,3 ,4  ,5
+-- x,y,size,dx,col,dy
+f={
+  64,64,1,0,8,0
+}
+function gen(i)
+ f[i]=r(120)+4
+ f[i+1]=r(128)
+ f[i+2]=r(2)
+ f[i+3]=r(4)-2
+ f[i+4]=7
+-- f[i+5]=r(1)-0.5
+ f[i+5]=0
+
+ if(i==1)lose=1
+end
+
+for i=1+n,n*20,n do
+  gen(i)
+end
+
+::b::
+cls(1)
+ for i=1,#f,n do
+  if i==1 then
+   if lose then
+    print(&quot;lose&quot;,56,64)
+   else
+     f[1]+=1-(1+btn()&amp;3)%3
+     f[2]+=1-(1+(btn()&amp;12))%3
+    end
+  end
+  x=f[i]+f[i+3]
+  if(x&gt;128)f[i+3]*=-1
+  if(x&lt;1)f[i+3]*=-1
+  f[i]=x
+  y=f[i+1]+f[i+5]
+  f[i+1]=y
+  s=f[i+2]
+  -- collide
+  for j=i+n,#f,n do
+   dx=abs(x-f[j])
+   dy=abs(y-f[j+1])
+   s2=f[j+2]
+   d=s+s2
+   if dx&lt;d and dy&lt;d then
+    ismall=s&lt;s2 and i or j
+    ibig=ismall^^i^^j
+    gen(ismall)
+    pre=f[ibig+2]
+    f[ibig+2]+=0.5--f[ismall+2]^0.2
+    f[ibig+3]*=0.7
+    if ismall==1 then
+     f[ibig+4]=12
+    end
+   end
+  end
+  ovalfill(x-s,y-s/2,x+s,y+s/2,f[i+4])
+ end
+flip()
+goto b
+</code></pre>
+
+  <p>The basic idea is that all the fish are stored in a giant flattened array of attributes. So, <code>f[1]</code> through <code>f[6]</code> are the data values for the player, <code>f[7]</code> through <code>f[12]</code> are the data values for the first random fish, and so on. (The player is stored in the same array as everyone else to make the code simpler and smaller)</p>
+  <p>Each frame, all the fish update according to their <code>dx</code> attribute. The fish check for (rectangular) collisions against every other fish, and consume and grow if they were the bigger fish. In this old version, the dead fish gets re-generated at a random other point in the world, buuuuut this made the endgame slightly... weird, so I ended up changing that for the final version:</p>
+
+  <figure>
+    <video loop controls muted>
+      <source src="/assets/fishy-old.mp4" type="video/mp4">
+    </video>
+    <figcaption>hmmmm (slight flashing lights warning)</figcaption>
+  </figure>
+
+  <h3>cool trick: 8-way movement</h3>
+  <p>For the player movement, I wanted to figure something out that did this logic in fewer characters:</p>
+<code><pre>if(btn(0))x-=1
+if(btn(1))x+=1
+if(btn(2))y-=1
+if(btn(3))y+=1
+</code></pre>
+  <p>That's 59 characters; can we do better? What do we need to do to make <code>x+=magic(...)</code> do exactly what I want? Well, <code>btn()</code> (when called with no arguments) returns a bitfield of all currently-held buttons, and I knew I wanted the output of my hypothetical <code>magic</code> function to be either 0, -1, or 1, so I tried defining <code>magic</code> to be <code>1-(more_magic(btn())%3)</code>. After messing around with this for a while, I came up with this:</p>
+<code><pre>b=btn()
+x+=1-(1+b&amp;3)%3
+y+=1-(1+(b&amp;12))%3
+</code></pre>
+  <p>40 characters! And the linebreaks are optional in this snippet (but not the first one, for arcane pico-8 parser reasons). I used this incantation for a while until I saw someone post something <a href="https://twitter.com/DaleJ_Dev/status/1324856184470446080">even shorter</a>, saving another 5 characters.</p>
+
+  <h3>cool trick: xor swap</h3>
+  <p>Another cool trick I used was using the xor operator to swap the value of two variables:</p>
+<code><pre>
+ismall=s&lt;s2 and i or j
+ibig=ismall^^i^^j
+</code></pre>
+  <p>Here, I wanted to figure out which fish index was the bigger fish, <code>i</code> or <code>j</code>. That first line figures out which fish is smaller, but I also want to know which fish is bigger! I could easily copy-paste that same line again and switch the comparison direction, but using xor like this (<code>^^</code>) saves precious characters.</p>
+  <p>... Oh. Now that I've written this all up, I've suddenly realized that I can save an additional 2 characters by doing the swap this way instead:</p>
+<code><pre>
+ismall=s&lt;s2 and i or j
+ibig=i+j-ismall
+</code></pre>
+  <p>If only pico-8's xor was spelled with one character instead of two... using xor for stuff like this is cool!! Oh well, gotta save those characters. :D</p>
+
+  <h3>game design</h3>
+  <p>This project was fun for learning about game design. My initial attempts weren't very fun, and they were a bit chaotic (see the above video lol). But as I specifically worked on addressing those issues, the game become more and more fun, which was really fun to notice as it happened. The first key advance was getting rid of fish permanently when they get eaten, instead of respawning them. This removed the endgame chaos, and gave the game a nice goal state. Then later, I saved characters in various ways and had enough room to add in a level progression system, which I think makes the game a lot more compelling.</p>
+  <p>Overall this was a really fun project! Tweetcarts are fun to make :)</p>
+
+<%- include ("/_footer.ejs") %>
+</section>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%- include ("/_header.ejs") %>
+</head>
+<body>
+<div class="wrapper">
+<div class="header">
+  <a href="/index#inbox-unbox"><img class="header-banner" src="/assets/banner.png"></a>
+</div>
+<section class="main-content">
+  <h1>Inbox Unbox (mar 2019 - ?)</h1>
+  <p>This is my upcoming puzzle game about pushing boxes into other boxes. It's 10~30 hours long? (It's hard to estimate puzzle game times...) You can't play it yet, but <a href="https://www.twitter.com/pancelor">following me</a> is the best way to get updates about it at the moment. (I'm also working on putting together a mailing list, but that's not ready yet -- come back in a week!)</p>
+  <p>Inspired by an excellent small game called <a href="https://juner.itch.io/sokosoko">sokosoko</a>.</p>
+
+  <h3>teaser trailer</h3>
+  <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/XhfrOFdga80?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+  <p>Here's a less jumpy video, showing off a single puzzle. Can you solve it just from watching it?</p>
+
+  <figure>
+    <video loop controls autoplay muted>
+      <source src="/assets/inbox-unbox-jungle.mp4" type="video/mp4">
+    </video>
+    <figcaption>an early level</figcaption>
+  </figure>
+
+  <p>(also, if this game looks up your alley, go wishlist <a href="https://store.steampowered.com/app/1260520/Patricks_Parabox/">Patrick's Parabox</a>, an upcoming game with similar mechanics! I've played the demo and it looks like it's going to be good!)</p>
+
+  <h3>engine</h3>
+  <p>For this game, I wrote a custom javascript engine. It runs in the browser, using the html <code>&lt;canvas&gt;</code> tag to display the game. I've learned a whole lot about game architecture since starting this project, and I sporadically get the urge to completely rewrite this in, say, C... but for now it's written in javascript :)</p>
+</section>
+<%- include ("/_footer.ejs") %>
+</body>
+</html>
