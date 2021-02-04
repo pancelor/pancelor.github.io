@@ -21,7 +21,7 @@ async function main() {
   let queue = []
   queue.push({
     inPath: rootInPath,
-    outPath: path.join(__dirname, 'public'),
+    outPath: path.join(__dirname, 'docs'),
   })
 
   while (queue.length > 0) {

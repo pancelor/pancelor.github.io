@@ -1,7 +1,7 @@
 {
   "name": "pancelor-dot-com",
   "version": "0.1.0",
-  "description": "my personal website",
+  "description": "my website",
   "engines": {
     "node": "14.x"
   },
@@ -9,9 +9,9 @@
   "scripts": {
     "start": "npm-run-all -p watch server",
     "watch": "nodemon build.js",
-    "server": "http-server public -c-1 -p 8080",
+    "server": "http-server docs -c-1 -p 8080",
     "build": "node build.js",
-    "deploy": "git subtree push --prefix public origin gh-pages"
+    "deploy": "echo git push origin main"
   },
   "nodemonConfig": {
     "watch": [

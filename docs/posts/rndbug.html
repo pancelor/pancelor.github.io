@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>pancelor dot com</title>
+<link rel="icon" type="image/png" href="/assets/favicon.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap">
+<link rel="stylesheet" href="/stylesheets/main.css">
+
+</head>
+<body>
+<div class="wrapper">
+<div class="header">
+  <a href="/index#rndbug"><img class="header-banner" src="/assets/banner.png"></a>
+</div>
+<section class="main-content">
+  <h1>PICO-8 rnd() Bug (aug 2020)</h1>
+  <p>(this page is under construction!)</p>
+
+<!--
+  initial symptoms
+  test cases
+    rnd(tab)->rnd() fixed it
+  is rnd(tab) busted? decompiler time
+  how does rnd() work
+  how does rnd(tab) work
+  (summarize convo with val about why the IDA code gets 2<<16 v.s. 2)
+  (lmao pico-8 is 1<<16 indexed)
+  proof.c
+  ping riley, ms rabbit
+ -->
+
+<pre><code>// run this with `clang proof.c &amp;&amp; ./a.exe`
+
+#include &lt;stdio.h&gt;
+#include &lt;assert.h&gt;
+typedef unsigned int u32;
+
+int bit(int b, u32 x) {
+  return (x&amp;(1&lt;&lt;b))!=0;
+}
+
+u32 _p8_m_high=0x01234567;
+u32 _p8_m_low =0xDEADBEEF;
+u32 _pico8_random(u32 n) {
+  if (n == 0) return 0;
+  u32 swap=(_p8_m_high &lt;&lt; 16 | _p8_m_high &gt;&gt; 16);
+  u32 old_low=_p8_m_low;
+  _p8_m_high = swap + old_low;
+  _p8_m_low = swap + (old_low&lt;&lt;1);
+  // notice:
+  // * (bit(3,n) means the 3rd-least-significant bit of n)
+  // * Property 1: bit(0,_p8_m_high) == (bit(0,swap)+bit(0,old_low))%2
+  // * Property 2: bit(0,_p8_m_low) == bit(0,swap)
+  return _p8_m_high % n;
+}
+
+void test() {
+  // Lowercase letters are placeholders for bits,
+  //   different from each other and not important
+  // Uppercase letters are variables that always hold
+  //   the same value throughout this calculation;
+  //   i.e., iff A is 1 at the start, it is still 1 at the end
+  _pico8_random(100);
+  u32 x=_p8_m_high;
+
+  // _p8_m_high = 0xaaaaaaaa aaaaaaaA bbbbbbbb bbbbbbbb // new var: A
+  // _p8_m_low  = 0xcccccccc cccccccc dddddddd dddddddd
+  _pico8_random(42);
+  // swap       = 0xbbbbbbbb bbbbbbbb aaaaaaaa aaaaaaaA // notice: A
+  u32 y=_p8_m_high;
+
+  // _p8_m_high = 0xeeeeeeee eeeeeeeE ffffffff ffffffff // new var: E
+  // _p8_m_low  = 0xgggggggg gggggggg hhhhhhhh hhhhhhhA // A ends up copied here (Property 2)
+  _pico8_random(1337);
+  // swap       = 0xffffffff ffffffff eeeeeeee eeeeeeeE // notice: E
+  u32 z=_p8_m_high;
+
+  // _p8_m_high = 0xiiiiiiii iiiiiiii jjjjjjjj jjjjjjjJ // new var: J=(E+A)%2 (Property 1)
+  // _p8_m_low  = 0xkkkkkkkk kkkkkkkk llllllll llllllll
+
+  // notice:
+  // * J=(E+A)%2 (follows from Property 1)
+  // * (E+A)%2 == E xor A
+  //   (can be proved easily by looking at all 4 possible values for A and E)
+  // * proof completed!
+
+  assert(bit(0,z)==(bit(16,x)^bit(16,y)));
+}
+
+int main() {
+  for (int i=0; i&lt;10000; ++i) {
+    test();
+  }
+}</code></pre>
+
+</section>
+<div class="end-spacer"></div>
+<div class="footer">© pancelor 2021</div>
+
+</body>
+</html>
