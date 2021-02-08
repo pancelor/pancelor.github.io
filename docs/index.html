@@ -1,11 +1,218 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style type="text/css">
+body {
+  background: #E0964C;
+  font-size: 20px;
+  font-family: 'Open Sans', sans-serif;
+
+  overflow-y: scroll;
+  text-decoration-color: #291814;
+  margin-bottom: 0;
+}
+p { color: #291814; }
+h1 { color: #291814; }
+h2 { color: #291814; }
+h3 { color: #291814; }
+h4 { color: #291814; }
+
+video {
+  max-width: 100%;
+  max-height: 100%;
+}
+img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/*see also https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Scrollbars*/
+body::-webkit-scrollbar { width: 1em; }
+body::-webkit-scrollbar-thumb { border-right: 8px solid #F2CFB8; }
+body::-webkit-scrollbar-thumb:hover { border-right: 8px solid #FFA300; }
+
+.wrapper {
+  background-color: #F2CFB8;
+  background-position: left top;
+  background-attachment: fixed;
+  width: 800px;
+  margin-top: 0;
+  margin-right: auto;
+  margin-bottom: 0;
+  margin-left: auto;
+}
+.header {
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  /*display: grid;*/
+  /*grid-template-columns: 400px min-content;*/
+}
+.header-banner {
+  margin:auto;
+  width: 800px;
+  height: 128px;
+  max-width: none;
+  max-height: none;
+}
+.header a {
+  text-decoration: none;
+}
+
+.header-list {
+  display: grid;
+  grid-template-columns: 60% 40%;
+}
+.header-item {
+  text-decoration: none;
+  color: #000000;
+  background-color: #C2C3C7;
+  margin: auto;
+  padding: 10px;
+}
+
+.footer {
+  font-size: 16px;
+  margin: auto;
+  width: 100%;
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.main-content {
+  /*display: block;*/
+  margin: auto;
+  max-width: 90%;
+  top: 128px;
+  position: relative;
+}
+/* TODO this shouldn't need to exist, but it offsets main-content's position */
+.end-spacer {
+  /*height: 128px;*/
+  /*extra room to breathe:*/
+  height: 256px;
+}
+.project-card-list {
+  display: block;
+}
+.project-card {
+  text-decoration: none;
+
+  display: grid;
+  grid-template-columns: 33% 64%;
+  grid-column-gap: 3%;
+  align-content: center;
+
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+  padding: 2vh;
+
+  border-radius: 2vh;
+  /*background-color: #FFA300;*/
+  /*background-color: #BCACE2;*/
+  background-color: #8ECC74;
+  transition:all 0.1s ease-in-out 0s;
+}
+.project-card:hover {
+  /*background-color: #000000;*/
+  /*background-color: #CCC3E5;*/
+  background-color: #BCACE2;
+}
+.project-card-info {
+  font-size: 16px;
+}
+
+.mailing-list-card {
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+  padding: 2vh;
+
+  border-radius: 2vh;
+  background-color: #89c3e5;
+}
+
+.project-card-preview {
+  display: grid;
+  border-radius: 1vh;
+  margin:auto;
+  height: 10em;
+  width: 10em;
+}
+.project-card-preview > img {
+  margin:auto;
+  max-height: 100%;
+  max-width: 100%;
+}
+.project-card-preview > video {
+  display:none;
+  margin:auto;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.post-title {
+  margin-bottom: 0;
+}
+.post-meta {
+  margin-top: 0;
+  font-weight:unset;
+}
+
+/*unused, for now*/
+.codeblock {
+  font-family: 'Consolas', monospace;
+  font-weight: bold;
+  padding: 1ch 2ch;
+  /*
+  border-left: 1px solid #000;
+  background: #000;
+  color: #fff;
+  padding: 24px;
+  */
+}
+
+blockquote {
+  font-style: italic;
+  padding: 1rem 1rem 1rem;
+  border-left: 3px solid #919191;
+}
+pre {
+  font-size: 1rem;
+  padding: .66001rem 9.5px 9.5px;
+  line-height: 1.2rem;
+  background: #FFF1E8;
+  background-size: 100% 4rem;
+}
+code {
+  background: #FFF1E8;
+  font-family: 'Consolas', monospace;
+  font-weight: bold;
+  overflow-x: scroll;
+}
+figure img {
+  margin: auto;
+}
+figure video {
+  margin: auto;
+}
+figure {
+  display: grid;
+  padding: 4px;
+}
+figcaption {
+  font-style: italic;
+  padding: 2px;
+  text-align: center;
+}
+
+</style>
 <title>pancelor dot com</title>
 <link rel="icon" type="image/png" href="/assets/favicon.png">
 <link rel="stylesheet" href="/stylesheets/opensans.css">
 <link rel="stylesheet" href="/stylesheets/main.css">
 
+<link href="/stylesheets/mailchimp.css" rel="stylesheet" type="text/css">
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@pancelor" />
 <meta name="twitter:title" content="pancelor's portfolio" />
@@ -19,7 +226,7 @@
   <img class="header-banner" src="/assets/banner.png">
 </div>
 <section class="main-content">
-  <a href="/contact">contact/social</a>
+  <p style="text-align:right;"><a href="/contact">contact/social</a></p>
   <h2>Hi!</h2>
   <p>I'm pancelor, a lifelong hobbyist game programmer / game designer.</p>
   <p>I like puzzle games, roguelikes/lites, necrodancer, pico-8, and coding. Other stuff too, probably!</p>
@@ -85,6 +292,28 @@
       </div>
     </a>
   </div>
+
+  <div class="mailing-list-card">
+<h3>join my mailing list!</h3>
+
+<p>If you like my projects, join my mailing list so I can tell you about other cool stuff I'm making! I'll occasionally send announcements, devlog-style updates, fun little treats (beta levels for Inbox Unbox, maybe?), and you can of course unsubscribe whenever. If you're interested, enter your email here:</p>
+
+<!-- Begin Mailchimp Signup Form -->
+<div id="mc_embed_signup">
+<form action="https://pancelor.us7.list-manage.com/subscribe/post?u=29b870671864e6e6831b8f204&amp;id=08ff267c2f" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+
+  <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="your@email.address" required>
+    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_29b870671864e6e6831b8f204_08ff267c2f" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+
+<!--End mc_embed_signup-->
+</div>
+
 
   <h2>Other projects</h2>
   <div class="project-card-list">
