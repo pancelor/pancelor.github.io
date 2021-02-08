@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style type="text/css">
+<%- include ("../docs/stylesheets/main.css") %>
+</style>
 <%- include ("/_header.ejs") %>
+<link href="/stylesheets/mailchimp.css" rel="stylesheet" type="text/css">
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@pancelor" />
 <meta name="twitter:title" content="pancelor's portfolio" />
@@ -15,7 +19,7 @@
   <img class="header-banner" src="/assets/banner.png">
 </div>
 <section class="main-content">
-  <a href="/contact">contact/social</a>
+  <p style="text-align:right;"><a href="/contact">contact/social</a></p>
   <h2>Hi!</h2>
   <p>I'm pancelor, a lifelong hobbyist game programmer / game designer.</p>
   <p>I like puzzle games, roguelikes/lites, necrodancer, pico-8, and coding. Other stuff too, probably!</p>
@@ -81,6 +85,8 @@
       </div>
     </a>
   </div>
+
+  <%- include ("/_mail.ejs") %>
 
   <h2>Other projects</h2>
   <div class="project-card-list">
