@@ -104,6 +104,7 @@ body::-webkit-scrollbar-thumb:hover { border-right: 8px solid #FFA300; }
   /*background-color: #FFA300;*/
   /*background-color: #BCACE2;*/
   background-color: #8ECC74;
+  transition:all 0.1s ease-in-out 0s;
 }
 .project-card:hover {
   /*background-color: #000000;*/
