@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Inbox Unbox</title>
-  <title>pancelor dot com</title>
+<title>Inbox Unbox</title>
+<title>pancelor dot com</title>
 <link rel="icon" type="image/png" href="/assets/favicon.png">
 <link rel="stylesheet" href="/stylesheets/opensans.css">
 <link rel="stylesheet" href="/stylesheets/main.css">
 
+<link href="/stylesheets/mailchimp.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <div class="wrapper">
@@ -16,13 +17,36 @@
 <section class="main-content">
   <h1 class="post-title">Inbox Unbox</h1>
   <h4 class="post-meta">2019-03 - 2021?</h4>
-  <p>This is my upcoming puzzle game about pushing boxes into other boxes. It's 10~30 hours long? (It's hard to estimate puzzle game times...) You can't play it yet, but <a href="https://www.twitter.com/pancelor">following me</a> is the best way to get updates about it at the moment. (I'm also working on putting together a mailing list, but that's not ready yet -- come back in a week!)</p>
-  <p>Inspired by an excellent small game called <a href="https://juner.itch.io/sokosoko">sokosoko</a>.</p>
+  <p>This is my upcoming puzzle game about pushing boxes into other boxes. It's 10~30 hours long? (It's hard to estimate puzzle game times...)
+
+  <p>Inspired by: <a href="https://juner.itch.io/sokosoko">sokosoko</a></p>
 
   <h3>teaser trailer</h3>
   <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/XhfrOFdga80?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-  <p>Here's a less jumpy video, showing off a single puzzle. Can you solve it just from watching it?</p>
+  <div class="mailing-list-card">
+  <p>Inbox Unbox isn't publically playable yet, but if you want to follow along with development, you can <a href="https://www.twitter.com/pancelor">follow me on twitter</a> or join my <a href="/contact">mailing list</a>:</p>
+
+  <!-- Begin Mailchimp Signup Form -->
+<div id="mc_embed_signup">
+<form action="https://pancelor.us7.list-manage.com/subscribe/post?u=29b870671864e6e6831b8f204&amp;id=08ff267c2f" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+
+  <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="your@email.address" required>
+    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_29b870671864e6e6831b8f204_08ff267c2f" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+
+<!--End mc_embed_signup-->
+
+  </div>
+
+  <p>Also, if this game looks up your alley, go wishlist <a href="https://store.steampowered.com/app/1260520/Patricks_Parabox/">Patrick's Parabox</a>, an upcoming game with a similar premise! I've played the demo and it looks like it's going to be good!</p>
+
+  <p>Here's a slower-paced video, showing off a single puzzle. Can you solve it just from watching it?</p>
 
   <figure>
     <video loop controls autoplay muted>
@@ -31,10 +55,8 @@
     <figcaption>an early level</figcaption>
   </figure>
 
-  <p>(also, if this game looks up your alley, go wishlist <a href="https://store.steampowered.com/app/1260520/Patricks_Parabox/">Patrick's Parabox</a>, an upcoming game with similar mechanics! I've played the demo and it looks like it's going to be good!)</p>
-
   <h3>engine</h3>
-  <p>For this game, I wrote a custom javascript engine. It runs in the browser, using the html <code>&lt;canvas&gt;</code> tag to display the game. I've learned a whole lot about game architecture since starting this project, and I sporadically get the urge to completely rewrite this in, say, C... but for now it's written in javascript :)</p>
+  <p>For this game, I wrote a custom javascript engine. It runs in the browser, using the html <code>&lt;canvas&gt;</code> tag to display the game. I've learned a whole lot about game-making since starting this project, and I often get the urge to completely rewrite this in, say, C... but for now it's written in javascript :)</p>
 </section>
 <div class="end-spacer"></div>
 <div class="footer">© pancelor 2021</div>
