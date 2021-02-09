@@ -9,7 +9,7 @@
   "scripts": {
     "start": "npm-run-all -p watch server",
     "watch": "nodemon build.js",
-    "server": "http-server docs -c-1 -p 8080",
+    "server": "http-server docs -c-1 -p 5000",
     "build": "node build.js",
     "deploy": "echo git push origin main"
   },
