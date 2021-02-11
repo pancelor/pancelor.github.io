@@ -20,5 +20,20 @@
 <div class="end-spacer"></div>
 <div class="footer">© pancelor 2021</div>
 
+<script type="text/javascript">
+  // try inserting "/posts"
+  let pathname = window.location.pathname
+  let newpath = '/posts'+pathname
+  let request = new XMLHttpRequest()
+  request.open('HEAD', newpath, true)
+  request.onreadystatechange = function(){
+      if (request.readyState === 4){
+          if (request.status < 400) {
+              window.location = newpath
+          }
+      }
+  }
+  request.send()
+</script>
 </body>
 </html>
