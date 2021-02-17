@@ -5,11 +5,12 @@ const ejs = require('ejs')
 const sass = require('sass')
 const ejsRenderFile = util.promisify(ejs.renderFile)
 
-const rootEJSInPath = path.join(__dirname, 'ejs')
-const rootSCSSInPath = path.join(__dirname, 'scss')
+const rootInPath = path.join(__dirname, 'templates')
 
 async function renderSingleSCSSFile(inPath, outPath) {
+  if (!/\.scss$/.exec(inPath)) return
   const cssOutPath = outPath.replace(/\.scss$/,".css")
+  console.log(`rendering scss to ${cssOutPath}`)
   const result = sass.renderSync({
     file: inPath,
     // outFile: cssOutPath, // for map-hinting purposes
@@ -19,22 +20,22 @@ async function renderSingleSCSSFile(inPath, outPath) {
 }
 
 async function renderSingleEJSFile(inPath, outPath) {
+  if (!/\.ejs$/.exec(inPath)) return
+  const htmlOutPath = outPath.replace(/\.ejs$/,".html")
+  console.log(`rendering ejs to ${htmlOutPath}`)
   const ejsData = {}
   const outText = await ejs.renderFile(inPath, ejsData, {
     root: rootEJSInPath,
   })
-  const htmlOutPath = outPath.replace(/\.ejs$/,".html")
   fs.writeFileSync(htmlOutPath,outText)
 }
 
 async function walk(inPath, outPath, async_cb) {
   let queue = []
   queue.push({inPath, outPath})
-  const originalInPathLength=inPath.length // todo better printing to show actual website "file" structure (?)
 
   while (queue.length > 0) {
     const {inPath, outPath} = queue.pop()
-    console.log(`rendering ${inPath.substring(originalInPathLength)}`)
 
     if (fs.statSync(inPath).isDirectory()) {
       // ## If inPath is a directory, mkdir outPath and push onto queue
@@ -59,6 +60,6 @@ async function walk(inPath, outPath, async_cb) {
 
 ;(async function() {
   // compile CSS first so that html that `include`s css inline will be up-to-date
-  await walk(rootSCSSInPath, path.join(__dirname, 'docs/stylesheets'), renderSingleSCSSFile)
-  await walk(rootEJSInPath, path.join(__dirname, 'docs'), renderSingleEJSFile)
+  await walk(rootInPath, path.join(__dirname, 'docs'), renderSingleSCSSFile)
+  await walk(rootInPath, path.join(__dirname, 'docs'), renderSingleEJSFile)
 })()

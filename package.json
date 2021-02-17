@@ -15,8 +15,7 @@
   },
   "nodemonConfig": {
     "watch": [
-      "ejs/",
-      "scss/"
+      "templates/"
     ],
     "ext": "ejs,scss"
   },
