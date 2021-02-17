@@ -6,7 +6,9 @@ Basically, it's a static site hosted on github. It uses EJS templates to reduce 
 
 ## directory structure
 
-`templates` - source ejs files
+`ejs` - source ejs files
+
+`sass` - source sass files
 
 `docs` - holds unique authored stuff like main.css, assets, etc, but ALSO holds generated html file, built by EJS. this is the folder github publishes -- if I was allowed to rename it, "public" might be a better choice
 

@@ -2,31 +2,30 @@ const fs = require('fs')
 const path = require('path')
 const util = require('util')
 const ejs = require('ejs')
+const sass = require('sass')
 const ejsRenderFile = util.promisify(ejs.renderFile)
 
-const rootInPath = path.join(__dirname, 'templates')
+const rootEJSInPath = path.join(__dirname, 'ejs')
+const rootSCSSInPath = path.join(__dirname, 'scss')
 
-// TODO: set up nodemon to watch .ejs files
-// maybe call this script with path arg to only render that path?
-// can npm start do two things at once?
+async function renderSingleSCSSFile(inPath, outPath) {
+}
 
-async function renderSingleFile(inPath, outPath) {
+async function renderSingleEJSFile(inPath, outPath) {
   const ejsData = {}
-  const outText = await ejs.renderFile(inPath, ejsData, {root: rootInPath})
+  const outText = await ejs.renderFile(inPath, ejsData, {root: rootEJSInPath})
   const htmlOutPath = outPath.replace(/\.ejs$/,".html")
   fs.writeFileSync(htmlOutPath,outText)
 }
 
-async function main() {
+async function walk(inPath, outPath, async_cb) {
   let queue = []
-  queue.push({
-    inPath: rootInPath,
-    outPath: path.join(__dirname, 'docs'),
-  })
+  queue.push({inPath, outPath})
+  const originalInPathLength=inPath.length
 
   while (queue.length > 0) {
     const {inPath, outPath} = queue.pop()
-    console.log(`rendering ${inPath.substring(rootInPath.length)}`)
+    console.log(`rendering ${inPath.substring(originalInPathLength)}`)
 
     if (fs.statSync(inPath).isDirectory()) {
       // ## If inPath is a directory, mkdir outPath and push onto queue
@@ -44,9 +43,13 @@ async function main() {
       })
     } else {
       // ## Otherwise, run EJS on inPath and save it as outPath
-      await renderSingleFile(inPath, outPath)
+      await async_cb(inPath, outPath)
     }
   }
 }
 
-main()
+;(async function() {
+  // compile CSS first so that html that `include`s css inline will be up-to-date
+  await walk(rootSCSSInPath, path.join(__dirname, 'docs/stylesheets'), renderSingleSCSSFile)
+  await walk(rootEJSInPath, path.join(__dirname, 'docs'), renderSingleEJSFile)
+})()
