@@ -9,11 +9,20 @@ const rootEJSInPath = path.join(__dirname, 'ejs')
 const rootSCSSInPath = path.join(__dirname, 'scss')
 
 async function renderSingleSCSSFile(inPath, outPath) {
+  const cssOutPath = outPath.replace(/\.scss$/,".css")
+  const result = sass.renderSync({
+    file: inPath,
+    // outFile: cssOutPath, // for map-hinting purposes
+    outputStyle: "compressed",
+  });
+  fs.writeFileSync(cssOutPath,result.css)
 }
 
 async function renderSingleEJSFile(inPath, outPath) {
   const ejsData = {}
-  const outText = await ejs.renderFile(inPath, ejsData, {root: rootEJSInPath})
+  const outText = await ejs.renderFile(inPath, ejsData, {
+    root: rootEJSInPath,
+  })
   const htmlOutPath = outPath.replace(/\.ejs$/,".html")
   fs.writeFileSync(htmlOutPath,outText)
 }
@@ -21,7 +30,7 @@ async function renderSingleEJSFile(inPath, outPath) {
 async function walk(inPath, outPath, async_cb) {
   let queue = []
   queue.push({inPath, outPath})
-  const originalInPathLength=inPath.length
+  const originalInPathLength=inPath.length // todo better printing to show actual website "file" structure (?)
 
   while (queue.length > 0) {
     const {inPath, outPath} = queue.pop()
