@@ -25,12 +25,14 @@ async function renderSingleEJSFile(inPath, outPath) {
   console.log(`rendering ejs to ${htmlOutPath}`)
   const ejsData = {}
   const outText = await ejs.renderFile(inPath, ejsData, {
-    root: rootEJSInPath,
+    root: rootInPath,
   })
   fs.writeFileSync(htmlOutPath,outText)
 }
 
-async function walk(inPath, outPath, async_cb) {
+async function walkParallelDirectories(inPath, outPath, render_cb) {
+  // ## Note: render_cb can be async
+
   let queue = []
   queue.push({inPath, outPath})
 
@@ -52,14 +54,14 @@ async function walk(inPath, outPath, async_cb) {
         }
       })
     } else {
-      // ## Otherwise, run EJS on inPath and save it as outPath
-      await async_cb(inPath, outPath)
+      // ## Otherwise, run renderer on inPath and save it as outPath
+      await render_cb(inPath, outPath)
     }
   }
 }
 
 ;(async function() {
   // compile CSS first so that html that `include`s css inline will be up-to-date
-  await walk(rootInPath, path.join(__dirname, 'docs'), renderSingleSCSSFile)
-  await walk(rootInPath, path.join(__dirname, 'docs'), renderSingleEJSFile)
+  await walkParallelDirectories(rootInPath, path.join(__dirname, 'docs'), renderSingleSCSSFile)
+  await walkParallelDirectories(rootInPath, path.join(__dirname, 'docs'), renderSingleEJSFile)
 })()
