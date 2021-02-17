@@ -1,20 +1,21 @@
-$color: #E0964C;
+@import "_helpers.scss";
 
 body {
-  background: $color;
+  background: $c-orange-main;
   font-size: 20px;
   font-family: 'Open Sans', sans-serif;
 
   overflow-y: scroll;
-  text-decoration-color: #291814;
+  text-decoration-color: $c-text-black;
   margin-bottom: 0;
 }
-p { color: #291814; }
-h1 { color: #291814; }
-h2 { color: #291814; }
-h3 { color: #291814; }
-h4 { color: #291814; }
+p { color: $c-text-black; }
+h1 { color: $c-text-black; }
+h2 { color: $c-text-black; }
+h3 { color: $c-text-black; }
+h4 { color: $c-text-black; }
 
+// make sure media fits within its container
 video {
   max-width: 100%;
   max-height: 100%;
@@ -26,11 +27,11 @@ img {
 
 /*see also https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Scrollbars*/
 body::-webkit-scrollbar { width: 1em; }
-body::-webkit-scrollbar-thumb { border-right: 8px solid #F2CFB8; }
+body::-webkit-scrollbar-thumb { border-right: 8px solid $c-orange-light; }
 body::-webkit-scrollbar-thumb:hover { border-right: 8px solid #FFA300; }
 
 .wrapper {
-  background-color: #F2CFB8;
+  background-color: $c-orange-light;
   background-position: left top;
   background-attachment: fixed;
   width: 800px;
@@ -64,7 +65,7 @@ body::-webkit-scrollbar-thumb:hover { border-right: 8px solid #FFA300; }
 .header-item {
   text-decoration: none;
   color: #000000;
-  background-color: #C2C3C7;
+  background-color: $c-text-gray;
   margin: auto;
   padding: 10px;
 }
@@ -108,14 +109,14 @@ body::-webkit-scrollbar-thumb:hover { border-right: 8px solid #FFA300; }
 
   border-radius: 2vh;
   /*background-color: #FFA300;*/
-  /*background-color: #BCACE2;*/
-  background-color: #8ECC74;
+  /*background-color: $c-purple-button;*/
+  background-color: $c-green-button;
   transition:all 0.1s ease-in-out 0s;
 }
 .project-card:hover {
   /*background-color: #000000;*/
   /*background-color: #CCC3E5;*/
-  background-color: #BCACE2;
+  background-color: $c-purple-button;
 }
 .project-card-info {
   font-size: 16px;
@@ -127,7 +128,7 @@ body::-webkit-scrollbar-thumb:hover { border-right: 8px solid #FFA300; }
   padding: 2vh;
 
   border-radius: 2vh;
-  background-color: #89c3e5;
+  background-color: $c-blue-sky;
 }
 
 .project-card-preview {
@@ -139,14 +140,14 @@ body::-webkit-scrollbar-thumb:hover { border-right: 8px solid #FFA300; }
 }
 .project-card-preview > img {
   margin:auto;
-  max-height: 100%;
-  max-width: 100%;
+  // max-height: 100%;
+  // max-width: 100%;
 }
 .project-card-preview > video {
   display:none;
   margin:auto;
-  max-height: 100%;
-  max-width: 100%;
+  // max-height: 100%;
+  // max-width: 100%;
 }
 
 .post-title {
