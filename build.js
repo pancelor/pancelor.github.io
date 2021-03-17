@@ -2,10 +2,22 @@ const fs = require('fs')
 const path = require('path')
 const util = require('util')
 const ejs = require('ejs')
+const marked = require('marked')
 const sass = require('sass')
 const ejsRenderFile = util.promisify(ejs.renderFile)
 
 const rootInPath = path.join(__dirname, 'templates')
+
+function md(filename) {
+  // https://stackoverflow.com/a/25164248
+  // allows stuff like this in ejs templates:
+  //   <%- md("index.md") %>
+  let filepath = path.join(rootInPath, filename)
+  let inText = fs.readFileSync(filepath, 'utf8')
+  let htmlText = marked(inText)
+
+  return htmlText
+}
 
 async function renderSingleSCSSFile(inPath, outPath) {
   if (!/\.scss$/.exec(inPath)) return
@@ -23,7 +35,9 @@ async function renderSingleEJSFile(inPath, outPath) {
   if (!/\.ejs$/.exec(inPath)) return
   const htmlOutPath = outPath.replace(/\.ejs$/,".html")
   console.log(`rendering ejs to ${htmlOutPath}`)
-  const ejsData = {}
+  const ejsData = {
+    md: md,
+  }
   const outText = await ejs.renderFile(inPath, ejsData, {
     root: rootInPath,
   })
