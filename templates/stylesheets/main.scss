@@ -176,19 +176,34 @@ blockquote {
   padding: 1rem 1rem 1rem;
   border-left: 3px solid #919191;
 }
+// pre {
+//   font-size: 1rem;
+//   padding: .66001rem 9.5px 9.5px;
+//   line-height: 1.2rem;
+//   background: #FFF1E8;
+//   background-size: 100% 4rem;
+// }
+// code {
+//   background: #FFF1E8;
+//   font-family: 'Consolas', monospace;
+//   font-weight: bold;
+//   overflow-x: scroll;
+// }
 pre {
-  font-size: 1rem;
-  padding: .66001rem 9.5px 9.5px;
-  line-height: 1.2rem;
-  background: #FFF1E8;
-  background-size: 100% 4rem;
+  color: #d1d9e1;
+  background: #474949;
+  border-radius: 2vh;
+  min-width: 0%;
+  max-width: 100%;
 }
-code {
-  background: #FFF1E8;
-  font-family: 'Consolas', monospace;
-  font-weight: bold;
-  overflow-x: scroll;
+pre code {
+  display: block;
+  height: 66vh;
+  padding: 1em;
+  overflow-y: auto;
+  overflow-x: auto;
 }
+
 figure img {
   margin: auto;
 }
