@@ -9,7 +9,12 @@ Also, the architecture that Casey sets up in the first \~25 episodes of Handmade
 
 This:
 
-![live looped code editing](/assets/pgg-loop.mp4)
+<figure>
+  <video loop controls autoplay muted>
+    <source src="/assets/pgg-loop.mp4" type="video/mp4">
+  </video>
+  <figcaption>looped live code editing</figcaption>
+</figure>
 
 I'm editing C++, compiling, and seeing the results of my changes instantly, without needing to context-switch and interact with my game!
 
@@ -21,19 +26,23 @@ In any given project, you likely have your project split into a layer of game co
 
 The default way these two code halves interact is usually like this:
 
-![typical way](/assets/pgg-hmh1.png)
-typical game architecture
+<figure>
+  <img src="/assets/pgg-hmh1.png">
+  <figcaption>typcial game architecture</figcaption>
+</figure>
 
 The game layer is always in control, and when it needs to, it calls out to services that the platform layer provides to interact with the physical platform it's running on. For example, when the game needs to load a sprite, it calls `Platform->LoadImage("player.png");`, and when it wants to draw a sprite, it calls `Platform->DrawImage(mySprite);`.
 
 However, there's a wacky alternate way that ends up enabling some extremely cool stuff later on:
 
-![alternate way](/assets/pgg-hmh2.png)
-handmade hero game architecture
+<figure>
+  <img src="/assets/pgg-hmh2.png">
+  <figcaption>handmade hero game architecture</figcaption>
+</figure>
 
 In this architecture, the _platform layer_ is always in control, and the game layer is providing its services to the platform, instead of the other way around. In fact, the game code _doesn't even import `windows.h`_; the only way it can communicate with the user is by setting pixels in the screen array that the platform layer passes it! (Okay, it can also send sound output and receive user input, but all of this is mediated through the platform layer; the game never does any of this directly.)
 
-What "services" does the game provide? Just two: it responds to a `UpdateAndRender(game_state *State)` call and a `GetSoundSamples(game_state *State)` call. You'll notice these functions both are passed a pointer to the current game state -- _this is because the game does not own it's state; the game state is owned by the platform layer!_
+What "services" does the game provide? Just two: it responds to an `UpdateAndRender(game_state *State)` call and a `GetSoundSamples(game_state *State)` call. These functions both are passed a pointer to the current game state – _this is because the game does not own it's state; the game state is owned by the platform layer!_
 
 Now I know this sounds _bizarre_, but it has some incredible advantages. For example, you can **hot-reload the game code**. Like, you can tweak the player's friction value, press "recompile", and tab over to the running game and see your new physics changes _immediately_ in effect. (This feature was super useful while building my [tetris clone](/posts/tetris-clone) for tweaking the keyrepeat delay and adjusting the animation speed for the line clear and "you lose" animations)
 
@@ -47,13 +56,12 @@ Also, with this architecture, you can easily record a sequence of inputs, and th
 
 Here's a pared-down version of this game architecture. (this code is all in the platform layer, in the EXE)
 
-<div class="long-scroll">
-
 ```C++
 typedef void game_update_and_render(
   game_state *GameState,
-  game_bitmap *GameScreen,
+  game_input *GameInput,
   /*...*/);
+typedef void game_get_sound_samples(/*...*/);
 
 struct win32_game_code {
   HMODULE Library;
@@ -78,7 +86,7 @@ struct recording_harness {
 int WinMain(/*...*/) {
   win32_game_code GameCode = {};
   game_input GameInput = {};
-  game_state *GameState = {};
+  game_state GameState = {};
   recording_harness RecordingHarness = {};
   while (true) {
     // code hot-reloading!
@@ -88,27 +96,28 @@ int WinMain(/*...*/) {
     if (RecordingHarness.PlaybackHandle) {
       // hijack the input!
       Win32RecordingHarnessPlaybackOnce(
-        &RecordingHarness, GameInput);
+        &RecordingHarness, &GameInput);
     }
     if (RecordingHarness.RecordingHandle) {
       // record the input, for later playback
       Win32RecordingHarnessRecordOnce(
-        &RecordingHarness, GameInput);
+        &RecordingHarness, &GameInput);
     }
 
     if (GameCode.UpdateAndRender) {
-      GameCode.UpdateAndRender(&GameState);
+      GameCode.UpdateAndRender(
+        &GameState, &GameInput, /*...*/);
+    }
+    if (GameCode.GetSoundSamples) {
+      GameCode.GetSoundSamples(&GameState);
     }
 
     // Sleep() until it's time for the next frame
   }
 }
 ```
-</div>
 
 Does the `game_state` structure get unwieldy? Yeah, a bit. It gets a bit annoying to type `State->Foo` everywhere instead of just using a global variable `Foo`, but the code hot-reloading is worth it. By using sub-structures, the code remains pretty readable. Here's an example of the final `game_state` struct from my tetris clone:
-
-<div class="long-scroll">
 
 ```C++
 struct game_state {
@@ -207,7 +216,6 @@ struct game_state {
   } TypeSelectState;
 };
 ```
-</div>
 
 Yup.
 

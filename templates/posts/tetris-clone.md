@@ -95,6 +95,7 @@ enum game_mode {
 ```
 
 Every frame, a different update function is called depending on the game's current state:
+
 ```C++
 void GameUpdate(game_state *State) {
   switch (State->Mode) {
