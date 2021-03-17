@@ -11,12 +11,6 @@ src="https://stats.pancelor.com/umami.js"
 data-website-id="0c389f03-0316-468f-bc0c-56471a5057df"
 data-domains="pancelor.com"></script>
 
-<style type="text/css">
-  .long-scroll {
-    height: 60vh;
-    overflow-y: scroll;
-  }
-</style>
 </head>
 <body>
 <div class="wrapper">
@@ -24,147 +18,139 @@ data-domains="pancelor.com"></script>
   <a href="/index#monster-mash"><img class="header-banner" src="/assets/banner.png"></a>
 </div>
 <section class="main-content">
-  <h1 class="post-title">Monster Mash</h1>
-  <h4 class="post-meta">2020-10</h4>
-  <p>A cute game that <a href="https://www.twitter.com/princryss">@princryss</a> and I made together for halloween! Cryss did the game design + art + sound, I did the programming.</p>
+<h1 class="post-title">Monster Mash</h1>
+<h4 class="post-meta">2020-10</h4>
 
-  <p>Play it online <a href="https://pancelor.itch.io/monster-mash">here</a>! It's a 5~10 minute game.</p>
+<p>A cute game that <a href="https://www.twitter.com/princryss">@princryss</a> and I made together for halloween! Cryss did the game design + art + sound, I did the programming.</p>
+<p>Play it online <a href="https://pancelor.itch.io/monster-mash">here</a>! It&#39;s a 5~10 minute game.</p>
+<p><video preload="auto" controls loop muted src="/assets/monster-mash.mp4"></video></p>
+<h3 id="engine--tech">engine + tech</h3>
+<p>This was made in pico-8. So in one sense pico-8 is the &quot;engine&quot;, but I built a general-purpose object system/engine-y type thing inside it that I want to talk about for a bit here.</p>
+<p>Pico-8 is a fairly low-level engine in terms of expressiveness; it&#39;s no GameMaker, which handles objects and collisions for you. It has some graphics and input primitives, and a really nice IDE-like environment where it&#39;s easy to make sprites and sounds and then access them from your game code, but it doesn&#39;t have much else. (Check out the <a href="https://pico-8.fandom.com/wiki/APIReference">API reference</a> for a more complete picture of what it can do.)</p>
+<p>To be clear, I&#39;m not complaining! I love pico-8! It&#39;s such a comfy environment to work in. It&#39;s hard to pinpoint exactly what&#39;s so great about it... the integrated sprite editor / map editor / etc keeping you in the flow? the well-designed API? the artificial limits put in place, that force you to make small things and then move on? I&#39;ve made 15+ semi-interesting projects using it in the last 3 months which shows you how much I like it :)</p>
+<p>Anyway, whenever I make a pico-8 game, I normally build a general-purpose game engine that provides all the architecture that pico-8 has left undecided. (For example, setting up the game loop to update and then draw all objects in my game.) When I start a new project, I don&#39;t just copy over my old engine, which might be surprising! I start from scratch each time, which is useful because I&#39;ve never felt like my engines were really all that great, so by starting over with a clean slate I get a fresh chance to try again, incorporating all my past learnings. (Also, it&#39;s just fun to write a new engine each time!)</p>
+<p>But! This time I really like my engine! It makes it easy to add new functionality and test out new ideas, but it also keeps all the code organized and isolated into their own bubbles that makes me feel like the code won&#39;t become a horrible tangled mess that becomes un-editable. I&#39;m pumped that I was able to make an engine I feel this good about!</p>
+<h3 id="so-how-does-the-engine-work">so how does the engine work</h3>
+<p>Take a brief look at this sample usage code, so you have some context about how the engine ended up:</p>
+<pre><code class="language-lua"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">load_overworld_7R</span><span class="hljs-params">()</span></span>
+  <span class="hljs-comment">-- setup some globals for PlaceWithContext():</span>
+  place_context_room_n=<span class="hljs-number">7</span>
+  place_context_dim=<span class="hljs-number">0</span>
 
-  <video preload="auto" controls loop muted src="/assets/monster-mash.mp4"></video>
-
-  <h3>engine + tech</h3>
-  <p>This was made in pico-8. So in one sense pico-8 is the "engine", but also, let me talk about the game engine inside pico-8.</p>
-  <p>Pico-8 is a fairly low-level engine in terms of expressiveness; it's no GameMaker, which handles objects and collisions for you. It has some graphics and input primitives, and a really nice IDE-like environment where it's easy to make sprites and sounds and then access them from your game code, but it doesn't have much else. (Check out the <a href="https://pico-8.fandom.com/wiki/APIReference">API reference</a> for a more complete picture of what it can do.)</p>
-  <p>To be clear, I'm not complaining! I love pico-8! It's such a comfy environment to work in. It's hard to pinpoint exactly what's so great about it... the integrated sprite editor / map editor / etc keeping you in the flow? the well-designed API? the artificial limits put in place, that force you to make small things and then move on? I've made 15+ semi-interesting projects using it in the last 3 months which shows you how much I like it :)</p>
-  <p>Anyway, whenever I make a pico-8 game, I normally build a general-purpose game engine that provides all the architecture that pico-8 has left undecided. (For example, setting up the game loop to update and then draw all objects in my game.) When I start a new project, I don't just copy over my old engine, which might be surprising. I start from scratch each time, which is useful because I've never felt like my engines were really all that great, so by starting over with a clean slate I get a fresh chance to try again, incorporating all my past learnings. (Also, it's just fun to write a new engine each time.)</p>
-  <p>But! This time I really like my engine! It makes it easy to add new functionality and test out new ideas, but it also keeps all the code organized and isolated into their own bubbles that makes me feel like the code won't become a horrible tangled mess that becomes un-editable. I'm pumped that I was able to make an engine I feel this good about!</p>
-
-  <h3>so how does the engine work</h3>
-  <p>Take a brief look at this sample usage code, so you have some context about how the engine ended up:</p>
-
-<pre class="long-scroll"><code>function load_overworld_7R()
-  -- setup some globals for PlaceWithContext():
-  place_context_room_n=7
-  place_context_dim=0
-
-  -- hitbox that pans the camera
-  -- when the player enters this room:
+  <span class="hljs-comment">-- hitbox that pans the camera</span>
+  <span class="hljs-comment">-- when the player enters this room:</span>
   Actor({
     place=PlaceWithContext({
-      x=4,y=0,
-      w=56,h=64,
+      x=<span class="hljs-number">4</span>,y=<span class="hljs-number">0</span>,
+      w=<span class="hljs-number">56</span>,h=<span class="hljs-number">64</span>,
     }),
     on_collide=OnCollidePan({}),
   })
-  -- ground collider:
+  <span class="hljs-comment">-- ground collider:</span>
   Actor({
-    is_platform=true,
+    is_platform=<span class="hljs-literal">true</span>,
     place=PlaceWithContext({
-      x=0,y=64-12,
-      w=64,h=12,
+      x=<span class="hljs-number">0</span>,y=<span class="hljs-number">64</span><span class="hljs-number">-12</span>,
+      w=<span class="hljs-number">64</span>,h=<span class="hljs-number">12</span>,
     }),
     draw=DrawGround({
       color=color,
-      filled=true,
+      filled=<span class="hljs-literal">true</span>,
     }),
     on_collide=OnCollideFloor({}),
   })
-  -- world border wall:
+  <span class="hljs-comment">-- world border wall:</span>
   Actor({
     place=PlaceWithContext({
-      x=64,y=0,
-      w=1,h=64,
+      x=<span class="hljs-number">64</span>,y=<span class="hljs-number">0</span>,
+      w=<span class="hljs-number">1</span>,h=<span class="hljs-number">64</span>,
     }),
     on_collide=OnCollideWall({}),
   })
 
-  -- tree 1:
+  <span class="hljs-comment">-- tree 1:</span>
   Actor({
     place=PlaceWithContext({
-      x=24,y=12,
+      x=<span class="hljs-number">24</span>,y=<span class="hljs-number">12</span>,
     }),
     draw=DrawSprite({
-      frames={203},
-      w=2,h=4,
-      z=500,
+      frames={<span class="hljs-number">203</span>},
+      w=<span class="hljs-number">2</span>,h=<span class="hljs-number">4</span>,
+      z=<span class="hljs-number">500</span>,
     }),
   })
-  -- tree 2:
+  <span class="hljs-comment">-- tree 2:</span>
   Actor({
     place=PlaceWithContext({
-      x=2,y=29,
+      x=<span class="hljs-number">2</span>,y=<span class="hljs-number">29</span>,
     }),
     draw=DrawSprite({
-      frames={203},
-      w=2,h=4,
-      z=-160,
-      pal={[2]=9,[9]=10},
+      frames={<span class="hljs-number">203</span>},
+      w=<span class="hljs-number">2</span>,h=<span class="hljs-number">4</span>,
+      z=<span class="hljs-number">-160</span>,
+      pal={[<span class="hljs-number">2</span>]=<span class="hljs-number">9</span>,[<span class="hljs-number">9</span>]=<span class="hljs-number">10</span>},
     }),
   })
-  -- iron fence:
-  for x=0,7 do
+  <span class="hljs-comment">-- iron fence:</span>
+  <span class="hljs-keyword">for</span> x=<span class="hljs-number">0</span>,<span class="hljs-number">7</span> <span class="hljs-keyword">do</span>
     Actor({
       place=PlaceWithContext({
-        x=i*8,y=42,
+        x=i*<span class="hljs-number">8</span>,y=<span class="hljs-number">42</span>,
       }),
       draw=DrawSprite({
-        frames={239},
-        w=1,h=2,
-        z=-150,
+        frames={<span class="hljs-number">239</span>},
+        w=<span class="hljs-number">1</span>,h=<span class="hljs-number">2</span>,
+        z=<span class="hljs-number">-150</span>,
       }),
     })
-  end
+  <span class="hljs-keyword">end</span>
 
   ghost=Actor({
-    stage=0,
+    stage=<span class="hljs-number">0</span>,
     place=PlaceWithContext({
-      x=46,y=16,
-      dx=1,dy=1,w=7,h=13,
+      x=<span class="hljs-number">46</span>,y=<span class="hljs-number">16</span>,
+      dx=<span class="hljs-number">1</span>,dy=<span class="hljs-number">1</span>,w=<span class="hljs-number">7</span>,h=<span class="hljs-number">13</span>,
     }),
     draw=DrawSprite({
-      frames={13,14},
-      w=1,h=2,
-      palt=15,
-      z=-50,
+      frames={<span class="hljs-number">13</span>,<span class="hljs-number">14</span>},
+      w=<span class="hljs-number">1</span>,h=<span class="hljs-number">2</span>,
+      palt=<span class="hljs-number">15</span>,
+      z=<span class="hljs-number">-50</span>,
     }),
     on_interact=OnInteract({
-      hover=function(self,actor)
-        hud.hud_color=7
-        return true
-      end,
-      interact=function(self,actor)
-        if player.item==bone2 then
-          dtb_disp("hey, that's my leg!")
-          return true
-        end
-        dtb_disp("that's my grave \nover there.")
-        dtb_disp("watch your step please.")
-        return true
-      end,
+      hover=<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(self,actor)</span></span>
+        hud.hud_color=<span class="hljs-number">7</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+      <span class="hljs-keyword">end</span>,
+      interact=<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(self,actor)</span></span>
+        <span class="hljs-keyword">if</span> player.item==bone2 <span class="hljs-keyword">then</span>
+          dtb_disp(<span class="hljs-string">&quot;hey, that&#x27;s my leg!&quot;</span>)
+          <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+        <span class="hljs-keyword">end</span>
+        dtb_disp(<span class="hljs-string">&quot;that&#x27;s my grave \nover there.&quot;</span>)
+        dtb_disp(<span class="hljs-string">&quot;watch your step please.&quot;</span>)
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+      <span class="hljs-keyword">end</span>,
     }),
   })
-end</code></pre>
-
-  <p>My inspiration for the engine came from a few different places. (I don't think my engine is particularily new or innovative, but it's similar-and-yet-slightly-different to a couple specific things, and I'm hoping that by writing about it I'll come to understand it better) <a href="https://www.rockpapershotgun.com/2016/03/04/making-of-spelunky/2/">This article</a> and my experience modding <a href="https://braceyourselfgames.com/crypt-of-the-necrodancer/">NecroDancer</a> make me think that both games (Spelunky and NecroDancer) have pretty similar systems for organizing their objects. In this type of system, everything is a single type that can theoretically do anything, but only a few specific behaviors are actually enabled for any given object. For example, every enemy in necrodancer has an <code>isMonkeyLike</code> flag, but almost all enemies have it set to <code>false</code>.</p>
-
-  <p>The third and most direct source of inspiration was <a href="https://www.youtube.com/watch?v=JxI3Eu5DPwE">this talk about ECS</a> (or rather, alternatives to ECS). The section from 10:27 to 13:10 (which he summarizes as "that old principal of choosing composition over inheritance") was especially on my mind while designing this engine.</p>
-
-  <p>So, what does this engine do, exactly? Well, each frame, the engine calls <code>update()</code> on each actor that has an <code>update</code> function. (There are none shown here, but the player has an <code>update</code> and every actor that paces around or does other scripted behavior has an <code>update</code> function.) The player's <code>update</code> checks for collisions between the player and all other actors, using the <code>x,y,w,h</code> data stored in each actor's <code>place</code> component. If it finds a collision and the other actor has an <code>on_collide</code> component, then that component's behavior gets executed. This is a great way for different types of actors to have different collision behavior -- one actor can handle panning the camera when the player collides with it, another actor can handle stopping the player when they fall onto the ground, and both actors can live in the same simple system that isn't too complicated to think about.</p>
-
-  <p>Another thing I particularily like is how you can choose your level of granularity when interacting with this engine. If you want to draw an actor as a simple static image, giving it <code>draw=DrawSprite({frames={123}})</code> will work. But if you want full custom control over what it draws (maybe it uses shape primitives like <code>rectfill</code> or <code>circ</code>), you can give it this component instead:</p>
-
-<pre><code>Actor({
+<span class="hljs-keyword">end</span>
+</code></pre>
+<p>My inspiration for the engine came from a few different places. (I don&#39;t think my engine is particularily new or innovative, but it&#39;s similar-and-yet-slightly-different to a couple specific things, and I&#39;m hoping that by writing about it I&#39;ll come to understand it better) <a href="https://www.rockpapershotgun.com/2016/03/04/making-of-spelunky/2/%22">This article</a> and my experience modding <a href="https://braceyourselfgames.com/crypt-of-the-necrodancer/">NecroDancer</a> make me think that both games (Spelunky and NecroDancer) have pretty similar systems for organizing their objects. In this type of system, everything is a single type that can theoretically do anything, but only a few specific behaviors are actually enabled for any given object. For example, every enemy in necrodancer has an <code>isMonkeyLike</code> flag, but almost all enemies have it set to <code>false</code>.</p>
+<p>The third and most direct source of inspiration was <a href="https://www.youtube.com/watch?v=JxI3Eu5DPwE">this talk about ECS</a> (or rather, alternatives to ECS). The section from 10:27 to 13:10 (which he summarizes as &quot;that old principal of choosing composition over inheritance&quot;) was especially on my mind while designing this engine.</p>
+<p>So, what does this engine do, exactly? Well, each frame, the engine calls <code>update()</code> on each actor that has an <code>update</code> function. (There are none shown here, but the player has an <code>update</code> and every actor that paces around or does other scripted behavior has an <code>update</code> function.) The player&#39;s <code>update</code> checks for collisions between the player and all other actors, using the <code>x,y,w,h</code> data stored in each actor&#39;s <code>place</code> component. If it finds a collision and the other actor has an <code>on_collide</code> component, then that component&#39;s behavior gets executed. This is a great way for different types of actors to have different collision behavior -- one actor can handle panning the camera when the player collides with it, another actor can handle stopping the player when they fall onto the ground, and both actors can live in the same simple system that isn&#39;t too complicated to think about.</p>
+<p>Another thing I particularily like is how you can choose your level of granularity when interacting with this engine. If you want to draw an actor as a simple static image, giving it <code>draw=DrawSprite({frames={123}})</code> will work. But if you want full custom control over what it draws (maybe it uses shape primitives like <code>rectfill</code> or <code>circ</code>), you can give it this component instead:</p>
+<pre><code class="language-lua">Actor({
   place=PlaceWithContext({
-    x=10,y=20,
+    x=<span class="hljs-number">10</span>,y=<span class="hljs-number">20</span>,
   }),
   draw=CustomDraw({
-    draw=function(self,actor)
-      circ(actor.place.x,actor.place.y,10)
-    end,
+    draw=<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(self,actor)</span></span>
+      circ(actor.place.x,actor.place.y,<span class="hljs-number">10</span>)
+    <span class="hljs-keyword">end</span>,
   }),
-})</code></pre>
-
-  <p>This made things easy to get working quickly, but allowed us to refine things later if needed.</p>
+})
+</code></pre>
+<p>This made things easy to get working quickly, but allowed us to refine things later if needed.</p>
 
 </section>
 <div class="end-spacer"></div>
