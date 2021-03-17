@@ -35,14 +35,14 @@ data-domains="pancelor.com"></script>
   ping riley, ms rabbit
  -->
 
-<pre><code class="language-c"><span class="hljs-comment">// run this with `clang proof.c &amp;amp;&amp;amp; ./a.exe`</span>
+<pre><code class="language-c"><span class="hljs-comment">// run this with `clang proof.c &amp;&amp; ./a.exe`</span>
 
 <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
 <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;assert.h&gt;</span></span>
 <span class="hljs-keyword">typedef</span> <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> u32;
 
 <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">bit</span><span class="hljs-params">(<span class="hljs-keyword">int</span> b, u32 x)</span> </span>{
-  <span class="hljs-keyword">return</span> (x&amp;amp;(<span class="hljs-number">1</span>&lt;&lt;b))!=<span class="hljs-number">0</span>;
+  <span class="hljs-keyword">return</span> (x&amp;(<span class="hljs-number">1</span>&lt;&lt;b))!=<span class="hljs-number">0</span>;
 }
 
 u32 _p8_m_high=<span class="hljs-number">0x01234567</span>;

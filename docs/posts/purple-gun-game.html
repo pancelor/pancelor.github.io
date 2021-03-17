@@ -24,117 +24,97 @@ data-domains="pancelor.com"></script>
   <a href="/index#purple-gun-game"><img class="header-banner" src="/assets/banner.png"></a>
 </div>
 <section class="main-content">
-  <h1 class="post-title">Purple Gun Game</h1>
-  <h4 class="post-meta">2020-07</h4>
-  <p>At some point (probably due to the many annoyances inherent in making a <a href="/posts/inbox-unbox">game engine in javascript</a>), I decided to finally write some C++ games. I'd used C++ before, but it always felt so cumbersome to use, like I didn't really know what I was doing. I sat down and started watching the excellent <a href="https://handmadehero.org/watch">handmade hero series</a>, and began following along on my own. It was really nice having someone explain everything and candidly talk about the annoyances that he found in this workflow, but also how to minimize that friction.</p>
-  <p>Also, the architecture that Casey sets up in the first ~25 episodes of Handmade Hero is <em>really</em> cool. It's a slow burn but the <a href="https://guide.handmadehero.org/code/day023/">payoff</a> is worth it! If you don't have 25 hours to spend watching that, then just read the rest of this blog post talking; hopefully I can explain it well enough to show you why I think it's so cool!</p>
+<h1 class="post-title">Purple Gun Game</h1>
+<h4 class="post-meta">2020-07</h4>
 
-  <h3>so what's so cool about the handmade hero architecture</h3>
-  <p>This:</p>
+<p>At some point (probably due to the many annoyances inherent in making a <a href="/posts/inbox-unbox">game engine in javascript</a>), I decided to finally write some C++ games. I&#39;d used C++ before, but it always felt so cumbersome to use, like I didn&#39;t really know what I was doing. I sat down and started watching the excellent <a href="https://handmadehero.org/watch">handmade hero series</a>, and began following along on my own. It was really nice having someone explain everything and candidly talk about the annoyances that he found in this workflow, but also how to minimize that friction.</p>
+<p>Also, the architecture that Casey sets up in the first ~25 episodes of Handmade Hero is <em>really</em> cool. It&#39;s a slow burn but the <a href="https://guide.handmadehero.org/code/day023/">payoff</a> is worth it! If you don&#39;t have 25 hours to spend watching that, then just read the rest of this blog post talking; hopefully I can explain it well enough to show you why I think it&#39;s so cool!</p>
+<h3 id="so-whats-so-cool-about-the-handmade-hero-architecture">so what&#39;s so cool about the handmade hero architecture</h3>
+<p>This:</p>
+<p><img src="/assets/pgg-loop.mp4" alt="live looped code editing"></p>
+<p>I&#39;m editing C++, compiling, and seeing the results of my changes instantly, without needing to context-switch and interact with my game!</p>
+<h3 id="okay-im-interested-tell-me-more">okay I&#39;m interested, tell me more</h3>
+<p>In any given project, you likely have your project split into a layer of game code (this moves monsters around, draws the player, etc) and a layer of platform code (this displays windows, does file IO, allocates memory, etc).</p>
+<p>(Your &quot;platform code&quot; might be as simple as importing SDL2 or some similar library, but <em>someone</em> wrote that code, and I&#39;m always interested in digging to the bottom and understanding what&#39;s going on, so I&#39;m not using SDL yet!)</p>
+<p>The default way these two code halves interact is usually like this:</p>
+<p><img src="/assets/pgg-hmh1.png" alt="typical way">
+typical game architecture</p>
+<p>The game layer is always in control, and when it needs to, it calls out to services that the platform layer provides to interact with the physical platform it&#39;s running on. For example, when the game needs to load a sprite, it calls <code>Platform-&gt;LoadImage(&quot;player.png&quot;);</code>, and when it wants to draw a sprite, it calls <code>Platform-&gt;DrawImage(mySprite);</code>.</p>
+<p>However, there&#39;s a wacky alternate way that ends up enabling some extremely cool stuff later on:</p>
+<p><img src="/assets/pgg-hmh2.png" alt="alternate way">
+handmade hero game architecture</p>
+<p>In this architecture, the <em>platform layer</em> is always in control, and the game layer is providing its services to the platform, instead of the other way around. In fact, the game code <em>doesn&#39;t even import <code>windows.h</code></em>; the only way it can communicate with the user is by setting pixels in the screen array that the platform layer passes it! (Okay, it can also send sound output and receive user input, but all of this is mediated through the platform layer; the game never does any of this directly.)</p>
+<p>What &quot;services&quot; does the game provide? Just two: it responds to a <code>UpdateAndRender(game_state *State)</code> call and a <code>GetSoundSamples(game_state *State)</code> call. You&#39;ll notice these functions both are passed a pointer to the current game state -- <em>this is because the game does not own it&#39;s state; the game state is owned by the platform layer!</em></p>
+<p>Now I know this sounds <em>bizarre</em>, but it has some incredible advantages. For example, you can <strong>hot-reload the game code</strong>. Like, you can tweak the player&#39;s friction value, press &quot;recompile&quot;, and tab over to the running game and see your new physics changes <em>immediately</em> in effect. (This feature was super useful while building my <a href="/posts/tetris-clone">tetris clone</a> for tweaking the keyrepeat delay and adjusting the animation speed for the line clear and &quot;you lose&quot; animations)</p>
+<h3 id="hot-loading-c-game-code">hot-loading C++ game code??</h3>
+<p>How does this work, exactly? Well, you compile the platform layer as the main EXE, and then compile your game layer as a separate DLL. Then, every frame, the platform layer checks to see whether the game layer DLL has been updated. If it has, it updates the two pointers it knows about (<code>UpdateAndRender</code> and <code>GetSoundSamples</code>), and continues to simulate the game, without disrupting the game state at all, <em>because the platform layer is the one holding onto the memory for the game state</em>.</p>
+<p>Also, with this architecture, you can easily record a sequence of inputs, and then restore the game state back to the start of the recording and replay the inputs, sort of like a looping synthesizer. This is incredible for, e.g., tuning physics parameters, because you can tweak the values and see the results <em>immediately</em>, without needing to relaunch the game, get back to the specific cliff you&#39;re testing your jump code at, and try to execute the same inputs manually. (This is what&#39;s happening in the video up at the top of this post.)</p>
+<h3 id="show-me-some-code">show me some code!</h3>
+<p>Here&#39;s a pared-down version of this game architecture. (this code is all in the platform layer, in the EXE)</p>
+<div class="long-scroll">
 
-  <figure>
-    <video loop controls autoplay muted>
-      <source src="/assets/pgg-loop.mp4" type="video/mp4">
-    </video>
-    <figcaption>looped live code editing</figcaption>
-  </figure>
-
-  <p>I'm editing C++, compiling, and seeing the results of my changes instantly, without needing to context-switch and interact with my game!</p>
-
-  <h3>okay I'm interested, tell me more</h3>
-  <p>When you write a game that runs on a platform such as Windows, you likely have your project split into a layer of game code (this moves monsters around, draws the player, etc) and a layer of platform code (this translates draw calls or memory allocations into a format the platform you're running on can understand).</p>
-  <p>(Your "platform code" might be as simple as importing SDL2 or some similar library, but <em>someone</em> wrote that code, and I'm always interested in digging to the bottom and understanding what's going on, so I'm not using SDL yet!)</p>
-  <p>The default way these two code halves interact is usually like this:</p>
-
-  <figure>
-    <img src="/assets/pgg-hmh1.png">
-    <figcaption>"normal" game architecture</figcaption>
-  </figure>
-
-  <p>The game layer is always in control, and when it needs to, it calls out to services that the platform layer provides to interact with the physical platform it's running on. For example, when the game needs to load a sprite, it calls <code>Platform-&gt;LoadImage(&quot;player.png&quot;);</code>, and when it wants to draw a sprite, it calls <code>Platform-&gt;DrawImage(mySprite);</code>.</p>
-  <p>However, there's a wacky alternate way that ends up enabling some extremely cool stuff later on:</p>
-
-  <figure>
-    <img src="/assets/pgg-hmh2.png">
-    <figcaption>handmade hero game architecture</figcaption>
-  </figure>
-
-  <p>In this architecture, the <em>platform layer</em> is always in control, and the game layer is providing its services to the platform, instead of the other way around. In fact, the game code <em>doesn't even import <code>windows.h</code></em>; the only way it can communicate with the user is by setting pixels in the screen array that the platform layer passes it! (Okay, it can also send sound output and receive user input, but all of this is mediated through the platform layer; the game never does any of this directly.)</p>
-  <p>What "services" does the game provide? Just two: it responds to a <code>UpdateAndRender(game_state *State)</code> call and a <code>GetSoundSamples(game_state *State)</code> call. You'll notice these functions both are passed a pointer to the current game state – <em>this is because the game does not own it's state; the game state is owned by the platform layer!</em></p>
-  <p>Now I know this sounds <em>bizarre</em>, but it has some incredible advantages. For example, you can <strong>hot-reload the game code</strong>. Like, you can tweak the player's friction value, press "recompile", and tab over to the running game and see your new physics changes <em>immediately</em> in effect. (This sort of thing was super useful when tweaking how quickly my <a href="/posts/tetris-clone">tetris pieces</a> moved in response to button presses)</p>
-
-  <h3>hot-loading C++ game code??</h3>
-  <p>How does this work, exactly? Well, you compile the platform layer as the main EXE, and then compile your game layer as a separate DLL. Then, every frame, the platform layer checks to see whether the game layer DLL has been updated. If it has, it updates the two pointers it knows about (<code>UpdateAndRender</code> and <code>GetSoundSamples</code>), and continues to simulate the game, without disrupting the game state at all, <em>because the platform layer is the one holding onto the memory for the game state</em>.</p>
-  <p>Also, with this architecture, you can easily record a sequence of inputs, and then restore the game state back to the start of the recording and replay the inputs, sort of like a looping synthesizer. This is incredible for, e.g., tuning physics parameters, because you can tweak the values and see the results <em>immediately</em>, without needing to relaunch the game, get back to the specific cliff you're testing your jump code at, and try to execute the same inputs manually. (This is what's happening in the video up at the top of this post.)</p>
-
-  <h3>show me some code!</h3>
-  <p>Here's a pared-down version of this game architecture. (this code is all in the platform layer, in the EXE)</p>
-<pre class="long-scroll"><code>typedef void game_update_and_render(
+<pre><code class="language-C++"><span class="hljs-function"><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">void</span> <span class="hljs-title">game_update_and_render</span><span class="hljs-params">(
   game_state *GameState,
-  game_input *GameInput,
-  /*...*/);
-typedef void game_get_sound_samples(/*...*/);
+  game_bitmap *GameScreen,
+  <span class="hljs-comment">/*...*/</span>)</span></span>;
 
-struct win32_game_code {
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">win32_game_code</span> {</span>
   HMODULE Library;
   uint64 LastWriteTime;
-  // function pointers to the &quot;services&quot;
-  //  the game provides:
+  <span class="hljs-comment">// function pointers to the &quot;services&quot;</span>
+  <span class="hljs-comment">//  the game provides:</span>
   game_get_sound_samples *GetSoundSamples;
   game_update_and_render *UpdateAndRender;
 };
 
-void Win32RefreshGameCode(win32_game_code *GameCode) {
-  // Check to see if the game DLL has been updated
-  //   since the last time we checked (last frame)
-  // If it has been updated, call LoadLibrary()
-  //   and update the function pointers in GameCode
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Win32RefreshGameCode</span><span class="hljs-params">(win32_game_code *GameCode)</span> </span>{
+  <span class="hljs-comment">// Check to see if the game DLL has been updated</span>
+  <span class="hljs-comment">//   since the last time we checked (last frame)</span>
+  <span class="hljs-comment">// If it has been updated, call LoadLibrary()</span>
+  <span class="hljs-comment">//   and update the function pointers in GameCode</span>
 }
 
-struct recording_harness {
-  /*...*/
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">recording_harness</span> {</span>
+  <span class="hljs-comment">/*...*/</span>
 };
 
-int WinMain(/*...*/) {
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">WinMain</span><span class="hljs-params">(<span class="hljs-comment">/*...*/</span>)</span> </span>{
   win32_game_code GameCode = {};
   game_input GameInput = {};
-  game_state GameState = {};
+  game_state *GameState = {};
   recording_harness RecordingHarness = {};
-  while (true) {
-    // code hot-reloading!
+  <span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) {
+    <span class="hljs-comment">// code hot-reloading!</span>
     Win32RefreshGameCode(&amp;GameCode);
 
     ReadUserInput(&amp;GameInput);
-    if (RecordingHarness.PlaybackHandle) {
-      // hijack the input!
+    <span class="hljs-keyword">if</span> (RecordingHarness.PlaybackHandle) {
+      <span class="hljs-comment">// hijack the input!</span>
       Win32RecordingHarnessPlaybackOnce(
-        &amp;RecordingHarness, &amp;GameInput);
+        &amp;RecordingHarness, GameInput);
     }
-    if (RecordingHarness.RecordingHandle) {
-      // record the input, for later playback
+    <span class="hljs-keyword">if</span> (RecordingHarness.RecordingHandle) {
+      <span class="hljs-comment">// record the input, for later playback</span>
       Win32RecordingHarnessRecordOnce(
-        &amp;RecordingHarness, &amp;GameInput);
+        &amp;RecordingHarness, GameInput);
     }
 
-    if (GameCode.UpdateAndRender) {
-      GameCode.UpdateAndRender(
-        &amp;GameState, &amp;GameInput, /*...*/);
+    <span class="hljs-keyword">if</span> (GameCode.UpdateAndRender) {
+      GameCode.UpdateAndRender(&amp;GameState);
     }
 
-    // do some sound prep here
-
-    if (GameCode.GetSoundSamples) {
-      GameCode.GetSoundSamples(&amp;GameState);
-    }
-
-    // Sleep() until it's time for the next frame
+    <span class="hljs-comment">// Sleep() until it&#x27;s time for the next frame</span>
   }
-}</code></pre>
+}
+</code></pre>
+</div>
 
-  <p>Does the <code>game_state</code> structure get unwieldy? Yeah, a bit. It gets a bit annoying to type <code>State-&gt;Foo</code> everywhere instead of just using a global variable <code>Foo</code>, but the code hot-reloading is absolutely worth it. With proper sub-structures, it's really not a big deal, in terms of code understandability. Here's an example of the final <code>game_state</code> struct from my tetris clone:</p>
-<pre class="long-scroll"><code>struct game_state {
-  int Size; // size of this struct (helps
-            // prevent hotreloading issues)
+<p>Does the <code>game_state</code> structure get unwieldy? Yeah, a bit. It gets a bit annoying to type <code>State-&gt;Foo</code> everywhere instead of just using a global variable <code>Foo</code>, but the code hot-reloading is worth it. By using sub-structures, the code remains pretty readable. Here&#39;s an example of the final <code>game_state</code> struct from my tetris clone:</p>
+<div class="long-scroll">
+
+<pre><code class="language-C++"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">game_state</span> {</span>
+  <span class="hljs-keyword">int</span> Size; <span class="hljs-comment">// size of this struct (helps</span>
+            <span class="hljs-comment">// prevent hotreloading issues)</span>
   simple_arena TempArena;
   simple_arena Arena;
   bool32 Muted;
@@ -161,77 +141,80 @@ int WinMain(/*...*/) {
   game_bitmap TileBitmap;
   tile *ScreenArea;
   tile *PlayArea;
-  struct {
-    highscore_entry Entries[3];
-  } HighscoresByLevel[10];
-  int CurrentLevel;
+  <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+    highscore_entry Entries[<span class="hljs-number">3</span>];
+  } HighscoresByLevel[<span class="hljs-number">10</span>];
+  <span class="hljs-keyword">int</span> CurrentLevel;
 
   game_mode Mode;
   game_mode NextMode;
-  struct {
+  <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
     bool32 IsInitialized;
     int64 FrameCount;
     tetris_piece CurrentPiece;
     piece_tag NextPieceTag;
     float32 AutoFallDelaySeconds;
     int64 FrameForNextFall;
-    int Score;
-    int LinesCleared;
-    int Level;
+    <span class="hljs-keyword">int</span> Score;
+    <span class="hljs-keyword">int</span> LinesCleared;
+    <span class="hljs-keyword">int</span> Level;
     bool32 ShouldSpawnPiece;
-    int StartOfDropY;
+    <span class="hljs-keyword">int</span> StartOfDropY;
   } PlayState;
-  struct {
+  <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
     game_mode ReturnMode;
   } PauseState;
-  struct {
+  <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
     game_mode ReturnMode;
     int64 FrameCount;
-    int YToClear[4];
-    int LinesCleared;
-    int YCursor;
+    <span class="hljs-keyword">int</span> YToClear[<span class="hljs-number">4</span>];
+    <span class="hljs-keyword">int</span> LinesCleared;
+    <span class="hljs-keyword">int</span> YCursor;
   } LineClearState;
-  struct {
+  <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
     int64 FrameCount;
-    int YCursor;
+    <span class="hljs-keyword">int</span> YCursor;
   } LoseState;
-  struct {
+  <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
     int64 FrameCount;
     bool32 IsInEntryMode;
     highscore_entry *Entry;
-    int Rank; // 1-3; 0 for no high score
-    int EntryCursor;
-    int LevelSelectCursor;
+    <span class="hljs-keyword">int</span> Rank; <span class="hljs-comment">// 1-3; 0 for no high score</span>
+    <span class="hljs-keyword">int</span> EntryCursor;
+    <span class="hljs-keyword">int</span> LevelSelectCursor;
   } HighScoreState;
-  struct {
+  <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
     int64 FrameCount;
   } CopyrightState;
-  struct {
+  <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
     int64 FrameCount;
-    int SelectedOption;
+    <span class="hljs-keyword">int</span> SelectedOption;
   } TitleState;
-  struct {
+  <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
     int64 FrameCount;
-    int SequenceIndex;
+    <span class="hljs-keyword">int</span> SequenceIndex;
   } DemoState;
-  struct {
+  <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
     int64 FrameCount;
-    void *RecordingBuffer;
-    int RecordingBufferSize;
-    int RecordingBufferCap;
+    <span class="hljs-keyword">void</span> *RecordingBuffer;
+    <span class="hljs-keyword">int</span> RecordingBufferSize;
+    <span class="hljs-keyword">int</span> RecordingBufferCap;
   } RecDemoState;
-  struct {
+  <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
     int64 FrameCount;
     bool32 IsInMusicSelect;
-    int GameCursor;
-    int MusicCursor;
+    <span class="hljs-keyword">int</span> GameCursor;
+    <span class="hljs-keyword">int</span> MusicCursor;
   } TypeSelectState;
-};</code></pre>
-  <p>Yup.</p>
+};
+</code></pre>
+</div>
 
-  <h3>wait wasn't this supposed to be about something called "purple gun game"</h3>
-  <p>Yeah, but the game itself isn't particularily interesting, especially when compared against how cool the code architecture is! Okay, also, I <em>technically</em> did all of this architecture work for the first time while building <a href="/posts/tetris-clone">Tetris</a>, but that post was long enough as-is, and I reused the architecture for this game too. (It's the default thing I use nowadays when I start something in C++.)</p>
-  <p>Also, purple gun game is released and publically available -- If you want to check it out (windows-only), download it <a href="https://pancelor.itch.io/purple-gun-game">here</a>! The goal of this project wasn't to make a fun game, it was to try out making a prototype in this cool architecture, so keep that in mind when playing.</p>
+<p>Yup.</p>
+<h3 id="wait-wasnt-this-supposed-to-be-about-something-called-purple-gun-game">wait wasn&#39;t this supposed to be about something called &quot;purple gun game&quot;</h3>
+<p>Yeah, but the game itself isn&#39;t particularily interesting, especially when compared against how cool the code architecture is! Okay, also, I <em>technically</em> did all of this architecture work for the first time while building <a href="/posts/tetris-clone">Tetris</a>, but that post was long enough as-is, and I reused the architecture for this game too. (It&#39;s the default thing I use nowadays when I start something in C++.)</p>
+<p>Also, purple gun game is released and publically available! If you want to check it out (windows-only), download it <a href="https://pancelor.itch.io/purple-gun-game">here</a>! The goal of this project wasn&#39;t to make a fun game, it was to try out making a prototype in this cool architecture, so keep that in mind when playing!</p>
+
 </section>
 <div class="end-spacer"></div>
 <div class="footer">© pancelor 2021</div>
