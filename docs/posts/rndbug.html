@@ -4,6 +4,7 @@
 <title>pancelor dot com</title>
 <link rel="icon" type="image/png" href="/assets/favicon.png">
 <link rel="stylesheet" href="/stylesheets/opensans.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/default.min.css">
 <link rel="stylesheet" href="/stylesheets/main.css">
 <script async defer
 src="https://stats.pancelor.com/umami.js"
@@ -17,10 +18,10 @@ data-domains="pancelor.com"></script>
   <a href="/index#rndbug"><img class="header-banner" src="/assets/banner.png"></a>
 </div>
 <section class="main-content">
-  <h1 class="post-title">PICO-8 rnd() Bug</h1>
-  <h4 class="post-meta">2020-08</h4>
-  <p>(this page is under construction!)</p>
+<h1 class="post-title">PICO-8 rnd() Bug</h1>
+<h4 class="post-meta">2020-08</h4>
 
+<p>(this page is under construction!)</p>
 <!--
   initial symptoms
   test cases
@@ -34,69 +35,70 @@ data-domains="pancelor.com"></script>
   ping riley, ms rabbit
  -->
 
-<pre><code>// run this with `clang proof.c &amp;&amp; ./a.exe`
+<pre><code class="language-c"><span class="hljs-comment">// run this with `clang proof.c &amp;amp;&amp;amp; ./a.exe`</span>
 
-#include &lt;stdio.h&gt;
-#include &lt;assert.h&gt;
-typedef unsigned int u32;
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;assert.h&gt;</span></span>
+<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> u32;
 
-int bit(int b, u32 x) {
-  return (x&amp;(1&lt;&lt;b))!=0;
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">bit</span><span class="hljs-params">(<span class="hljs-keyword">int</span> b, u32 x)</span> </span>{
+  <span class="hljs-keyword">return</span> (x&amp;amp;(<span class="hljs-number">1</span>&lt;&lt;b))!=<span class="hljs-number">0</span>;
 }
 
-u32 _p8_m_high=0x01234567;
-u32 _p8_m_low =0xDEADBEEF;
+u32 _p8_m_high=<span class="hljs-number">0x01234567</span>;
+u32 _p8_m_low =<span class="hljs-number">0xDEADBEEF</span>;
 u32 _pico8_random(u32 n) {
-  if (n == 0) return 0;
-  u32 swap=(_p8_m_high &lt;&lt; 16 | _p8_m_high &gt;&gt; 16);
+  <span class="hljs-keyword">if</span> (n == <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+  u32 swap=(_p8_m_high &lt;&lt; <span class="hljs-number">16</span> | _p8_m_high &gt;&gt; <span class="hljs-number">16</span>);
   u32 old_low=_p8_m_low;
   _p8_m_high = swap + old_low;
-  _p8_m_low = swap + (old_low&lt;&lt;1);
-  // notice:
-  // * (bit(3,n) means the 3rd-least-significant bit of n)
-  // * Property 1: bit(0,_p8_m_high) == (bit(0,swap)+bit(0,old_low))%2
-  // * Property 2: bit(0,_p8_m_low) == bit(0,swap)
-  return _p8_m_high % n;
+  _p8_m_low = swap + (old_low&lt;&lt;<span class="hljs-number">1</span>);
+  <span class="hljs-comment">// notice:</span>
+  <span class="hljs-comment">// * (bit(3,n) means the 3rd-least-significant bit of n)</span>
+  <span class="hljs-comment">// * Property 1: bit(0,_p8_m_high) == (bit(0,swap)+bit(0,old_low))%2</span>
+  <span class="hljs-comment">// * Property 2: bit(0,_p8_m_low) == bit(0,swap)</span>
+  <span class="hljs-keyword">return</span> _p8_m_high % n;
 }
 
-void test() {
-  // Lowercase letters are placeholders for bits,
-  //   different from each other and not important
-  // Uppercase letters are variables that always hold
-  //   the same value throughout this calculation;
-  //   i.e., iff A is 1 at the start, it is still 1 at the end
-  _pico8_random(100);
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test</span><span class="hljs-params">()</span> </span>{
+  <span class="hljs-comment">// Lowercase letters are placeholders for bits,</span>
+  <span class="hljs-comment">//   different from each other and not important</span>
+  <span class="hljs-comment">// Uppercase letters are variables that always hold</span>
+  <span class="hljs-comment">//   the same value throughout this calculation;</span>
+  <span class="hljs-comment">//   i.e., iff A is 1 at the start, it is still 1 at the end</span>
+  _pico8_random(<span class="hljs-number">100</span>);
   u32 x=_p8_m_high;
 
-  // _p8_m_high = 0xaaaaaaaa aaaaaaaA bbbbbbbb bbbbbbbb // new var: A
-  // _p8_m_low  = 0xcccccccc cccccccc dddddddd dddddddd
-  _pico8_random(42);
-  // swap       = 0xbbbbbbbb bbbbbbbb aaaaaaaa aaaaaaaA // notice: A
+  <span class="hljs-comment">// _p8_m_high = 0xaaaaaaaa aaaaaaaA bbbbbbbb bbbbbbbb // new var: A</span>
+  <span class="hljs-comment">// _p8_m_low  = 0xcccccccc cccccccc dddddddd dddddddd</span>
+  _pico8_random(<span class="hljs-number">42</span>);
+  <span class="hljs-comment">// swap       = 0xbbbbbbbb bbbbbbbb aaaaaaaa aaaaaaaA // notice: A</span>
   u32 y=_p8_m_high;
 
-  // _p8_m_high = 0xeeeeeeee eeeeeeeE ffffffff ffffffff // new var: E
-  // _p8_m_low  = 0xgggggggg gggggggg hhhhhhhh hhhhhhhA // A ends up copied here (Property 2)
-  _pico8_random(1337);
-  // swap       = 0xffffffff ffffffff eeeeeeee eeeeeeeE // notice: E
+  <span class="hljs-comment">// _p8_m_high = 0xeeeeeeee eeeeeeeE ffffffff ffffffff // new var: E</span>
+  <span class="hljs-comment">// _p8_m_low  = 0xgggggggg gggggggg hhhhhhhh hhhhhhhA // A ends up copied here (Property 2)</span>
+  _pico8_random(<span class="hljs-number">1337</span>);
+  <span class="hljs-comment">// swap       = 0xffffffff ffffffff eeeeeeee eeeeeeeE // notice: E</span>
   u32 z=_p8_m_high;
 
-  // _p8_m_high = 0xiiiiiiii iiiiiiii jjjjjjjj jjjjjjjJ // new var: J=(E+A)%2 (Property 1)
-  // _p8_m_low  = 0xkkkkkkkk kkkkkkkk llllllll llllllll
+  <span class="hljs-comment">// _p8_m_high = 0xiiiiiiii iiiiiiii jjjjjjjj jjjjjjjJ // new var: J=(E+A)%2 (Property 1)</span>
+  <span class="hljs-comment">// _p8_m_low  = 0xkkkkkkkk kkkkkkkk llllllll llllllll</span>
 
-  // notice:
-  // * J=(E+A)%2 (follows from Property 1)
-  // * (E+A)%2 == E xor A
-  //   (can be proved easily by looking at all 4 possible values for A and E)
-  // * proof completed!
+  <span class="hljs-comment">// notice:</span>
+  <span class="hljs-comment">// * J=(E+A)%2 (follows from Property 1)</span>
+  <span class="hljs-comment">// * (E+A)%2 == E xor A</span>
+  <span class="hljs-comment">//   (can be proved easily by looking at all 4 possible values for A and E)</span>
+  <span class="hljs-comment">// * proof completed!</span>
 
-  assert(bit(0,z)==(bit(16,x)^bit(16,y)));
+  assert(bit(<span class="hljs-number">0</span>,z)==(bit(<span class="hljs-number">16</span>,x)^bit(<span class="hljs-number">16</span>,y)));
 }
 
-int main() {
-  for (int i=0; i&lt;10000; ++i) {
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>; i&lt;<span class="hljs-number">10000</span>; ++i) {
     test();
   }
-}</code></pre>
+}
+</code></pre>
 
 </section>
 <div class="end-spacer"></div>
