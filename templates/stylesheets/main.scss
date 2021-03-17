@@ -196,6 +196,12 @@ pre {
   min-width: 0%;
   max-width: 100%;
 }
+code {
+  color: #d1d9e1;
+  background: #474949;
+  border-radius: 0.5vh;
+  padding: 0.2vh;
+}
 pre code {
   display: block;
   padding: 1em;
