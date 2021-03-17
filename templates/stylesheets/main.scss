@@ -198,8 +198,8 @@ pre {
 }
 pre code {
   display: block;
-  height: 66vh;
   padding: 1em;
+  max-height: 66vh;
   overflow-y: auto;
   overflow-x: auto;
 }

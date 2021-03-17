@@ -84,6 +84,7 @@ async function walkParallelDirectories(inPath, outPath, render_cb) {
 
 ;(async function() {
   // compile CSS first so that html that `include`s css inline will be up-to-date
-  await walkParallelDirectories(rootInPath, path.join(__dirname, 'docs'), renderSingleSCSSFile)
-  await walkParallelDirectories(rootInPath, path.join(__dirname, 'docs'), renderSingleEJSFile)
+  const outPath = path.join(__dirname, 'docs')
+  await walkParallelDirectories(rootInPath, outPath, renderSingleSCSSFile)
+  await walkParallelDirectories(rootInPath, outPath, renderSingleEJSFile)
 })()

@@ -215,4 +215,4 @@ Yup.
 
 Yeah, but the game itself isn't particularily interesting, especially when compared against how cool the code architecture is! Okay, also, I _technically_ did all of this architecture work for the first time while building [Tetris](/posts/tetris-clone), but that post was long enough as-is, and I reused the architecture for this game too. (It's the default thing I use nowadays when I start something in C++.)
 
-Also, purple gun game is released and publically available! If you want to check it out (windows-only), download it [here](https://pancelor.itch.io/purple-gun-game)! The goal of this project wasn't to make a fun game, it was to try out making a prototype in this cool architecture, so keep that in mind when playing!
+Also, purple gun game is released and publically available -- If you want to check it out (windows-only), download it [here](https://pancelor.itch.io/purple-gun-game)! The goal of this project wasn't to make a fun game, it was to try out making a prototype in this cool architecture, so keep that in mind when playing.
