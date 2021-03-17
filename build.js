@@ -1,12 +1,19 @@
 const fs = require('fs')
 const path = require('path')
-const util = require('util')
 const ejs = require('ejs')
+// const util = require('util')
+// const ejsRenderFile = util.promisify(ejs.renderFile)
 const marked = require('marked')
+const hljs = require('highlight.js');
 const sass = require('sass')
-const ejsRenderFile = util.promisify(ejs.renderFile)
 
 const rootInPath = path.join(__dirname, 'templates')
+
+marked.setOptions({
+  highlight: function(code, lang) {
+    return hljs.highlight(lang, code).value
+  }
+})
 
 function md(filename) {
   // https://stackoverflow.com/a/25164248
@@ -41,6 +48,7 @@ async function renderSingleEJSFile(inPath, outPath) {
   const outText = await ejs.renderFile(inPath, ejsData, {
     root: rootInPath,
   })
+
   fs.writeFileSync(htmlOutPath,outText)
 }
 
