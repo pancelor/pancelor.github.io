@@ -40,19 +40,19 @@ function md(filename) {
 
 async function renderSingleSCSSFile(inPath, outPath) {
   if (!/\.scss$/.exec(inPath)) return
-  const cssOutPath = outPath.replace(/\.scss$/,".css")
+  const cssOutPath = outPath.replace(/\.scss$/, ".css")
   console.log(`rendering scss to ${cssOutPath}`)
   const result = sass.renderSync({
     file: inPath,
     // outFile: cssOutPath, // for map-hinting purposes
     outputStyle: "compressed",
   });
-  fs.writeFileSync(cssOutPath,result.css)
+  fs.writeFileSync(cssOutPath, result.css)
 }
 
 async function renderSingleEJSFile(inPath, outPath) {
   if (!/\.ejs$/.exec(inPath)) return
-  const htmlOutPath = outPath.replace(/\.ejs$/,".html")
+  const htmlOutPath = outPath.replace(/\.ejs$/, ".html")
   console.log(`rendering ejs to ${htmlOutPath}`)
   const outText = await ejs.renderFile(inPath, {
     md: md,
@@ -62,7 +62,16 @@ async function renderSingleEJSFile(inPath, outPath) {
     // async: true,
   })
 
-  fs.writeFileSync(htmlOutPath,outText)
+  fs.writeFileSync(htmlOutPath, outText)
+}
+
+async function renderSingleMDFile(inPath, outPath) {
+  if (!/\.md$/.exec(inPath)) return
+  const htmlOutPath = outPath.replace(/\.md$/, ".html")
+  console.log(`rendering md to ${htmlOutPath}`)
+  const outText = await marked.render(inPath)
+
+  fs.writeFileSync(htmlOutPath, outText)
 }
 
 async function walkParallelDirectories(inPath, outPath, render_cb) {
@@ -76,15 +85,15 @@ async function walkParallelDirectories(inPath, outPath, render_cb) {
 
     if (fs.statSync(inPath).isDirectory()) {
       // ## If inPath is a directory, mkdir outPath and push onto queue
-      fs.mkdirSync(outPath,{recursive: true}) // touch
+      fs.mkdirSync(outPath, {recursive: true}) // touch
       const relPaths = fs.readdirSync(inPath)
       relPaths.forEach((relPath) => {
         if (relPath.indexOf("_") === 0) {
           // ## Skip paths starting with underscore
         } else {
           queue.push({
-            inPath: path.join(inPath,relPath),
-            outPath: path.join(outPath,relPath),
+            inPath: path.join(inPath, relPath),
+            outPath: path.join(outPath, relPath),
           })
         }
       })

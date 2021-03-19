@@ -1,3 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+<%- include ("/_header.ejs") %>
+</head>
+<body>
+<div class="wrapper">
+<div class="header">
+  <a href="/index#fishy"><img class="header-banner" src="/assets/banner.png"></a>
+</div>
+<section class="main-content">
 <h1 class="post-title">Fishy</h1>
 <h4 class="post-meta">2020-11</h4>
 
@@ -176,3 +187,8 @@ The first big improvement was getting rid of fish permanently when they get eate
 It's often easy to imagine that game design is some ineffable magic secret sauce that can't be broken down or examined, so it was illuminating to notice that no actually, for this game I was able to identify and concretely address multiple game design issues, leading to a more fun game in the end.
 
 Overall this was a really fun project! Tweetcarts are fun to make :)
+
+</section>
+<%- include ("/_footer.ejs") %>
+</body>
+</html>

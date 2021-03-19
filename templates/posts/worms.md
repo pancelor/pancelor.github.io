@@ -1,3 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+<%- include ("/_header.ejs") %>
+</head>
+<body>
+<div class="wrapper">
+<div class="header">
+  <a href="/index#worms"><img class="header-banner" src="/assets/banner.png"></a>
+</div>
+<section class="main-content">
 <h1 class="post-title">Worms Tweetcart</h1>
 <h4 class="post-meta">2020-08</h4>
 
@@ -10,3 +21,8 @@ A fun little animation, written as a pico-8 cartridge that fits inside a tweet.
 ### engine
 
 Made in pico-8.
+
+</section>
+<%- include ("/_footer.ejs") %>
+</body>
+</html>

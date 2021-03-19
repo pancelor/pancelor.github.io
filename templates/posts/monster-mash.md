@@ -1,3 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+<%- include ("/_header.ejs") %>
+</head>
+<body>
+<div class="wrapper">
+<div class="header">
+  <a href="/index#monster-mash"><img class="header-banner" src="/assets/banner.png"></a>
+</div>
+<section class="main-content">
 <h1 class="post-title">Monster Mash</h1>
 <h4 class="post-meta">2020-10</h4>
 
@@ -150,3 +161,8 @@ Actor({
 ```
 
 This made things easy to get working quickly, but allowed us to refine things later if needed.
+
+</section>
+<%- include ("/_footer.ejs") %>
+</body>
+</html>

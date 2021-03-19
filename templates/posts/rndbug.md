@@ -1,3 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+<%- include ("/_header.ejs") %>
+</head>
+<body>
+<div class="wrapper">
+<div class="header">
+  <a href="/index#rndbug"><img class="header-banner" src="/assets/banner.png"></a>
+</div>
+<section class="main-content">
 <h1 class="post-title">PICO-8 rnd() Bug</h1>
 <h4 class="post-meta">2020-08</h4>
 
@@ -81,3 +92,8 @@ int main() {
   }
 }
 ```
+
+</section>
+<%- include ("/_footer.ejs") %>
+</body>
+</html>
