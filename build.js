@@ -1,8 +1,6 @@
 const fs = require('fs')
 const path = require('path')
 const ejs = require('ejs')
-// const util = require('util')
-// const ejsRenderFile = util.promisify(ejs.renderFile)
 const marked = require('marked')
 const hljs = require('highlight.js');
 const sass = require('sass')
@@ -10,23 +8,24 @@ const sass = require('sass')
 const rootInPath = path.join(__dirname, 'templates')
 
 marked.setOptions({
-  smartypants: true,
+  smartypants: true, // fancy quotes, ellipses, etc
   highlight: function(code, lang) {
     return hljs.highlight(lang, code).value
   }
 })
 
-// marked.use({
-//   renderer: {
-//     html(text) {
-//       return ejs.render(text, {
-//         md: md,
-//       }, {
-//         root: rootInPath,
-//       })
-//     },
-//   },
-// })
+// make ejs work from within .md files:
+marked.use({
+  renderer: {
+    html(text) {
+      return ejs.render(text, {
+        md: md,
+      }, {
+        root: rootInPath,
+      })
+    },
+  },
+})
 
 function md(filename) {
   // https://stackoverflow.com/a/25164248
