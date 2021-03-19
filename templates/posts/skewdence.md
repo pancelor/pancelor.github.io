@@ -9,9 +9,11 @@
   <a href="/index#skewdence"><img class="header-banner" src="/assets/banner.png"></a>
 </div>
 <section class="main-content">
-  <h1 class="post-title">Skewdence mod (for Crypt of the NecroDancer)</h1>
-  <h4 class="post-meta">2017-04</h4>
-  <p>(this page is under construction!)</p>
+<h1 class="post-title">Skewdence mod (for Crypt of the NecroDancer)</h1>
+<h4 class="post-meta">2017-04</h4>
+
+(this page is under construction!)
+
 </section>
 <%- include ("/_footer.ejs") %>
 </body>
