@@ -2,7 +2,6 @@
 <html>
 <head>
 <%- include ("/_header.ejs") %>
-<link href="/stylesheets/mailchimp.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <div class="wrapper">
@@ -12,8 +11,6 @@
 <section class="main-content">
 <h1 class="post-title">Tetris Clone</h1>
 <h4 class="post-meta">2020-05</h4>
-
-<div><%- md("/_mail.ejs") %></div>
 
 I did this project one week when I neeeded a break from my bigger projects. I decided I wanted to get a visceral feel for how hard it is to finish a game; surely it's pretty hard? But how hard? So I decided to clone Tetris (the [gameboy version](https://en.wikipedia.org/wiki/Tetris_(Game_Boy_video_game))) down to a tiny level of detail to see how much work it would take.
 
