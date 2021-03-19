@@ -21,9 +21,9 @@ data-domains="pancelor.com"></script>
 <h1 class="post-title">Purple Gun Game</h1>
 <h4 class="post-meta">2020-07</h4>
 
-<p>At some point (probably due to the many annoyances inherent in making a <a href="/posts/inbox-unbox">game engine in javascript</a>), I decided to finally write some C++ games. I&#39;d used C++ before, but it always felt so cumbersome to use, like I didn&#39;t really know what I was doing. I sat down and started watching the excellent <a href="https://handmadehero.org/watch">handmade hero series</a>, and began following along on my own. It was really nice having someone explain everything and candidly talk about the annoyances that he found in this workflow, but also how to minimize that friction.</p>
-<p>Also, the architecture that Casey sets up in the first ~25 episodes of Handmade Hero is <em>really</em> cool. It&#39;s a slow burn but the <a href="https://guide.handmadehero.org/code/day023/">payoff</a> is worth it! If you don&#39;t have 25 hours to spend watching that, then just read the rest of this blog post talking; hopefully I can explain it well enough to show you why I think it&#39;s so cool!</p>
-<h3 id="so-whats-so-cool-about-the-handmade-hero-architecture">so what&#39;s so cool about the handmade hero architecture</h3>
+<p>At some point (probably due to the many annoyances inherent in making a <a href="/posts/inbox-unbox">game engine in javascript</a>), I decided to finally write some C++ games. I’d used C++ before, but it always felt so cumbersome to use, like I didn’t really know what I was doing. I sat down and started watching the excellent <a href="https://handmadehero.org/watch">handmade hero series</a>, and began following along on my own. It was really nice having someone explain everything and candidly talk about the annoyances that he found in this workflow, but also how to minimize that friction.</p>
+<p>Also, the architecture that Casey sets up in the first ~25 episodes of Handmade Hero is <em>really</em> cool. It’s a slow burn but the <a href="https://guide.handmadehero.org/code/day023/">payoff</a> is worth it! If you don’t have 25 hours to spend watching that, then just read the rest of this blog post talking; hopefully I can explain it well enough to show you why I think it’s so cool!</p>
+<h3 id="so-whats-so-cool-about-the-handmade-hero-architecture">so what’s so cool about the handmade hero architecture</h3>
 <p>This:</p>
 <figure>
   <video loop controls autoplay muted>
@@ -32,31 +32,31 @@ data-domains="pancelor.com"></script>
   <figcaption>looped live code editing</figcaption>
 </figure>
 
-<p>I&#39;m editing C++, compiling, and seeing the results of my changes instantly, without needing to context-switch and interact with my game!</p>
-<h3 id="okay-im-interested-tell-me-more">okay I&#39;m interested, tell me more</h3>
+<p>I’m editing C++, compiling, and seeing the results of my changes instantly, without needing to context-switch and interact with my game!</p>
+<h3 id="okay-im-interested-tell-me-more">okay I’m interested, tell me more</h3>
 <p>In any given project, you likely have your project split into a layer of game code (this moves monsters around, draws the player, etc) and a layer of platform code (this displays windows, does file IO, allocates memory, etc).</p>
-<p>(Your &quot;platform code&quot; might be as simple as importing SDL2 or some similar library, but <em>someone</em> wrote that code, and I&#39;m always interested in digging to the bottom and understanding what&#39;s going on, so I&#39;m not using SDL yet!)</p>
+<p>(Your “platform code” might be as simple as importing SDL2 or some similar library, but <em>someone</em> wrote that code, and I’m always interested in digging to the bottom and understanding what’s going on, so I’m not using SDL yet!)</p>
 <p>The default way these two code halves interact is usually like this:</p>
 <figure>
   <img src="/assets/pgg-hmh1.png">
   <figcaption>typcial game architecture</figcaption>
 </figure>
 
-<p>The game layer is always in control, and when it needs to, it calls out to services that the platform layer provides to interact with the physical platform it&#39;s running on. For example, when the game needs to load a sprite, it calls <code>Platform-&gt;LoadImage(&quot;player.png&quot;);</code>, and when it wants to draw a sprite, it calls <code>Platform-&gt;DrawImage(mySprite);</code>.</p>
-<p>However, there&#39;s a wacky alternate way that ends up enabling some extremely cool stuff later on:</p>
+<p>The game layer is always in control, and when it needs to, it calls out to services that the platform layer provides to interact with the physical platform it’s running on. For example, when the game needs to load a sprite, it calls <code>Platform-&gt;LoadImage(&quot;player.png&quot;);</code>, and when it wants to draw a sprite, it calls <code>Platform-&gt;DrawImage(mySprite);</code>.</p>
+<p>However, there’s a wacky alternate way that ends up enabling some extremely cool stuff later on:</p>
 <figure>
   <img src="/assets/pgg-hmh2.png">
   <figcaption>handmade hero game architecture</figcaption>
 </figure>
 
-<p>In this architecture, the <em>platform layer</em> is always in control, and the game layer is providing its services to the platform, instead of the other way around. In fact, the game code <em>doesn&#39;t even import <code>windows.h</code></em>; the only way it can communicate with the user is by setting pixels in the screen array that the platform layer passes it! (Okay, it can also send sound output and receive user input, but all of this is mediated through the platform layer; the game never does any of this directly.)</p>
-<p>What &quot;services&quot; does the game provide? Just two: it responds to an <code>UpdateAndRender(game_state *State)</code> call and a <code>GetSoundSamples(game_state *State)</code> call. These functions both are passed a pointer to the current game state – <em>this is because the game does not own it&#39;s state; the game state is owned by the platform layer!</em></p>
-<p>Now I know this sounds <em>bizarre</em>, but it has some incredible advantages. For example, you can <strong>hot-reload the game code</strong>. Like, you can tweak the player&#39;s friction value, press &quot;recompile&quot;, and tab over to the running game and see your new physics changes <em>immediately</em> in effect. (This feature was super useful while building my <a href="/posts/tetris-clone">tetris clone</a> for tweaking the keyrepeat delay and adjusting the animation speed for the line clear and &quot;you lose&quot; animations)</p>
+<p>In this architecture, the <em>platform layer</em> is always in control, and the game layer is providing its services to the platform, instead of the other way around. In fact, the game code <em>doesn’t even import <code>windows.h</code></em>; the only way it can communicate with the user is by setting pixels in the screen array that the platform layer passes it! (Okay, it can also send sound output and receive user input, but all of this is mediated through the platform layer; the game never does any of this directly.)</p>
+<p>What “services” does the game provide? Just two: it responds to an <code>UpdateAndRender(game_state *State)</code> call and a <code>GetSoundSamples(game_state *State)</code> call. These functions both are passed a pointer to the current game state – <em>this is because the game does not own it’s state; the game state is owned by the platform layer!</em></p>
+<p>Now I know this sounds <em>bizarre</em>, but it has some incredible advantages. For example, you can <strong>hot-reload the game code</strong>. Like, you can tweak the player’s friction value, press “recompile”, and tab over to the running game and see your new physics changes <em>immediately</em> in effect. (This feature was super useful while building my <a href="/posts/tetris-clone">tetris clone</a> for tweaking the keyrepeat delay and adjusting the animation speed for the line clear and “you lose” animations)</p>
 <h3 id="hot-loading-c-game-code">hot-loading C++ game code??</h3>
 <p>How does this work, exactly? Well, you compile the platform layer as the main EXE, and then compile your game layer as a separate DLL. Then, every frame, the platform layer checks to see whether the game layer DLL has been updated. If it has, it updates the two pointers it knows about (<code>UpdateAndRender</code> and <code>GetSoundSamples</code>), and continues to simulate the game, without disrupting the game state at all, <em>because the platform layer is the one holding onto the memory for the game state</em>.</p>
-<p>Also, with this architecture, you can easily record a sequence of inputs, and then restore the game state back to the start of the recording and replay the inputs, sort of like a looping synthesizer. This is incredible for, e.g., tuning physics parameters, because you can tweak the values and see the results <em>immediately</em>, without needing to relaunch the game, get back to the specific cliff you&#39;re testing your jump code at, and try to execute the same inputs manually. (This is what&#39;s happening in the video up at the top of this post.)</p>
+<p>Also, with this architecture, you can easily record a sequence of inputs, and then restore the game state back to the start of the recording and replay the inputs, sort of like a looping synthesizer. This is incredible for, e.g., tuning physics parameters, because you can tweak the values and see the results <em>immediately</em>, without needing to relaunch the game, get back to the specific cliff you’re testing your jump code at, and try to execute the same inputs manually. (This is what’s happening in the video up at the top of this post.)</p>
 <h3 id="show-me-some-code">show me some code!</h3>
-<p>Here&#39;s a pared-down version of this game architecture. (this code is all in the platform layer, in the EXE)</p>
+<p>Here’s a pared-down version of this game architecture. (this code is all in the platform layer, in the EXE)</p>
 <pre><code class="language-C++"><span class="hljs-function"><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">void</span> <span class="hljs-title">game_update_and_render</span><span class="hljs-params">(
   game_state *GameState,
   game_input *GameInput,
@@ -116,7 +116,7 @@ data-domains="pancelor.com"></script>
   }
 }
 </code></pre>
-<p>Does the <code>game_state</code> structure get unwieldy? Yeah, a bit. It gets a bit annoying to type <code>State-&gt;Foo</code> everywhere instead of just using a global variable <code>Foo</code>, but the code hot-reloading is worth it. By using sub-structures, the code remains pretty readable. Here&#39;s an example of the final <code>game_state</code> struct from my tetris clone:</p>
+<p>Does the <code>game_state</code> structure get unwieldy? Yeah, a bit. It gets a bit annoying to type <code>State-&gt;Foo</code> everywhere instead of just using a global variable <code>Foo</code>, but the code hot-reloading is worth it. By using sub-structures, the code remains pretty readable. Here’s an example of the final <code>game_state</code> struct from my tetris clone:</p>
 <pre><code class="language-C++"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">game_state</span> {</span>
   <span class="hljs-keyword">int</span> Size; <span class="hljs-comment">// size of this struct (helps</span>
             <span class="hljs-comment">// prevent hotreloading issues)</span>
@@ -214,10 +214,9 @@ data-domains="pancelor.com"></script>
 };
 </code></pre>
 <p>Yup.</p>
-<h3 id="wait-wasnt-this-supposed-to-be-about-something-called-purple-gun-game">wait wasn&#39;t this supposed to be about something called &quot;purple gun game&quot;</h3>
-<p>Yeah, but the game itself isn&#39;t particularily interesting, especially when compared against how cool the code architecture is! Okay, also, I <em>technically</em> did all of this architecture work for the first time while building <a href="/posts/tetris-clone">Tetris</a>, but that post was long enough as-is, and I reused the architecture for this game too. (It&#39;s the default thing I use nowadays when I start something in C++.)</p>
-<p>Also, purple gun game is released and publically available -- If you want to check it out (windows-only), download it <a href="https://pancelor.itch.io/purple-gun-game">here</a>! The goal of this project wasn&#39;t to make a fun game, it was to try out making a prototype in this cool architecture, so keep that in mind when playing.</p>
-
+<h3 id="wait-wasnt-this-supposed-to-be-about-something-called-purple-gun-game">wait wasn’t this supposed to be about something called “purple gun game”</h3>
+<p>Yeah, but the game itself isn’t particularily interesting, especially when compared against how cool the code architecture is! Okay, also, I <em>technically</em> did all of this architecture work for the first time while building <a href="/posts/tetris-clone">Tetris</a>, but that post was long enough as-is, and I reused the architecture for this game too. (It’s the default thing I use nowadays when I start something in C++.)</p>
+<p>Also, purple gun game is released and publically available – If you want to check it out (windows-only), download it <a href="https://pancelor.itch.io/purple-gun-game">here</a>! The goal of this project wasn’t to make a fun game, it was to try out making a prototype in this cool architecture, so keep that in mind when playing.</p>
 </section>
 <div class="end-spacer"></div>
 <div class="footer">© pancelor 2021</div>

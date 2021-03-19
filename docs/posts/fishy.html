@@ -22,7 +22,7 @@ data-domains="pancelor.com"></script>
 <h4 class="post-meta">2020-11</h4>
 
 <p>This was a submission to <a href="https://itch.io/jam/tweet-tweet-jam-5">TweetTweetJam 5</a>, a game jame where your entire game must fit into 560 characters (aka the length of two tweets).</p>
-<p>Play it online <a href="https://pancelor.itch.io/fishy">here</a>! It&#39;s pretty small but I&#39;m proud of how fun I managed to make it, given the space constraints.</p>
+<p>Play it online <a href="https://pancelor.itch.io/fishy">here</a>! It’s pretty small but I’m proud of how fun I managed to make it, given the space constraints.</p>
 <h3 id="gameplay-video">gameplay video</h3>
 <figure>
   <video loop controls autoplay muted>
@@ -58,7 +58,7 @@ if(#q&lt;1)goto b
 goto a
 </code></pre>
 <h3 id="okay-what">okay what</h3>
-<p>Yeah, it&#39;s certainly not optimized for readability, heh. Here&#39;s a much earlier version that should give you an idea of how it works:</p>
+<p>Yeah, it’s certainly not optimized for readability, heh. Here’s a much earlier version that should give you an idea of how it works:</p>
 <pre><code class="language-lua">r=rnd
 
 n=<span class="hljs-number">6</span>
@@ -125,7 +125,7 @@ flip()
 <span class="hljs-keyword">goto</span> b
 </code></pre>
 <p>The basic idea is that all the fish are stored in a giant flattened array of attributes. So, <code>f[1]</code> through <code>f[6]</code> are the data values for the player, <code>f[7]</code> through <code>f[12]</code> are the data values for the first random fish, and so on. (The player is stored in the same array as everyone else to make the code simpler and smaller)</p>
-<p>Each frame, all the fish update according to their <code>dx</code> attribute. The fish check for (rectangular) collisions against every other fish, and consume and grow if they were the bigger fish. In this old version, the dead fish gets re-generated at a random other point in the world, buuut this made the endgame slightly... weird, so I ended up changing that for the final version:</p>
+<p>Each frame, all the fish update according to their <code>dx</code> attribute. The fish check for (rectangular) collisions against every other fish, and consume and grow if they were the bigger fish. In this old version, the dead fish gets re-generated at a random other point in the world, buuut this made the endgame slightly… weird, so I ended up changing that for the final version:</p>
 <figure>
   <video loop controls muted>
     <source src="/assets/fishy-old.mp4" type="video/mp4">
@@ -140,7 +140,7 @@ flip()
 <span class="hljs-keyword">if</span>(btn(<span class="hljs-number">2</span>))y-=<span class="hljs-number">1</span>
 <span class="hljs-keyword">if</span>(btn(<span class="hljs-number">3</span>))y+=<span class="hljs-number">1</span>
 </code></pre>
-<p>That&#39;s 59 characters; can we do better? What do we need to do to make <code>x+=magic(...)</code> do exactly what I want? Well, <code>btn()</code> (when called with no arguments) returns a bitfield of all currently-held buttons, and I knew I wanted the output of my hypothetical <code>magic</code> function to be either 0, -1, or 1, so I tried defining <code>magic</code> to be <code>1-(more_magic(btn())%3)</code>. After messing around with this for a while, I came up with this:</p>
+<p>That’s 59 characters; can we do better? What do we need to do to make <code>x+=magic(...)</code> do exactly what I want? Well, <code>btn()</code> (when called with no arguments) returns a bitfield of all currently-held buttons, and I knew I wanted the output of my hypothetical <code>magic</code> function to be either 0, -1, or 1, so I tried defining <code>magic</code> to be <code>1-(more_magic(btn())%3)</code>. After messing around with this for a while, I came up with this:</p>
 <pre><code class="language-lua">b=btn()
 x+=<span class="hljs-number">1</span>-(<span class="hljs-number">1</span>+b&amp;<span class="hljs-number">3</span>)%<span class="hljs-number">3</span>
 y+=<span class="hljs-number">1</span>-(<span class="hljs-number">1</span>+(b&amp;<span class="hljs-number">12</span>))%<span class="hljs-number">3</span>
@@ -152,17 +152,16 @@ y+=<span class="hljs-number">1</span>-(<span class="hljs-number">1</span>+(b&amp
 ibig=ismall^^i^^j
 </code></pre>
 <p>Here, I wanted to figure out which fish index was the bigger fish, <code>i</code> or <code>j</code>. That first line figures out which fish is smaller, but I also want to know which fish is bigger! A similar line of code works of course (<code>ibig=s&lt;s2 and j or i</code>), but using xor like this (<code>^^</code>) saves precious characters.</p>
-<p>...oh, and now that I&#39;ve written this all up, I&#39;ve suddenly realized that I can save an additional 2 characters by doing the swap this way instead:</p>
+<p>…oh, and now that I’ve written this all up, I’ve suddenly realized that I can save an additional 2 characters by doing the swap this way instead:</p>
 <pre><code class="language-lua">ismall=s&lt;s2 <span class="hljs-keyword">and</span> i <span class="hljs-keyword">or</span> j
 ibig=i+j-ismall
 </code></pre>
-<p>If only pico-8&#39;s xor was spelled with one character instead of two... using xor for stuff like this is cool!! Oh well, gotta save those characters. :D</p>
+<p>If only pico-8’s xor was spelled with one character instead of two… using xor for stuff like this is cool!! Oh well, gotta save those characters. :D</p>
 <h3 id="game-design">game design</h3>
-<p>This project taught me a surprising amount about game design. My initial attempts at making this weren&#39;t very fun, and they were a bit too chaotic (see the above video, lol). But, as I specifically worked on addressing those issues, the game become more and more fun, which was exciting to notice as it happened.</p>
+<p>This project taught me a surprising amount about game design. My initial attempts at making this weren’t very fun, and they were a bit too chaotic (see the above video, lol). But, as I specifically worked on addressing those issues, the game become more and more fun, which was exciting to notice as it happened.</p>
 <p>The first big improvement was getting rid of fish permanently when they get eaten, instead of respawning them. This removed the endgame chaos, and gave the game a nice goal state. Then later, I had saved enough characters in various ways to be able to add in a level progression system, which made the game a lot more compelling.</p>
-<p>It&#39;s often easy to imagine that game design is some ineffable magic secret sauce that can&#39;t be broken down or examined, so it was illuminating to notice that no actually, for this game I was able to identify and concretely address multiple game design issues, leading to a more fun game in the end.</p>
+<p>It’s often easy to imagine that game design is some ineffable magic secret sauce that can’t be broken down or examined, so it was illuminating to notice that no actually, for this game I was able to identify and concretely address multiple game design issues, leading to a more fun game in the end.</p>
 <p>Overall this was a really fun project! Tweetcarts are fun to make :)</p>
-
 </section>
 <div class="end-spacer"></div>
 <div class="footer">© pancelor 2021</div>
