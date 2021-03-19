@@ -33,9 +33,7 @@ function md(filename) {
   //   <%- md("index.md") %>
   let filepath = path.join(rootInPath, filename)
   let inText = fs.readFileSync(filepath, 'utf8')
-  let htmlText = marked(inText)
-
-  return htmlText
+  return marked(inText)
 }
 
 async function renderSingleSCSSFile(inPath, outPath) {
@@ -69,7 +67,9 @@ async function renderSingleMDFile(inPath, outPath) {
   if (!/\.md$/.exec(inPath)) return
   const htmlOutPath = outPath.replace(/\.md$/, ".html")
   console.log(`rendering md to ${htmlOutPath}`)
-  const outText = await marked.render(inPath)
+
+  let inText = fs.readFileSync(inPath, 'utf8')
+  const outText = marked(inText)
 
   fs.writeFileSync(htmlOutPath, outText)
 }
@@ -109,4 +109,5 @@ async function walkParallelDirectories(inPath, outPath, render_cb) {
   const outPath = path.join(__dirname, 'docs')
   await walkParallelDirectories(rootInPath, outPath, renderSingleSCSSFile)
   await walkParallelDirectories(rootInPath, outPath, renderSingleEJSFile)
+  await walkParallelDirectories(rootInPath, outPath, renderSingleMDFile)
 })()
