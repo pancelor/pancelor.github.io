@@ -1,9 +1,11 @@
 <h1 class="post-title">Tetris Clone</h1>
 <h4 class="post-meta">2020-05</h4>
 
+<div><%- include ("/_mail.ejs") %></div>
+
 I did this project one week when I neeeded a break from my bigger projects. I decided I wanted to get a visceral feel for how hard it is to finish a game; surely it's pretty hard? But how hard? So I decided to clone Tetris (the [gameboy version](https://en.wikipedia.org/wiki/Tetris_(Game_Boy_video_game))) down to a tiny level of detail to see how much work it would take.
 
-Turns out, it takes a lot of work :) But I learned a lot! Here are some of the highlights:
+Turns out, it takes a lot of work :) But I learned a lot! I haven't published this project publically (for licensing reasons), but I'll walk you through some of the highlights in this post.
 
 ### prototype versus polish
 
@@ -130,7 +132,7 @@ That's it! This was a fun project, and it taught me the things I wanted it to te
 
 There was a really fun period in the middle of development where I would occasionally be playing my clone, and I would be surprised when something wasn't implemented exactly right, because I _thought_ I had been playing the emulator instead!
 
-I haven't published this publically (because of licensing reasons), but the "gameplay video" section (below) should show off most of it. Here's the list of known differences between my version and the original version:
+I haven't published this publically (for licensing reasons), but the [video](#final-gameplay-video) below should show off most of it. Here's the list of known differences between my version and the original version:
 
 * My version doesn't have a "B-TYPE" mode implemented
 * My version has some minor sound glitches/differences
@@ -138,7 +140,7 @@ I haven't published this publically (because of licensing reasons), but the "gam
 * My version doesn't have a "you win" [animation](https://www.youtube.com/watch?v=ytvprVfbEUA) that plays when you get over 100,000 score. (I had no idea this existed until doing this project! I stumbled across it while I was testing the score system / tetris multiplier.)
 * My version has a slightly different 0 and 1 in the font :)
 
-### gameplay video
+### final gameplay video
 
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/WTP1WC9f3f8?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 

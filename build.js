@@ -10,10 +10,23 @@ const sass = require('sass')
 const rootInPath = path.join(__dirname, 'templates')
 
 marked.setOptions({
+  smartypants: true,
   highlight: function(code, lang) {
     return hljs.highlight(lang, code).value
   }
 })
+
+// marked.use({
+//   renderer: {
+//     html(text) {
+//       return ejs.render(text, {
+//         md: md,
+//       }, {
+//         root: rootInPath,
+//       })
+//     },
+//   },
+// })
 
 function md(filename) {
   // https://stackoverflow.com/a/25164248
@@ -42,11 +55,12 @@ async function renderSingleEJSFile(inPath, outPath) {
   if (!/\.ejs$/.exec(inPath)) return
   const htmlOutPath = outPath.replace(/\.ejs$/,".html")
   console.log(`rendering ejs to ${htmlOutPath}`)
-  const ejsData = {
+  const outText = await ejs.renderFile(inPath, {
     md: md,
-  }
-  const outText = await ejs.renderFile(inPath, ejsData, {
+  }, {
     root: rootInPath,
+    // strict: true, // breaks md somehow?
+    // async: true,
   })
 
   fs.writeFileSync(htmlOutPath,outText)
