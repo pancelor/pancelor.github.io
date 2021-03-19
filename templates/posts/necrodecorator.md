@@ -12,7 +12,7 @@
 <h1 class="post-title">Crypt of the NecroDecorator</h1>
 <h4 class="post-meta">2020-07</h4>
 
-Play it online <a href="https://pancelor.itch.io/necrodecorator">here</a>! It's a 5~30 minute game.
+Play it online <a href="https://pancelor.itch.io/necrodecorator">here</a>! It's a 5\~30 minute game.
 
 ### gameplay video
 

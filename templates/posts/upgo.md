@@ -24,7 +24,7 @@ Play it online [here](https://pancelor.itch.io/upgo).
 
 This was my first time doing procgen, I think? That was a fun learning experience. I basically re-implemented Spelunky's level generation by following this excellent [explanation](http://tinysubversions.com/spelunkyGen/). Also, I feel like a switch has flipped in my brain about coordinate systems -- there is no "correct" way to do coordinates; you just interpret some numbers however you want.
 
-I wish I had spent more time making this into a "real game" - there's some good platformer feel and some decent level generation, but the game overall isn't very gripping. I would have liked to have added some powerups or items or something.
+I wish I had spent more time making this into a "real game" -- there's some good platformer feel and some decent level generation, but the game overall isn't very gripping. I would have liked to have added some powerups or items or something.
 
 </section>
 <%- include ("/_footer.ejs") %>

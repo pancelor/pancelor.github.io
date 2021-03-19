@@ -68,7 +68,7 @@ It's too good! I love it. Most letters have their weight emphasized on the _righ
 
 And look at the numbers!! Look at how CHUNKY the 9 is! It's got a solid _3 by 4_ section of pixels filled on the right, while the left side is a tiny unconnected 1 by 2! It's too good! This font just has so much character and I love it.
 
-I have a slight correction from earlier - I said I was building a clone, and I wasn't going to change anything. But... look how boring the `0` and `1` are in comparison to the rest of the font!
+I have a slight correction from earlier -- I said I was building a clone, and I wasn't going to change anything. But... look how boring the `0` and `1` are in comparison to the rest of the font!
 
 <figure>
   <img src="/assets/tetris-font-01.png">
