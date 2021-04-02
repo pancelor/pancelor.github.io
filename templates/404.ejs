@@ -12,8 +12,8 @@
   <p id="404-searching">Searching...</p>
   <div id="404-failed" style="display:none;">
   <h1 class="post-title">404</h1>
-  <p>Uh oh! Couldn't find that page for you, sorry.</p>
-  <p><a href="/index">Home</a></p>
+  <p>Uh oh! Couldn't find that page for you, sorry :(</p>
+  <p><a href="/">Home</a></p>
   </div>
 </section>
 <%- include ("/_footer.ejs") %>
@@ -23,21 +23,42 @@
     document.getElementById("404-failed").style.display = null // visible
   }
 
-  // try inserting "/posts"
-  let pathname = window.location.pathname
-  let newpath = '/posts'+pathname
-  let request = new XMLHttpRequest()
-  request.open('HEAD', newpath, true)
-  request.onreadystatechange = function(){
-    if (request.readyState === 4){
-      if (request.status < 400) {
-        window.location = newpath
-      } else {
-        display404()
+  function pageExists(newpath) {
+    return new Promise((resolve,reject) => {
+      let request = new XMLHttpRequest()
+      request.open('HEAD', newpath, true)
+      request.onerror=reject
+      request.onreadystatechange=function(){
+        if (request.readyState===4){
+          resolve(request.status<400)
+        }
       }
-    }
+      request.send()
+    })
   }
-  request.send()
+
+  (async ()=>{
+    try {
+      let pathname=window.location.pathname
+      for (const [search,replace] of [
+        [/^\/portfolio\/(.+)\.html$/,"\/posts\/$1"], // there's a tweet out there with /portfolio/fishy.html
+        [/(.+)/,"/posts$1"], // /inbox-unbox is linked all over
+      ]) {
+        // console.log({pathname,search,replace});
+        if (search.exec(pathname)) {
+          let newpath=pathname.replace(search,replace)
+          // console.log({newpath});
+          if (await pageExists(newpath)) {
+            window.location=newpath
+            return
+          }
+        }
+      }
+    } catch (err) {
+      console.error(err)
+    }
+    display404()
+  })()
 </script>
 </body>
 </html>
