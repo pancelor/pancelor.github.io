@@ -14,7 +14,7 @@
 
 ### linecook
 
-Linecook is a difficult arcade game about feeding birds from conveyor belts (very normal), made in about a week for [#ChainLetterJam](https://twitter.com/search?q=%23chainletterjam). Play it online [here](https://pancelor.itch.io/linecook)!
+Linecook is a frantic arcade game about feeding birds from conveyor belts (very normal), made in about a week for [#ChainLetterJam](https://twitter.com/search?q=%23chainletterjam). Play it online [here](https://pancelor.itch.io/linecook)!
 
 <a href="https://pancelor.itch.io/linecook">
 <figure>
@@ -53,24 +53,29 @@ This idea is the main reason I decided to write up this blog post at all. When I
 
 For example: I originally assumed that when an ingredient was grabbed, it would get added to some array of current recipe ingredients in the code, and then later when you pressed the "complete recipe" button on your controller, the recipe would check itself and give you score or something based on how well it matched the list of premade recipes. This would involve deleting the physical food object and moving it into some sort of HUD overlay, showing your currently-in-progress recipe. On a bit of a whim, I decided to instead just... leave the food object on the floor, where the claw dropped it. (you can see this in the above gif)
 
-_Immediately_ this led to cool surprises and interactions; in this case, this meant that once you grab a food from a column, that column is forever blocked by the food you grabbed! That smells like interesting gameplay to me!
+_Immediately_ this led to cool surprises and interactions; in this case, this meant that once you grab a food from a column, that column is forever blocked by the food you grabbed. That smells like interesting gameplay to me! I kept noticing surprising interactions in-game every time I followed my nose in this sort of direction, which encouraged me to keep designing around this idea of "tangible code".
 
-The idea for doing this came vaguely from an aspect of some roguelikes, where your actions as a player are "non-modal", i.e. available to be used at any point during the game. I really like how this works in e.g. Spelunky, and I kept noticing surprising interactions ingame every time I followed my nose in this sort of direction.
+The seed idea for all of this came vaguely from an aspect of some roguelikes, where your actions as a player are "non-modal", i.e. available to be used at any point during the game. I really like how this works in Spelunky, for example, where you get powerups and upgrades that mostly all exist in-world, rather than being locked away inside menus. This leads to some amazing interactions, like the incredible [shopstorm](https://www.pentadact.com/2012-07-13-shopstorm-a-spelunky-story/).
 
-In retrospect, the idea of deleting the food object and putting it in a HUD overlay while you finished compiling your recipe seems much more restrictive than the physically-based interactions I ended up making the game with. With the HUD, you can only play the game my way, and can only discover interactions that I specifically programmed. But, in this physical world/tangible code model, I repeatedly discovered new surprising and fun interactions _in my own game_! This in itself isn't new for me, but it happened so often while making linecook, and I attribute that to this "tangible code" idea that I stumbled upon.
+In retrospect, the idea of deleting the food object and putting it in a HUD overlay while you finish compiling your recipe seems much more restrictive than the physically-based interactions I ended up making the game with. With the HUD, you can only play the game my way, and can only discover interactions that I specifically programmed. But, in this physical world/tangible code model, I repeatedly discovered new surprising and fun interactions _in my own game!_ This in itself isn't new for me, but it happened so _often_ while making linecook, and I attribute that to this "tangible code" idea that I stumbled upon.
 
 ### how to finish a recipe?
 
 Once I started thinking about trying to make the game in a physical space, I started to wonder: how should I complete a recipe? Maybe... every 4 ingredients auto-cook themselves into a recipe? I had an idea for a special "done" food (it was shown visually as the word "done", instead of looking like a stick of butter or whatever) which, when grabbed, would complete the recipe.
 
-But... how would it complete the recipe? magically? all the ingredients on the ground at the proper y-position onscreen would get deleted, and then you'd be scored by how well those ingredients work together? That didn't seem right. For a bit I entertained the idea that the "done" icon would _continue moving_ after the claw dropped it, pushing foods offscreen, where they would be scored.
-
-This was cool -- now, if you accidentally grab a potato in your icecream recipe, if you make sure to grab the "done" icon at the right position, it wouldn't push off the potato, leaving your ice cream deliciously potato-free. Also, now that potato stays around for a while! Maybe the next few recipes wouldn't need any potatoes, so it's just sitting there, clogging up one side of your preparation area! I really like that.
-
-Also, you can edit the recipe while it's moving offscreen! Maybe you grabbed the "done" icon by accident, so now you're in a mad rush to try and piece together an acceptable recipe before it gets pushed off!
+But... how would it complete the recipe? magically? all the ingredients on the ground at the proper y-position onscreen would get deleted, and then you'd be scored by how well those ingredients work together? That didn't seem right. For a bit I entertained the idea that the "done" icon would continue moving after the claw dropped it, pushing foods offscreen, where they would be scored:
 
 <figure>
-  <video preload="auto" controls loop autoplay muted src="/assets/linecook/done.mp4"></video>
+  <video preload="auto" controls loop autoplay muted src="/assets/linecook/done1.mp4"></video>
+  <figcaption>pushing food offscreen to complete recipes</figcaption>
+</figure>
+
+This was cool -- now, if you accidentally grab a potato when trying to build an icecream recipe, you can try to grab the "done" icon in such a way that it avoids pushing the potato, leaving your ice cream deliciously potato-free. And, that potato will stick around for a while -- maybe the next few recipes won't need any potatoes, so it's just sitting there, clogging up one side of your preparation area! I really like that.
+
+Also, you can edit the recipe while it's moving offscreen -- maybe you grabbed the "done" icon by accident, so now you're in a mad rush to try and piece together an acceptable recipe before it gets pushed off!
+
+<figure>
+  <video preload="auto" controls loop autoplay muted src="/assets/linecook/done2.mp4"></video>
   <figcaption>removing sprinkles from a sandwich</figcaption>
 </figure>
 
@@ -84,7 +89,7 @@ There were all of these cool ideas and interactions I noticed with the physical 
 
 Following my nose toward tangible interactions also nicely fixed the bug in the above gif: I made foods move based on what sort of conveyor belt they were on, instead of based on internal `dx`/`dy` variables and, tada! the bug is gone.
 
-This also made me realize that I could get rid of his HUD idea entirely and instead just curve the conveyor belts around on-screen so that the foods would be eaten/scored/etc still within the physical world, instead of being teleported offscreen into some sort of ethereal HUD-zone. This _again_ immediately made the game more fun, more chaotic, and more surprising -- you can steal foods from the other side of the screen, as they're being scored! This is funny when it happens on accident the first time, but it can be used as a strategy to remove bad foods that you accidentally grabbed! This was all present in the previous gif, but the long vertical section of the curved conveyor belts was new, and was the _perfect_ spot to try and rescue bad ingredients. But also, that straight section is right up against the edge of the world, making it a bit dangerous to try -- you might accidentally grab a new food that spawns!
+This also made me realize that I could get rid of his HUD idea entirely and instead just curve the conveyor belts around on-screen so that the foods would be eaten/scored/etc still within the physical world, instead of being teleported offscreen into some sort of ethereal HUD-zone. This _again_ immediately made the game more fun, more chaotic, and more surprising -- you can steal foods from the other side of the screen, while they're being scored. This is funny when it happens on accident the first time, but it can be used as a strategy to remove bad foods that you accidentally grabbed! This was all present in the previous gif, but the long vertical section of the curved conveyor belts was new, and was the _perfect_ spot to try and rescue bad ingredients. But also, that straight section is right up against the edge of the world, making it a bit dangerous to try -- you might accidentally grab a new food that spawns!
 
 <figure>
   <video preload="auto" controls loop autoplay muted src="/assets/linecook/rescue.mp4"></video>
@@ -126,16 +131,16 @@ It felt similar to how you suddenly realize how messy your house is when you kno
 
 Linecook is my favorite little game that I've made in a long while. I think a lot of that was due to me trying to make the code tangible. So many things just clicked and instantly turned into much better versions of themselves when I considered how they would interact if the game world was a real, physical place. Three cheers for tangible code!
 
-Okay, that's it. Thanks for reading! Go play [linecook](https://pancelor.itch.io/linecook)! Let me know if you can beat my high score :)
+Okay, that's it. Thanks for reading! Go play [linecook](https://pancelor.itch.io/linecook), and let me know if you manage to beat my high score :)
 
 <figure>
   <img src="/assets/linecook/pb.png"/>
   <figcaption>my best run: 7-1-0 in 5:26.66 on hard mode</figcaption>
 </figure>
 
-And hey, if you've read all the way this far, you might enjoy being on my [mailing list](/contact); signing up there is probably the best way to be notified when I write more posts like this!
+And hey, if you've read all the way this far, you might enjoy being on my [mailing list](/contact); signing up there is probably the best way to be notified when I write more posts like this.
 
-If you want to leave me a comment, drop it in [this dedicated twitter thread](https://twitter.com/pancelor) I guess? You could also [email me](hello@pancelor.com) if you like. (Sorry, I haven't figured out a good comments system for my site yet!)
+If you want to leave me a comment, drop it in [this dedicated twitter thread](https://twitter.com/pancelor) I guess? You could also [email me](hello@pancelor.com) if you like. (Sorry, I haven't figured out a good comments system for my site yet)
 
 </section>
 <%- include ("/_footer.ejs") %>
