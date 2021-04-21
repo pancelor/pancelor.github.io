@@ -25,7 +25,7 @@ Linecook is a frantic arcade game about feeding birds from conveyor belts (very 
 
 ### inspiration
 
-This was a really fun game jam! The idea is that you take 2 weeks to make a 1-minute game that is somehow inspired by the previous game in the chain, and then you nominate 2\~3 people to continue the chain. [Patrick](https://twitter.com/clockworkpat) nominated me, so I went and played his game [Arithmetic Bounce](https://patrickgh3.itch.io/arithmetic-bounce) to see what inspiration would strike:
+This was a really fun game jam! The idea is that you take 2 weeks to make a 1-minute game that is somehow inspired by the previous game in the chain, and then you nominate 2\~3 people to continue the chain. [Patrick](https://twitter.com/clockworkpat) nominated me, so I played his game [Arithmetic Bounce](https://patrickgh3.itch.io/arithmetic-bounce) to see what inspiration would strike:
 
 <figure>
   <video preload="auto" controls loop autoplay muted src="/assets/linecook/arithmetic-bounce.mp4"></video>
@@ -34,11 +34,11 @@ This was a really fun game jam! The idea is that you take 2 weeks to make a 1-mi
 
 It's a fun game! My highscore on hard mode is 24 :)
 
-I found it interesting how none of the numbers scrolling by are good or bad; their value to you as a player changes entirely based on context. I also really liked the time-pressure that the gravity caused, leading to forced decisions and general chaos. These were the core pieces of Arithmetic Bounce that I wanted to play with in Linecook.
+I found it interesting how the numbers scrolling by are neither good nor bad; their value changes entirely based on context. A four in one situation will give you a point of score, but in another situation, a four will kill you instantly, ending your run. I also really liked the time-pressure that the gravity caused, leading to forced decision-making and general chaos. These were the core pieces of Arithmetic Bounce that I wanted to play with in Linecook.
 
 ### context-dependent ingredients
 
-Instead of combining numbers into sums, in Linecook you combine food ingredients into recipes. This was the core idea I started building Linecook on. The first thing I did was make foods that travelled back and forth on conveyor belts, mimicking the general structure of Arithmetic Bounce:
+I wasn't feeling inspired by the idea of making a game about arithmetic, so I started thinking of themes that would still have those two qualities I wanted to explore (context-dependent value, and time pressure/chaos). What if instead of combining numbers into sums, you combined ingredients into recipes? This seemed solid, so I began coding. The first thing I did was make foods that traveled back and forth on conveyor belts, mimicking the general structure of Arithmetic Bounce:
 
 <figure>
   <video preload="auto" controls loop autoplay muted src="/assets/linecook/wip1.mp4"></video>
@@ -49,21 +49,25 @@ I also added in the double-grabbers, because I thought it would lead to some goo
 
 ### tangible code: game processes as physical interactions
 
-This idea is the main reason I decided to write up this blog post at all. When I was iterating on the game design, making decisions and changing the mechanics, the guiding principle I stuck to was the idea that **the game world is a tangible, physical place**, not just a bunch of lua variables getting set to different values. Every time I stopped and let this idea guide my decision-making, the game got better, basically instantly. (!!!)
+This idea of "tangible code" is the main reason I decided to write up this blog post at all. When I was iterating on the game design, making decisions and changing the mechanics, the guiding principle I stuck to was the idea that **the game world is a tangible, physical place**, not just a bunch of Lua variables getting set to different values. Every time I stopped and let this idea guide my decision-making, the game got better, basically instantly. (!!!)
 
-For example: I originally assumed that when an ingredient was grabbed, it would get added to some array of current recipe ingredients in the code, and then later when you pressed the "complete recipe" button on your controller, the recipe would check itself and give you score or something based on how well it matched the list of premade recipes. This would involve deleting the physical food object and moving it into some sort of HUD overlay, showing your currently-in-progress recipe. On a bit of a whim, I decided to instead just... leave the food object on the floor, where the claw dropped it. (you can see this in the above gif)
+For example: I originally assumed that when an ingredient was grabbed, it would get added to some array of current recipe ingredients in the code, and then later when you pressed the "complete recipe" button on your controller, the recipe would check itself and give you some sort of score based on how well it matched the list of acceptable recipes. This would involve deleting the physical food object after it was grabbed, and moving it into some sort of HUD overlay, showing your currently-in-progress recipe.
 
-_Immediately_ this led to cool surprises and interactions; in this case, this meant that once you grab a food from a column, that column is forever blocked by the food you grabbed. That smells like interesting gameplay to me! I kept noticing surprising interactions in-game every time I followed my nose in this sort of direction, which encouraged me to keep designing around this idea of "tangible code".
+On a bit of a whim, I decided to instead just... leave the food object on the floor, where the claw dropped it -- you can see this in the above gif. I think I just wanted a working prototype to show my partner, so I coded it in the simplest possible way: when grabbed, do nothing; I'll figure it out later.
 
-The seed idea for all of this came vaguely from an aspect of some roguelikes, where your actions as a player are "non-modal", i.e. available to be used at any point during the game. I really like how this works in Spelunky, for example, where you get powerups and upgrades that mostly all exist in-world, rather than being locked away inside menus. This leads to some amazing interactions, like the incredible [shopstorm](https://www.pentadact.com/2012-07-13-shopstorm-a-spelunky-story/).
+_Immediately_ this led to cool surprises and interactions: once you grab a food, that column is forever blocked by the food you grabbed. Huh. That smells like interesting gameplay to me! I kept noticing surprising interactions in-game every time I followed my nose in this sort of direction, which encouraged me to keep designing around this idea of "tangible code".
 
-In retrospect, the idea of deleting the food object and putting it in a HUD overlay while you finish compiling your recipe seems much more restrictive than the physically-based interactions I ended up making the game with. With the HUD, you can only play the game my way, and can only discover interactions that I specifically programmed. But, in this physical world/tangible code model, I repeatedly discovered new surprising and fun interactions _in my own game!_ This in itself isn't new for me, but it happened so _often_ while making linecook, and I attribute that to this "tangible code" idea that I stumbled upon.
+The seed idea for all of this came vaguely from an aspect of some roguelikes, where your actions as a player are "non-modal", i.e. available to be used at any point during the game. I really like how this works in Spelunky, for example, where you get powerups and upgrades that mostly all exist in-world, rather than being locked away inside menus. This leads to some amazing interactions, like the incredible [shopstorm](https://www.pentadact.com/2012-07-13-shopstorm-a-spelunky-story/):
+
+> [...] My internal simulation of Spelunky's interacting systems kicks in, and I see the next few seconds flash before my eyes with pure horror.
+
+In retrospect, my original idea of deleting the food object and putting it in a HUD overlay while you finish compiling your recipe seems much more prescriptive and confined than the physically-based interactions I ended up using in Linecook. With the HUD, **the player can only play the game my way**, and can only discover interactions that I specifically programmed. But, in this physical world/tangible code model, I repeatedly discovered new surprising and fun interactions _in my own game!_ This happens to me sometimes, but it happened so _often_ while making Linecook, and I attribute that to this "tangible code" idea that I stumbled upon.
 
 ### how to finish a recipe?
 
-Once I started thinking about trying to make the game in a physical space, I started to wonder: how should I complete a recipe? Maybe... every 4 ingredients auto-cook themselves into a recipe? I had an idea for a special "done" food (it was shown visually as the word "done", instead of looking like a stick of butter or whatever) which, when grabbed, would complete the recipe.
+Once I started thinking about trying to make the game in a physical space, I started to wonder: how should the player finish a recipe? Maybe... every 4 ingredients auto-cook themselves together? I had an idea for a special "done" food (it was shown visually as the word "done", instead of looking like a stick of butter or whatever) which, when grabbed, would complete the recipe.
 
-But... how would it complete the recipe? magically? all the ingredients on the ground at the proper y-position onscreen would get deleted, and then you'd be scored by how well those ingredients work together? That didn't seem right. For a bit I entertained the idea that the "done" icon would continue moving after the claw dropped it, pushing foods offscreen, where they would be scored:
+But... how would it complete the recipe? ...magically? all the ingredients on the ground at the proper y-position onscreen would get deleted, and then you'd be scored by how well those ingredients work together? That didn't seem right. For a bit I entertained the idea that the "done" icon would continue moving after the claw dropped it, pushing foods offscreen, where they would be scored:
 
 <figure>
   <video preload="auto" controls loop autoplay muted src="/assets/linecook/done1.mp4"></video>
@@ -79,33 +83,40 @@ Also, you can edit the recipe while it's moving offscreen -- maybe you grabbed t
   <figcaption>removing sprinkles from a sandwich</figcaption>
 </figure>
 
-There's a bug you can see in this gif: the foods that get grabbed to the bottom continue moving as if they're being pushed by the "done" icon up top -- this is an example of how things can get weird if they have code variables telling them what to do, rather than the physical world telling them what to do!
+There's a bug you can see in this gif: the foods that get grabbed to the bottom continue moving as if they're being pushed by the "done" icon up top -- this is an example of how things can get weird if they have code variables telling them what to do, rather than physical interactions telling them what to do!
 
 Another thing: I made extended claws block foods from moving, because they're physically solid. But this creates interesting gameplay, where you can use the claw as a wall to stop foods from moving, and grab more precisely with the other claw! Just be careful not to accidentally grab something you don't want while extending one claw to make a wall :)
 
 ### so uh, how does a "done" taste...?
 
-There were all of these cool ideas and interactions I noticed with the physical "done" icon/food, but it was just too _weird_; if I'm trying to make my game world a believable physical place... then what on earth is this "done" icon doing next to a strawberry and a slice of bread? It was pretty weird. This is when I realized that I could still do the "foods move to one side to get scored" idea, by reusing the conveyor belts I'd already programmed!
+I noticed all of these cool ideas and interactions with the physical "done" icon/food, and it was a much better idea than my first thought (pressing Z to complete a recipe), but it was just too _weird;_ if I'm trying to make my game world a believable physical place... then what on earth is this "done" icon doing next to a strawberry and a slice of bread? It was pretty weird. This is when I realized that I could still do the "foods move to one side to get scored" idea, by reusing the conveyor belts I'd already programmed!
 
-Following my nose toward tangible interactions also nicely fixed the bug in the above gif: I made foods move based on what sort of conveyor belt they were on, instead of based on internal `dx`/`dy` variables and, tada! the bug is gone.
+<figure>
+  <video preload="auto" controls loop autoplay muted src="/assets/linecook/conveyors.mp4"></video>
+  <figcaption>obvious in retrospect: more conveyors!</figcaption>
+</figure>
 
-This also made me realize that I could get rid of his HUD idea entirely and instead just curve the conveyor belts around on-screen so that the foods would be eaten/scored/etc still within the physical world, instead of being teleported offscreen into some sort of ethereal HUD-zone. This _again_ immediately made the game more fun, more chaotic, and more surprising -- you can steal foods from the other side of the screen, while they're being scored. This is funny when it happens on accident the first time, but it can be used as a strategy to remove bad foods that you accidentally grabbed! This was all present in the previous gif, but the long vertical section of the curved conveyor belts was new, and was the _perfect_ spot to try and rescue bad ingredients. But also, that straight section is right up against the edge of the world, making it a bit dangerous to try -- you might accidentally grab a new food that spawns!
+Following my nose toward tangible interactions also nicely fixed the bug in the previous gif: I made foods move based on what sort of conveyor belt they were on, instead of based on internal `dx`/`dy` variables and, tada! the bug is gone.
+
+This also made me realize that I could get rid of his HUD idea entirely and instead just curve the conveyor belts around on-screen so that the foods would be eaten/scored/etc still within the physical world, instead of being teleported offscreen into some sort of ethereal HUD-zone. This _again_ immediately made the game more fun, more chaotic, and more surprising -- you can steal foods from the other side of the screen, while they're being scored! This is funny when it happens on accident the first time, but it can be used as a strategy to remove bad foods that you accidentally grabbed.
 
 <figure>
   <video preload="auto" controls loop autoplay muted src="/assets/linecook/rescue.mp4"></video>
   <figcaption>no chocolate sauce on my nachos, please!</figcaption>
 </figure>
 
+This was all possible before, but the long vertical section of the curved conveyor belts was new, and was the _perfect_ spot to try and rescue bad ingredients. But also, that straight section was right up against the edge of the world, making it a bit dangerous to try -- you might accidentally grab a new food that appears in the middle!
+
 ### finishing the game
 
-There was a lot more work I put into tweaking the game from this point. The main point of this post is to talk about how making code tangible led to so many wins, but for completeness' sake, here's a summary of the major questions I had to settle to finish the game. I'm happy with the answers I came up with for the final game; here are some of the worse alternatives I considered at various points in development:
+After this point, I put in a lot more work tweaking and refining the game. The main point of this post is to talk about how following this "tangible code" principle shaped Linecook, by solving bugs and design problems that cropped up in elegant ways, and by causing gameplay to organically appear as if by spontaneous generation. But for completeness' sake, I'll summarize the major questions I had to settle before the game was done. I'm happy with the answers I came up with for the final version; here are some of the alternative answers I considered at various points in development:
 
 #### Q: When/why are recipes completed?
 
 * Press Z to finish both recipes at anytime
 * Some sort of "done" icon (described above)
 * Every 4 ingredients forms a recipe
-* Each ingredient contribute a score towards the target recipe, and once the score is above some threshhold the recipe is done? (sounds hard to communicate to the player...)
+* Each ingredient contribute a score towards the target recipe, and once the score is above some threshold the recipe is done? (sounds hard to communicate to the player...)
 
 These ideas eventually morphed into the bird emotions that you can see in the final game, although it took a lot of refining to get to the final version -- the birds' emotions used to be a lot more complicated and inscrutable.
 
@@ -113,23 +124,37 @@ These ideas eventually morphed into the bird emotions that you can see in the fi
 
 * Some sort of time limit?
 * The game continues forever, with infinite customers. You quit when you decide you're bored, I guess.
-* At one point I had a version where there were only 8 customers, but they looped back to the end of the line after eating, and you had to feed them until all of their happiness levels were above a certain threshhold. (This was entirely non-obvious to my playtesters, and also pretty annoying if you only had one bird left to satisfy!)
+* At one point I had a version where there were only 8 customers, but they looped back to the end of the line after eating, and you had to feed them until all of their happiness levels were above a certain threshold. This was entirely non-obvious to my playtesters, and also pretty annoying if you only had one bird left to satisfy!
 
 #### Q: How does changing the difficulty setting change the game?
 
-(Lots of bad ideas here that finally became good when the I changed the game to it's current run-based structure.)
+* How many happiness points each good/bad ingredient is worth
+* How happy a bird needed to be to be satisfied
+* How leniently the game scored you on the game over screen
 
-I considered removing difficulty altogether; I'd love it if I could somehow design the difficulty to be chooseable in-game rather than in-menu, like how in Spelunky you can choose to do the harder route in-game. In the end I like how it turned out, and I think I got the balance right -- I personally wasn't able to get anywhere near a perfect score on hard mode on release day, and although I've gotten much closer since then, my best is still 7-1-0. There are some strats that make the game easier, but they're not foolproof. And they're fun to figure out, as a player!
+Basically, lots of awkward ideas here that finally became good after I changed the game to it's current run-based structure and implemented the strike system and scoring system.
+
+I considered removing difficulty altogether; I'd love it if I could somehow design the difficulty to be chooseable in-game rather than in-menu, like how in Spelunky you can choose to do the harder route in-game. I eventually left it in; easy mode is still overwhelming to first-time players, but as you get better at the game the 5 strikes will feel way too lenient.
+
+I balanced the game in such a way so that I wasn't able to get anywhere near a perfect score on hard mode on release day, and I think I got the balance right. It seems very possible for dedicated players to get a perfect score on hard mode, and hey there's also a speedrun timer if getting a perfect score somehow becomes too easy with practice.
+
+In the end I like how it turned out, and I've actually gotten much closer to a perfect score myself since the release -- my PB on hard mode is 7-1-0 (7 happy, 1 unimpressed, 0 angry). There are some strats that make the game easier, but they're not foolproof. And they're fun to figure out, as a player!
 
 ### A note on playtesting
 
-Playtesting is really really good! I knew that in my head but apparently not my gut; I was surprised at how incredibly useful it was to watch someone play for literally just the first 30 seconds. They went into the help menu, wondered out loud how recipes would work, and I realized that their imagined gameplay was both way better than the real gameplay, and also it was what I had originally intended! I had just lost sight of the idea at some point.
+Playtesting is really really good! I knew that in my head but apparently not in my gut; I was surprised at how incredibly useful it was to watch someone play for literally just the first 30 seconds. They immediately went into the cookbook help menu and wondered out loud how recipes would work. I realized that their imagined gameplay was both way better than the real gameplay, and also... it was what I had originally intended! I had just lost sight of the idea at some point.
 
-It felt similar to how you suddenly realize how messy your house is when you know someone is coming over to visit -- suddenly so many basic problems with the game were obvious, even before my playtesters ran into the issues themselves.
+You know when someone is coming over to visit, you suddenly realize how messy your house is? This is how playtesting felt -- suddenly, so many basic problems with the game were obvious, even before my testers ran into the issues themselves.
+
+### wrapping up: adjacent reading
+
+While writing this, I came across [this excellent excellent article](http://blog.runevision.com/2021/02/designing-for-sense-of-mystery-and.html) about designing around a sense of mystery and wonder. The author so clearly pinpoints multiple vague dissatisfactions I'd had towards the design of Breath of the Wild -- I'm a little blown away by how well they were able to articulate it! Their article feels related to mine in a way that's hard for me to verbalize, but here's my best attempt:
+
+I think the core idea that resonated with me is the explanations of how the shrines in BoTW are separate, predictable, self-contained worlds. This feels a lot like my original recipe HUD idea, where you can only experience the things that I've explicitly designed. But following the author's suggestions might lead to a more organic-feeling world where many parts can influence other parts in surprising ways.
 
 ### the end
 
-Linecook is my favorite little game that I've made in a long while. I think a lot of that was due to me trying to make the code tangible. So many things just clicked and instantly turned into much better versions of themselves when I considered how they would interact if the game world was a real, physical place. Three cheers for tangible code!
+Linecook is my favorite little game that I've made in a long while. I think a lot of that was due to me trying to make the code tangible. So many things just clicked and instantly turned into much better versions of themselves when I considered how they would interact if the game world was a real, physical place. I'm a programmer at heart: I think of game mechanics from a code perspective by default, so having this alternate paradigm was a very useful perspective shift that led me to make different and better decisions. (This is maybe how the BoTW article ties into mine: the isolated shrines feel like they were designed code-first, rather than being designed around a tangible world, and it feels like they're missing something as a result)
 
 Okay, that's it. Thanks for reading! Go play [linecook](https://pancelor.itch.io/linecook), and let me know if you manage to beat my high score :)
 
@@ -140,7 +165,7 @@ Okay, that's it. Thanks for reading! Go play [linecook](https://pancelor.itch.io
 
 And hey, if you've read all the way this far, you might enjoy being on my [mailing list](/contact); signing up there is probably the best way to be notified when I write more posts like this.
 
-If you want to leave me a comment, drop it in [this dedicated twitter thread](https://twitter.com/pancelor) I guess? You could also [email me](hello@pancelor.com) if you like. (Sorry, I haven't figured out a good comments system for my site yet)
+If you want to leave me a comment, drop it in [this dedicated twitter thread](https://twitter.com/pancelor) I guess? You could also [email me](mailto:hello@pancelor.com) if you like. (Sorry, I haven't figured out a good comments system for my site yet)
 
 _secret note: there is no twitter thread yet; come back tomorrow after I tweet this out ;)_
 
