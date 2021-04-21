@@ -126,7 +126,7 @@ It felt similar to how you suddenly realize how messy your house is when you kno
 
 Linecook is my favorite little game that I've made in a long while. I think a lot of that was due to me trying to make the code tangible. So many things just clicked and instantly turned into much better versions of themselves when I considered how they would interact if the game world was a real, physical place. Three cheers for tangible code!
 
-Okay, that's it. Thanks for reading! Go play linecook! Let me know if you can beat my high score :)
+Okay, that's it. Thanks for reading! Go play [linecook](https://pancelor.itch.io/linecook)! Let me know if you can beat my high score :)
 
 <figure>
   <img src="/assets/linecook/pb.png"/>
@@ -136,73 +136,6 @@ Okay, that's it. Thanks for reading! Go play linecook! Let me know if you can be
 And hey, if you've read all the way this far, you might enjoy being on my [mailing list](/contact); signing up there is probably the best way to be notified when I write more posts like this!
 
 If you want to leave me a comment, drop it in [this dedicated twitter thread](https://twitter.com/pancelor) I guess? You could also [email me](hello@pancelor.com) if you like. (Sorry, I haven't figured out a good comments system for my site yet!)
-
-<!-- ### other ideas that didn't quite fit into this article but hey I'm mashing them in here at the end anyway -->
-
-<!-- I came across [this excellent excellent article](http://blog.runevision.com/2021/02/designing-for-sense-of-mystery-and.html) while writing this post. The author so clearly pinpoints multiple different vague feelings I'd had about Breath of the Wild's design, and articulates it so well! I'm kinda blown away reading it all precisely identified like this. -->
-
-<!-- It's hard to verbalize how this fits in to what I'm saying about keeping the game in a consistent physical space... the world geometry / multiple entrances to shrine stuff seems clearly related, but that's not the part that rang most true for me... I think the core thing that resonated with me is how the shrines are their own separate, predictable, self-contained worlds. This feels a lot like my original recipe HUD idea, where you can only experience the things that I've explicitly designed. But following the author's suggestions from that article might lead to a more organic, surprising world where many parts can influence other parts in surprising ways. -->
-
-<!-- Or maybe: I'm a programmer at heart and default to making programmer-y decisions, which lead to the sort of issues described in that article. But now I have an alternative approach to concretely think about: how would I make the world a physical place? and that will lead to better results -->
-
-<!-- tangible games -->
-<!-- embodied games -->
-<!-- incarnate games -->
-<!-- manifested games -->
-<!-- substance games -->
-<!-- physical games -->
-<!-- not-apparition data -->
-<!-- not-illusory data -->
-<!-- formless data -->
-<!-- data delusions -->
-<!-- smoke and mirrors -->
-<!-- data with presence -->
-<!-- realized data -->
-<!-- eschew illusory variables, prefer realized data -->
-
-<!-- no syntax errors!!! / playground -->
-<!-- minecraft redstone -->
-<!-- loom zachtronics game -->
-<!-- music synth community -->
-<!-- nikoli online solvers (puzz.link), vs tametsi drawing tools -->
-<!-- factorio -->
-
-
-
-<!-- TODO updated video with tweening? -->
-<!-- ffmpeg.exe -i linecook_2.gif -t 00:06 -crf 28 -an out.mp4 -->
-
-
-
-<!-- OUTLINE -->
-<!-- didnt know what to do with grabbed food -->
-<!-- big win to keep it in world- can be regrabbed, can block grabber -->
-<!-- done icon instead of a done button -->
-<!-- done icon pushes stuff offscreen, keeping things in world? nice, but a bit awkward -->
-  <!-- pusher could only push some items! cool! lets you decide where to snag it -->
-<!-- items are dropped on a new conveyor when grabbed!! in world still (but items tp out when they leave screen) -->
-<!-- okay store items onscreen and still reachable even -->
-<!-- why tp food offscreen? curved conveyor instead -->
-<!-- dont store food with a set dx; dont store recipe food in a recipe list. things are just stored in world, and move according to mget. and are scored according to...? -->
-<!-- SO MANY rougelike-like surprises happening by following this principle^ -->
-
-<!-- communicating ingredient value x/check (remove, use bird emotions?) -->
-<!-- how to finish a recipe? done icon? score threshhold? fixed number of items? -->
-<!-- how to finish a game? score threshhold? time limit? bird limit? need to satisfy all birds -->
-<!-- adding difficulty -->
-<!-- x balancing (difficulty affects mood threshholds / start _score?) -->
-<!-- * remove difficulty? use score instead (num happy birds) -->
-
-<!-- playtesting holy cow so helpful -->
-  <!-- wtf is the number per recipe idea?? so strange -->
-  <!-- hard to notice feedback, even the checks/x b/c too much is going on -->
-  <!-- won easily!? and did well on hard too!?!! -->
-<!-- birds dont get a random recipe; shuffle the recipes too and pair up -->
-<!-- can i remove difficulty? -->
-
-<!-- wanted to make it easier to accidentally shoot for long ramp; gave up -->
-<!-- the clear one side strat causes ISSUES b/c the other claw can pick up your garbage!! so good -->
-<!-- bread icon :) -->
 
 </section>
 <%- include ("/_footer.ejs") %>
