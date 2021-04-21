@@ -142,6 +142,8 @@ And hey, if you've read all the way this far, you might enjoy being on my [maili
 
 If you want to leave me a comment, drop it in [this dedicated twitter thread](https://twitter.com/pancelor) I guess? You could also [email me](hello@pancelor.com) if you like. (Sorry, I haven't figured out a good comments system for my site yet)
 
+_secret note: there is no twitter thread yet; come back tomorrow after I tweet this out ;)_
+
 </section>
 <%- include ("/_footer.ejs") %>
 </body>
