@@ -148,13 +148,18 @@ You know when someone is coming over to visit, you suddenly realize how messy yo
 
 ### wrapping up: adjacent reading
 
+<figure>
+  <img src="/assets/linecook/botw-shrine.jpg"/>
+  <figcaption>a shrine from Breath of the Wild</figcaption>
+</figure>
+
 While writing this, I came across [this excellent excellent article](http://blog.runevision.com/2021/02/designing-for-sense-of-mystery-and.html) about designing around a sense of mystery and wonder. The author so clearly pinpoints multiple vague dissatisfactions I'd had towards the design of Breath of the Wild -- I'm a little blown away by how well they were able to articulate it! Their article feels related to mine in a way that's hard for me to verbalize, but here's my best attempt:
 
-I think the core idea that resonated with me is the explanations of how the shrines in BoTW are separate, predictable, self-contained worlds. This feels a lot like my original recipe HUD idea, where you can only experience the things that I've explicitly designed. But following the author's suggestions might lead to a more organic-feeling world where many parts can influence other parts in surprising ways.
+I think the core idea that resonated with me is the explanations of how the shrines in BotW are separate, predictable, self-contained worlds. This feels a lot like my original recipe HUD idea, where you can only experience the things that I've explicitly designed. But following the author's suggestions might lead to a more organic-feeling world where many parts can influence other parts in surprising ways.
 
 ### the end
 
-Linecook is my favorite little game that I've made in a long while. I think a lot of that was due to me trying to make the code tangible. So many things just clicked and instantly turned into much better versions of themselves when I considered how they would interact if the game world was a real, physical place. I'm a programmer at heart: I think of game mechanics from a code perspective by default, so having this alternate paradigm was a very useful perspective shift that led me to make different and better decisions. (This is maybe how the BoTW article ties into mine: the isolated shrines feel like they were designed code-first, rather than being designed around a tangible world, and it feels like they're missing something as a result)
+Linecook is my favorite little game that I've made in a long while. I think a lot of that was due to me trying to make the code tangible. So many things just clicked and instantly turned into much better versions of themselves when I considered how they would interact if the game world was a real, physical place. I'm a programmer at heart: I think of game mechanics from a code perspective by default, so having this alternate paradigm was a very useful perspective shift that led me to make different and better decisions. (This is maybe how the BotW article ties into mine: the isolated shrines feel like they were designed code-first, rather than being designed around a tangible world, and it feels like they're missing something as a result)
 
 Okay, that's it. Thanks for reading! Go play [linecook](https://pancelor.itch.io/linecook), and let me know if you manage to beat my high score :)
 
