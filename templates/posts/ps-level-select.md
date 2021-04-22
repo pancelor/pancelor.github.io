@@ -6,7 +6,7 @@
 <body>
 <div class="wrapper">
 <div class="header">
-  <a href="/index#ps-level-select"><img class="header-banner" src="/assets/banner.png"></a>
+  <a href="/index#ps-level-select"><div class="header-banner"></div></a>
 </div>
 <section class="main-content">
 <h1 class="post-title">PuzzleScript Level Select</h1>

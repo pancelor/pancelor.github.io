@@ -48,15 +48,29 @@ body::-webkit-scrollbar-thumb:hover { border-right: 8px solid #FFA300; }
   /*grid-template-columns: 400px min-content;*/
 }
 .header-banner {
+  background-image: url(/assets/banner.png);
+  background-repeat: no-repeat;
+  background-position: left top;
+  transition: background-image 0.5s ease-in-out 0s;
+
   margin:auto;
   width: 800px;
   height: 128px;
   max-width: none;
   max-height: none;
 }
+.header-banner:hover {
+  background-image: url(/assets/banner-hover.png);
+}
 .header a {
   text-decoration: none;
 }
+
+body::after{
+  position:absolute; width:0; height:0; overflow:hidden; z-index:-1; // hide images
+  content: url(/assets/banner.png) url(/assets/banner-hover.png); // load images
+}
+
 
 .header-list {
   display: grid;

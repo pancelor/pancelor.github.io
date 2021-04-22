@@ -6,7 +6,7 @@
 <body>
 <div class="wrapper">
 <div class="header">
-  <a href="/index#guided-sock-meditation"><img class="header-banner" src="/assets/banner.png"></a>
+  <a href="/index#guided-sock-meditation"><div class="header-banner"></div></a>
 </div>
 <section class="main-content">
 <h1 class="post-title">Guided Sock Meditation</h1>

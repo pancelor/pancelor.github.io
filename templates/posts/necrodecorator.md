@@ -6,7 +6,7 @@
 <body>
 <div class="wrapper">
 <div class="header">
-  <a href="/index#necrodecorator"><img class="header-banner" src="/assets/banner.png"></a>
+  <a href="/index#necrodecorator"><div class="header-banner"></div></a>
 </div>
 <section class="main-content">
 <h1 class="post-title">Crypt of the NecroDecorator</h1>

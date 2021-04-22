@@ -7,7 +7,7 @@
 <body>
 <div class="wrapper">
 <div class="header">
-  <a href="/index"><img class="header-banner" src="/assets/banner.png"></a>
+  <a href="/index"><div class="header-banner"></div></a>
 </div>
 <section class="main-content">
 

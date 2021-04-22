@@ -6,7 +6,7 @@
 <body>
 <div class="wrapper">
 <div class="header">
-  <a href="/index#software-renderer"><img class="header-banner" src="/assets/banner.png"></a>
+  <a href="/index#software-renderer"><div class="header-banner"></div></a>
 </div>
 <section class="main-content">
 <h1 class="post-title">Software Renderer</h1>

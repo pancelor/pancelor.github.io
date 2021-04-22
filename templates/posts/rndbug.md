@@ -6,7 +6,7 @@
 <body>
 <div class="wrapper">
 <div class="header">
-  <a href="/index#rndbug"><img class="header-banner" src="/assets/banner.png"></a>
+  <a href="/index#rndbug"><div class="header-banner"></div></a>
 </div>
 <section class="main-content">
 <h1 class="post-title">PICO-8 rnd() Bug</h1>

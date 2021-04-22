@@ -6,7 +6,7 @@
 <body>
 <div class="wrapper">
 <div class="header">
-  <a href="/index#fishy"><img class="header-banner" src="/assets/banner.png"></a>
+  <a href="/index#fishy"><div class="header-banner"></div></a>
 </div>
 <section class="main-content">
 <h1 class="post-title">Fishy</h1>

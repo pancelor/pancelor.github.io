@@ -6,7 +6,7 @@
 <body>
 <div class="wrapper">
 <div class="header">
-  <a href="/index#linecook"><img class="header-banner" src="/assets/banner.png"></a>
+  <a href="/index#linecook"><div class="header-banner"></div></a>
 </div>
 <section class="main-content">
 <h1 class="post-title">linecook / tangible code</h1>

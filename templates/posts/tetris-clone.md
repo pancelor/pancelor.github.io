@@ -6,7 +6,7 @@
 <body>
 <div class="wrapper">
 <div class="header">
-  <a href="/index#tetris-clone"><img class="header-banner" src="/assets/banner.png"></a>
+  <a href="/index#tetris-clone"><div class="header-banner"></div></a>
 </div>
 <section class="main-content">
 <h1 class="post-title">Tetris Clone</h1>

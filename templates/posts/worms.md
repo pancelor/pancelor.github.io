@@ -6,7 +6,7 @@
 <body>
 <div class="wrapper">
 <div class="header">
-  <a href="/index#worms"><img class="header-banner" src="/assets/banner.png"></a>
+  <a href="/index#worms"><div class="header-banner"></div></a>
 </div>
 <section class="main-content">
 <h1 class="post-title">Worms Tweetcart</h1>

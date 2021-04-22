@@ -8,7 +8,7 @@
 <body>
 <div class="wrapper">
 <div class="header">
-  <a href="/index#inbox-unbox"><img class="header-banner" src="/assets/banner.png"></a>
+  <a href="/index#inbox-unbox"><div class="header-banner"></div></a>
 </div>
 <section class="main-content">
 <h1 class="post-title">Inbox Unbox</h1>
