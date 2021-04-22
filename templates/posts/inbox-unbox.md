@@ -12,7 +12,7 @@
 </div>
 <section class="main-content">
 <h1 class="post-title">Inbox Unbox</h1>
-<h4 class="post-meta">2019-03 - 2021?</h4>
+<h4 class="post-meta">2019-03 - 2021</h4>
 
 This is my upcoming puzzle game about pushing boxes into other boxes. It's 10\~30 hours long? (It's hard to estimate puzzle game times...)
 
@@ -26,7 +26,7 @@ Wishlist it on [Steam!](https://store.steampowered.com/app/1552300/Inbox_Unbox/)
 
 <div class="mailing-list-card">
 
-Inbox Unbox isn't publically playable yet, but if you want to follow along with development, you can [follow me on twitter](https://www.twitter.com/pancelor) or join my [mailing list](/contact):
+Inbox Unbox is releasing in 2021! For updates, [follow me on twitter](https://www.twitter.com/pancelor) or join my [mailing list](/contact) -- I'll send out the call for playtesters to my mailing list first!
 
 <div><%- md("/_mail.ejs") %></div>
 </div>
@@ -41,10 +41,6 @@ Here's a slower-paced video, showing off a single puzzle. Can you solve it just 
   </video>
   <figcaption>an early level</figcaption>
 </figure>
-
-### engine
-
-For this game, I wrote a custom javascript engine. It runs in the browser, using the html `<canvas>` tag to display the game. I've learned a whole lot about game-making since starting this project, and I often get the urge to completely rewrite this in, say, C... but for now it's written in javascript :)
 
 </section>
 <%- include ("/_footer.ejs") %>

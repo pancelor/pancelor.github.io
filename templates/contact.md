@@ -28,8 +28,7 @@
 
 If you like my projects, join my mailing list! I'll email you about the cool stuff I'm making, you'll be the first place I turn to when looking for playtesters for [Inbox Unbox](/posts/inbox-unbox). If you're interested, enter your email here:
 
-<div></div>
-<%- include ("/_mail.ejs") %>
+<div><%- md("/_mail.ejs") %></div>
 </div>
 
 </section>
