@@ -140,12 +140,14 @@ body::-webkit-scrollbar-thumb:hover { border-right: 8px solid #FFA300; }
 }
 .project-card-preview > img {
   margin:auto;
+  border-radius: 8px;
   // max-height: 100%;
   // max-width: 100%;
 }
 .project-card-preview > video {
   display:none;
   margin:auto;
+  border-radius: 8px;
   // max-height: 100%;
   // max-width: 100%;
 }
@@ -212,9 +214,11 @@ pre code {
 
 figure img {
   margin: auto;
+  border-radius: 8px;
 }
 figure video {
   margin: auto;
+  border-radius: 8px;
 }
 figure {
   display: grid;
