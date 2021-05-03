@@ -22,6 +22,10 @@
 * **twitch**: [pancelor](https://twitch.com/pancelor) for game dev streams and indie variety streams
 * **itch**: [pancelor](https://pancelor.itch.io) for published games
 
+### patreon
+
+* If you want to help me keep making small free games, you can send me a couple of bucks on [patreon](https://pancelor.com/patreon)!
+
 <div class="mailing-list-card">
 
 ### join my mailing list!
