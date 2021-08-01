@@ -51,7 +51,7 @@ body::-webkit-scrollbar-thumb:hover { border-right: 8px solid #FFA300; }
   background-image: url(/assets/banner.png);
   background-repeat: no-repeat;
   background-position: left top;
-  transition: background-image 0.5s ease-in-out 0s;
+  transition: background-image 0.1s ease-in-out 0s;
 
   margin:auto;
   width: 800px;
@@ -66,9 +66,69 @@ body::-webkit-scrollbar-thumb:hover { border-right: 8px solid #FFA300; }
   text-decoration: none;
 }
 
+.nav-portfolio {
+  background-image: url(/assets/nav-portfolio.png);
+  background-repeat: no-repeat;
+  background-position: left top;
+  transition: background-image 0.1s ease-in-out 0s;
+
+  margin:auto;
+  width: 156px;
+  height: 28px;
+  max-width: none;
+  max-height: none;
+}
+.nav-portfolio:hover {
+  background-image: url(/assets/nav-portfolio-hover.png);
+}
+
+.nav-blog {
+  background-image: url(/assets/nav-blog.png);
+  background-repeat: no-repeat;
+  background-position: left top;
+  transition: background-image 0.1s ease-in-out 0s;
+
+  margin:auto;
+  width: 76px;
+  height: 28px;
+  max-width: none;
+  max-height: none;
+}
+.nav-blog:hover {
+  background-image: url(/assets/nav-blog-hover.png);
+}
+
+.nav-contact {
+  background-image: url(/assets/nav-contact.png);
+  background-repeat: no-repeat;
+  background-position: left top;
+  transition: background-image 0.1s ease-in-out 0s;
+
+  margin:auto;
+  width: 124px;
+  height: 28px;
+  max-width: none;
+  max-height: none;
+}
+.nav-contact:hover {
+  background-image: url(/assets/nav-contact-hover.png);
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+}
+nav div {
+  display: flex;
+}
+nav div a {
+  padding: 0px 4px;
+}
+
+// preload images
 body::after{
   position:absolute; width:0; height:0; overflow:hidden; z-index:-1; // hide images
-  content: url(/assets/banner.png) url(/assets/banner-hover.png); // load images
+  content: url(/assets/banner-hover.png) url(/assets/nav-blog-hover.png) url(/assets/nav-portfolio-hover.png) url(/assets/nav-contact-hover.png);
 }
 
 
@@ -97,7 +157,7 @@ body::after{
   /*display: block;*/
   margin: auto;
   max-width: 90%;
-  top: 128px;
+  top: 156px;
   position: relative;
 }
 /* TODO this shouldn't need to exist, but it offsets main-content's position */

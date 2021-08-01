@@ -19,8 +19,8 @@
 ### follow me:
 
 * **twitter**: [@pancelor](https://twitter.com/pancelor) (warning: weird)
-* **twitch**: [pancelor](https://twitch.com/pancelor) for game dev streams and indie variety streams
 * **itch**: [pancelor](https://pancelor.itch.io) for published games
+* **twitch**: [pancelor](https://twitch.com/pancelor) for game dev streams and indie variety streams
 
 ### patreon
 
