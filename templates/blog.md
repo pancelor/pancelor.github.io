@@ -17,6 +17,8 @@ This site is a perpetual work-in-progress, and I haven't made a dedicated blog s
 <ul>
   <li><a href="/posts/linecook">linecook / tangible code</a></li>
   <li><a href="/posts/tetris-clone">tetris clone</a></li>
+  <li><a href="/posts/purple-gun-game">purple gun game</a></li>
+  <li><a href="/posts/vmj2020">variety mega jam</a></li>
 </ul>
 
 </section>

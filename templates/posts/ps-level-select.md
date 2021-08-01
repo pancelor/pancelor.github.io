@@ -5,9 +5,7 @@
 </head>
 <body>
 <div class="wrapper">
-<div class="header">
-  <a href="/index#ps-level-select"><div class="header-banner"></div></a>
-</div>
+<%- include ("/_nav.ejs") %>
 <section class="main-content">
 <h1 class="post-title">PuzzleScript Level Select</h1>
 <h4 class="post-meta">2020-07</h4>

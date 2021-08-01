@@ -5,9 +5,7 @@
 </head>
 <body>
 <div class="wrapper">
-<div class="header">
-  <a href="/index#software-renderer"><div class="header-banner"></div></a>
-</div>
+<%- include ("/_nav.ejs") %>
 <section class="main-content">
 <h1 class="post-title">Software Renderer</h1>
 <h4 class="post-meta">2020-09</h4>

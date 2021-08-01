@@ -5,9 +5,7 @@
 </head>
 <body>
 <div class="wrapper">
-<div class="header">
-  <a href="/index#skewdence"><div class="header-banner"></div></a>
-</div>
+<%- include ("/_nav.ejs") %>
 <section class="main-content">
 <h1 class="post-title">Skewdence mod (for Crypt of the NecroDancer)</h1>
 <h4 class="post-meta">2017-04</h4>

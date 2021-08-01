@@ -125,11 +125,6 @@ nav div a {
   padding: 0px 4px;
 }
 
-// preload images
-body::after{
-  position:absolute; width:0; height:0; overflow:hidden; z-index:-1; // hide images
-  content: url(/assets/banner-hover.png) url(/assets/nav-blog-hover.png) url(/assets/nav-portfolio-hover.png) url(/assets/nav-contact-hover.png);
-}
 
 
 .header-list {
