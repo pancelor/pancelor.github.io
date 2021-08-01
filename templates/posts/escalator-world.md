@@ -10,7 +10,7 @@
 <h1 class="post-title">Escalator World</h1>
 <h4 class="post-meta">2020-08</h4>
 
-<iframe frameborder="0" src="https://itch.io/embed/742744?bg_color=88c3e5&amp;fg_color=291814&amp;link_color=e0964c&amp;border_color=f2cfb8" width="552" height="167"><a href="https://pancelor.itch.io/escalator-world">Escalator World by pancelor</a></iframe>
+<iframe frameborder="0" src="https://itch.io/embed/742744?bg_color=8ecc74&amp;fg_color=291814&amp;link_color=e0964c&amp;border_color=f2cfb8" width="552" height="167"><a href="https://pancelor.itch.io/escalator-world">Escalator World by pancelor</a></iframe>
 
 This was an exercise in really really polishing up all of the non-gameplay parts of a game. I think of it as the [coinstar monologue](https://youtu.be/w20iz92QUco), but for videogames :)
 

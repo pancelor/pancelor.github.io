@@ -10,7 +10,7 @@
 <h1 class="post-title">Paint Everything Everywhere!</h1>
 <h4 class="post-meta">2021-07</h4>
 
-<iframe frameborder="0" src="https://itch.io/embed/1114774?bg_color=88c3e5&amp;fg_color=291814&amp;link_color=e0964c&amp;border_color=f2cfb8" width="552" height="167"><a href="https://pancelor.itch.io/paint-everything-everywhere">paint everything everywhere! by pancelor, increpare</a></iframe>
+<iframe frameborder="0" src="https://itch.io/embed/1114774?bg_color=8ecc74&amp;fg_color=291814&amp;link_color=e0964c&amp;border_color=f2cfb8" width="552" height="167"><a href="https://pancelor.itch.io/paint-everything-everywhere">paint everything everywhere! by pancelor, increpare</a></iframe>
 
 welcome to Paint Everything Everywhere!, the satisfying puzzle game about painting a large number of things in a large number of places.
 

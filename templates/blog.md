@@ -19,6 +19,9 @@ This site is a perpetual work-in-progress, and I haven't made a dedicated blog s
   <li><a href="/posts/tetris-clone">tetris clone</a></li>
   <li><a href="/posts/purple-gun-game">purple gun game</a></li>
   <li><a href="/posts/vmj2020">variety mega jam</a></li>
+  <li><a href="/posts/monster-mash">monster mash</a></li>
+  <li><a href="/posts/software-renderer">software renderer</a></li>
+  <li><a href="/posts/fishy">fishy</a></li>
 </ul>
 
 </section>

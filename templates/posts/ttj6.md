@@ -10,16 +10,16 @@
 <h1 class="post-title">TweetTweetJam 6</h1>
 <h4 class="post-meta">2021-07</h4>
 
-<iframe frameborder="0" src="https://itch.io/embed/1111377?bg_color=88c3e5&amp;fg_color=291814&amp;link_color=e0964c&amp;border_color=f2cfb8" width="552" height="167"><a href="https://pancelor.itch.io/splatweet">splatweet by pancelor</a></iframe>
-<iframe frameborder="0" src="https://itch.io/embed/1101603?bg_color=88c3e5&amp;fg_color=291814&amp;link_color=e0964c&amp;border_color=f2cfb8" width="552" height="167"><a href="https://pancelor.itch.io/drop-ttj6">drop by pancelor</a></iframe>
-<iframe frameborder="0" src="https://itch.io/embed/1111390?bg_color=88c3e5&amp;fg_color=291814&amp;link_color=e0964c&amp;border_color=f2cfb8" width="552" height="167"><a href="https://pancelor.itch.io/hearts-ttj6">hearts by pancelor</a></iframe>
-<iframe frameborder="0" src="https://itch.io/embed/1101589?bg_color=88c3e5&amp;fg_color=291814&amp;link_color=e0964c&amp;border_color=f2cfb8" width="552" height="167"><a href="https://pancelor.itch.io/frog-ttj6">frog by pancelor</a></iframe>
+<iframe frameborder="0" src="https://itch.io/embed/1111377?bg_color=8ecc74&amp;fg_color=291814&amp;link_color=e0964c&amp;border_color=f2cfb8" width="552" height="167"><a href="https://pancelor.itch.io/splatweet">splatweet by pancelor</a></iframe>
+<iframe frameborder="0" src="https://itch.io/embed/1101603?bg_color=8ecc74&amp;fg_color=291814&amp;link_color=e0964c&amp;border_color=f2cfb8" width="552" height="167"><a href="https://pancelor.itch.io/drop-ttj6">drop by pancelor</a></iframe>
+<iframe frameborder="0" src="https://itch.io/embed/1111390?bg_color=8ecc74&amp;fg_color=291814&amp;link_color=e0964c&amp;border_color=f2cfb8" width="552" height="167"><a href="https://pancelor.itch.io/hearts-ttj6">hearts by pancelor</a></iframe>
+<iframe frameborder="0" src="https://itch.io/embed/1101589?bg_color=8ecc74&amp;fg_color=291814&amp;link_color=e0964c&amp;border_color=f2cfb8" width="552" height="167"><a href="https://pancelor.itch.io/frog-ttj6">frog by pancelor</a></iframe>
 
 4 games that fit within the character limit for just two tweets! aka games in 560 bytes of code. A very fun jam. I think Splatweet and Drop are quite fun.
 
 Also, I helped ThatTomHall golf his entry from \~1100 characters down to just 515!
 
-<iframe src="https://itch.io/embed/1111209?bg_color=88c3e5&amp;fg_color=291814&amp;link_color=e0964c&amp;border_color=f2cfb8" height="167" width="552" frameborder="0"><a href="https://thattomhall.itch.io/wac-man-ate-too-much">Wac-Man Ate Too Much! by ThatTomHall</a></iframe>
+<iframe src="https://itch.io/embed/1111209?bg_color=8ecc74&amp;fg_color=291814&amp;link_color=e0964c&amp;border_color=f2cfb8" height="167" width="552" frameborder="0"><a href="https://thattomhall.itch.io/wac-man-ate-too-much">Wac-Man Ate Too Much! by ThatTomHall</a></iframe>
 
 ### voodoo
 

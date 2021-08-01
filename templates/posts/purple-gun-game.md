@@ -234,6 +234,8 @@ Yeah, but the game itself isn't particularily interesting, especially when compa
 
 Also, purple gun game is released and publically available -- If you want to check it out (windows-only), download it [here](https://pancelor.itch.io/purple-gun-game)! The goal of this project wasn't to make a fun game, it was to try out making a prototype in this cool architecture, so keep that in mind when playing.
 
+<iframe frameborder="0" src="https://itch.io/embed/702486?bg_color=8ecc74&amp;fg_color=291814&amp;link_color=e0964c&amp;border_color=f2cfb8" width="552" height="167"><a href="https://pancelor.itch.io/purple-gun-game">Purple Gun Game by pancelor</a></iframe>
+
 </section>
 <%- include ("/_footer.ejs") %>
 </body>

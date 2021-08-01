@@ -13,7 +13,7 @@
 
 ### linecook
 
-<iframe src="https://itch.io/embed/971967?bg_color=88c3e5&amp;fg_color=291814&amp;link_color=e0964c&amp;border_color=f2cfb8" height="167" width="552" frameborder="0"><a href="https://pancelor.itch.io/linecook">linecook by pancelor</a></iframe>
+<iframe src="https://itch.io/embed/971967?bg_color=8ecc74&amp;fg_color=291814&amp;link_color=e0964c&amp;border_color=f2cfb8" height="167" width="552" frameborder="0"><a href="https://pancelor.itch.io/linecook">linecook by pancelor</a></iframe>
 
 Linecook is a frantic arcade game about feeding birds from conveyor belts (very normal), made in about a week for [#ChainLetterJam](https://twitter.com/search?q=%23chainletterjam). Play it online [here](https://pancelor.itch.io/linecook)!
 

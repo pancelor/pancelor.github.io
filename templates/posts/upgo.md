@@ -10,7 +10,9 @@
 <h1 class="post-title">Upgo</h1>
 <h4 class="post-meta">2020-08</h4>
 
-Made over 2 weeks for [lowrezjam 2020](https://itch.io/jam/lowrezjam-2020). An exercise in making a platformer with "good game feel" (coyote frames, automatic x-adjustment when hitting the edge of an overhang, queued jump inputs, etc)
+<iframe frameborder="0" src="https://itch.io/embed/726970?bg_color=8ecc74&amp;fg_color=291814&amp;link_color=e0964c&amp;border_color=f2cfb8" width="552" height="167"><a href="https://pancelor.itch.io/upgo">upgo by pancelor</a></iframe>
+
+Made over 2 weeks for [LOWREZJAM 2020](https://itch.io/jam/lowrezjam-2020). An exercise in making a platformer with "good game feel" (coyote frames, automatic x-adjustment when hitting the edge of an overhang, queued jump inputs, etc)
 
 Play it online [here](https://pancelor.itch.io/upgo).
 
