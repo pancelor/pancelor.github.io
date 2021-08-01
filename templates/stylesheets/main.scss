@@ -55,7 +55,7 @@ body::-webkit-scrollbar-thumb:hover { border-right: 8px solid #FFA300; }
 
   margin:auto;
   width: 800px;
-  height: 128px;
+  height: 132px;
   max-width: none;
   max-height: none;
 }
@@ -157,7 +157,7 @@ body::after{
   /*display: block;*/
   margin: auto;
   max-width: 90%;
-  top: 156px;
+  top: 156px; //132px+28px
   position: relative;
 }
 /* TODO this shouldn't need to exist, but it offsets main-content's position */

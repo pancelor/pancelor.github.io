@@ -5,9 +5,7 @@
 </head>
 <body>
 <div class="wrapper">
-<div class="header">
-  <a href="/index#tetris-clone"><div class="header-banner"></div></a>
-</div>
+<%- include ("/_nav.ejs") %>
 <section class="main-content">
 <h1 class="post-title">Tetris Clone</h1>
 <h4 class="post-meta">2020-05</h4>
