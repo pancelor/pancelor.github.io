@@ -21,13 +21,13 @@ Inspired by: [sokosoko](https://juner.itch.io/sokosoko)
 
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/UrzypCp8N3g?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-Coming soon to steam and itch!
+Coming soon to [Steam](https://store.steampowered.com/app/1552300/Inbox_Unbox/) and Itch!
 
 <iframe src="https://store.steampowered.com/widget/1552300/" frameborder="0" width="646" height="190"></iframe>
 
 <div class="mailing-list-card">
 
-Inbox Unbox is releasing in 2021! For updates, [follow me on twitter](https://www.twitter.com/pancelor) or join my [mailing list](/contact) -- I'll send out the call for playtesters to my mailing list first!
+Inbox Unbox is releasing in 2021! For updates, [follow my twitter](https://www.twitter.com/pancelor) or join my [mailing list](/contact) -- I'll send out the call for playtesters to my mailing list first!
 
 <div><%- md("/_mail.ejs") %></div>
 </div>
