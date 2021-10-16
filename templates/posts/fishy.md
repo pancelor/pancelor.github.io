@@ -12,7 +12,7 @@
 
 <iframe frameborder="0" src="https://itch.io/embed/813811?bg_color=8ecc74&amp;fg_color=291814&amp;link_color=e0964c&amp;border_color=f2cfb8" width="552" height="167"><a href="https://pancelor.itch.io/fishy">fishy by pancelor</a></iframe>
 
-This was a submission to [TweetTweetJam 5](https://itch.io/jam/tweet-tweet-jam-5), a game jame where your entire game must fit into 560 characters (aka the length of two tweets).
+This was a submission to [TweetTweetJam 5](https://itch.io/jam/tweet-tweet-jam-5), a game jam where your entire game must fit into 560 characters (aka the length of two tweets).
 
 Play it online [here](https://pancelor.itch.io/fishy)! It's pretty small but I'm proud of how fun I managed to make it, given the space constraints.
 
