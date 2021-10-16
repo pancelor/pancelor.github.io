@@ -36,7 +36,7 @@ After 20 or 30 minutes, the game was only half-playable, but the sprites were do
   <figcaption>Mer's splash screens</figcaption>
 </figure>
 
-When she sent me two AMAZING splash screens with 10 minutes left to go, I suddenly realized: this was too much art! Pico-8's spritesheet is a fixed size (128x128), and two 128x128 images (alongside the game's sprites) took up well over twice that budget. With 5 minutes left in the jam, I was panicking trying to think of anything I could do to get the splash screens into the game. If I shipped the game in its current state, it would have the sprites Mer whipped up quickly at the start, but none of the splash screens she had spent most of her time working on. Luckily, I had just recently been playing around with zep's [PX9 sprite compression system](https://www.lexaloffle.com/bbs/?tid=34058), and over the next \~30 minutes I reminded myself how to use it, compressed the splash screens and added them to the game, and published it. (we went a bit over the 1-hour time limit)
+When she sent me two AMAZING splash screens with 10 minutes left to go, I suddenly realized: this was too much art! Pico-8's spritesheet is a fixed size (128x128), and two 128x128 images (alongside the game's sprites) took up well over twice that budget. With 5 minutes left in the jam, I was panicking trying to think of anything I could do to get the splash screens into the game. If I shipped the game in its current state, it would have the sprites Mer whipped up quickly at the start, but none of the splash screens she had spent most of her time working on. Luckily, I had just recently been playing around with zep's [PX9 sprite compression system](https://www.lexaloffle.com/bbs/?tid=34058), and over the next 20\~30 minutes I reminded myself how to use it, compressed the splash screens and added them to the game, and published it. (we went a bit over the 1-hour time limit)
 
 Some other people in the jam played the game a few times, and said they really liked the "different versions of the death screen". Different versions...? I had them send some screenshots:
 
@@ -51,7 +51,7 @@ That is VERY COOL but also NOT INTENDED. what had happened??
 
 The PX9 compression tool works by predicting the next color to draw based on the nearby colors. If the it correctly predicts the next pixel, it increases a counter saying how many predictions it got right in a row, and then stores that counter instead of each individual pixel color, saving a lot of space. For instance, the long rows of dark blue of the background are easily compressed to just a few bytes this way. (for more details, see the author's description of the algorithm, or the code itself, [here](https://www.lexaloffle.com/bbs/?tid=34058))
 
-At the time, I assumed the problem was something to do with the PX9 decompression algorithm interacting badly with the code that changes the screen palette to fade in and out. PX9 needs to read colors it previously decompressed, to act as an input to its prediction for the current pixel. So, I figured, the changing colors from the fade-in/fade-out post-processing were confusing PX9 about what pixels it had written earlier. I was tired from the adrenaline of making a game in an hour, the glitchy result was SO COOL, and the explanation was plausible enough, so I didn't investigate further. I saved an exact copy of the PX9 compression code I used, in case I wanted to investigate it later for bugs.
+At the time, I assumed the glitches were caused by the decompression algorithm interacting badly with the code that changes the screen palette to fade in and out. PX9 needs to read colors it previously decompressed, to act as an input to its prediction for the current pixel. So, I figured, the changing colors from the fade-in/fade-out post-processing were confusing PX9 about what pixels it had written earlier. I was tired from the adrenaline of finishing the game, the glitchy result was SO COOL, and the explanation was plausible enough, so I didn't investigate further. I saved an exact copy of the PX9 compression code I used, in case I wanted to investigate it later for bugs.
 
 ## investigation
 
@@ -68,18 +68,25 @@ I removed the fade code -- yup, the glitches still (sometimes) appeared. I tried
 
 Something I noticed in that video was the key to figuring it all out -- you can try to figure it out yourself before continuing, if you like! It might help to view the video fullscreen.
 
-The thing that caught my eye was this: while I built the input recording/replay harness, I whimsically added in some icons that showed whether the game was recording or replaying input. They were aligned to the corner of the screen, but as you can see in that gif, their position onscreen was slightly off during the death screen. How could that happen? The death screen code just draws a 128x128 image to 0,0... but! the game's coordinate system gets offset to create the screenshake when you shoot, and that offset was persisting into the death screen! And this was causing PX9 to bug out, because when it writes, say, a red pixel offscreen and then later asks what color is at that (offscreen) location, pico-8 says, "oh, that location is offscreen, so let's just say the color there is black". And that small inconsistency sets off a whole series of chain reactions in the decompression, glitching out the rest of the image.
+The thing that caught my eye was this: while I built the input recording/replay harness, I whimsically added in some icons that showed whether the game was recording or replaying input. They were aligned in the top-right corner of the screen, but as you can see in that gif, their position was slightly off during the death screen. How could that happen? The death screen code just draws a 128x128 image to 0,0... but! the game's coordinate system gets offset to create the screenshake when you shoot, and that offset was persisting into the death screen! And this was causing PX9 to bug out, because when it writes, say, a red pixel offscreen and then later asks what color is at that (offscreen) location, pico-8 says, "oh, that location is offscreen, so let's just say the color there is black". And that small inconsistency sets off a whole series of chain reactions in the decompression, glitching out the rest of the image. Mystery solved!
 
 ## wait what about the nondeterminism
 
-Oh, good point, yeah. Why was the game acting differently between two different runs with the exact same seed and the exact same input? Well, pico-8 lets you define an `_update60` and a `_draw` function, and then it calls them in sequence 60 times each second. But, if your code misses its frame window and takes too long, pico-8 will skip calling `_draw` half of the time, degrading the frame rate to 30FPS but keeping your game from lagging too badly. Now, I was using the RNG during `_draw` to position the stars in the background, and this was advancing the state of the RNG inconsistently if `_draw` was sometimes skipped due to the CPU overhead of decompressing the splash screens, which then made the sharks wait for inconsistent amounts of time between their movements, leading to the player colliding with them at different times, meaning that the camera offset due to screenshake was inconsistent, leading to PX9 getting confused if the screenshake hadn't fully decayed.
+Oh, good point, yeah. Why was the game acting differently between two different runs with the exact same seed and the exact same input? Well, pico-8 lets you define an `_update60` and a `_draw` function, and then it calls them in sequence 60 times each second. But, if your code misses its frame window and takes too long, pico-8 will skip calling `_draw` half of the time, degrading the frame rate to 30FPS but keeping your game from lagging too badly.
+
+<figure>
+  <img src="/assets/ssk2k/updatedraw.png"/>
+  <figcaption>function call order in pico-8</figcaption>
+</figure>
+
+Now, I was using the RNG during `_draw` to position the stars in the background, and this was advancing the state of the RNG inconsistently if `_draw` was sometimes skipped due to the CPU overhead of decompressing the splash screens, which then made the sharks wait for inconsistent amounts of time between their movements, causing the player to collide with them at different times, meaning that the camera offset due to screenshake was inconsistent, leading to PX9 getting confused if the screenshake hadn't fully decayed.
 
 ```lua
   -- the root cause of the nondeterminism:
-  function draw_stars(seed)
+  function draw_stars(starseed)
    local savedseed=rnd()
    -- revert to a consistent seed (temporarily)
-   srand(seed)
+   srand(starseed)
    for i=0,100 do
     -- draw stars at random locations
     pset(rnd(128),rnd(128),7)
@@ -88,21 +95,26 @@ Oh, good point, yeah. Why was the game acting differently between two different 
   end
 ```
 
-It's not clear to me why pico-8 would modify the game's framerate inconsistently between runs, but the glitch inconsistencies completely correlates with the times that `_update60` and `_draw` are executed a different number of times, so the mystery of the sometimes-glitchy end screens is finally solved in my eyes.
+It's not clear to me why pico-8 would modify the game's framerate inconsistently between runs, but the glitch inconsistencies happen only when `_update60` and `_draw` are executed a different number of times, so the mystery of the sometimes-glitchy end screens is finally solved in my eyes.
 
 ## thanks for reading!
 
-To summarize, here are all the things that combined in a perfect storm to produce a glitch this interesting and confusing:
+To summarize, here are all the things that combined in a perfect storm to produce a glitch this confusing and interesting:
 
 * Forgetting to communicate a crucial restriction to my teammate
 * Pico-8's spritesheet size restriction, pushing me to compress the sprites to make them fit
 * Screenshake adjusting the world camera during gameplay
-* Not resetting the world camera on game over
+* Only adjusting the screenshake offset midgame, and not resetting it on game over
 * The exact details of how PX9's data compression algorithm works when trying to decompress to a partially offscreen location
 * Pico-8's framerate compensation
 * Calling `rnd()` during `_draw`
 
-It's a wonderful tale of many many small things interacting in non-obvious ways to produce an incredible result -- Mer and I agree that the only-sometimes-glitched death screens are an unambiguous improvement to the game we meant to make. Play our game [here](https://pancelor.itch.io/space-shark-killer-2000) if you like, and check out her [other games](https://mergrazzini.itch.io/)!
+It's a wonderful tale of many many small things interacting in non-obvious ways to produce an incredible result -- Mer and I agree that the only-sometimes-glitched death screens are an unambiguous improvement to the game we meant to make. Play our game [here](https://pancelor.itch.io/space-shark-killer-2000) if you like, and check out [Mer's other games](https://mergrazzini.itch.io/)!
+
+<hr>
+
+[comments](https://twitter.com/pancelor) |
+[more posts](/blog)
 
 </section>
 <%- include ("/_footer.ejs") %>

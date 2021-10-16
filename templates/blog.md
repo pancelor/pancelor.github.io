@@ -2,6 +2,7 @@
 <html>
 <head>
 <%- include ("/_header.ejs") %>
+<link rel="alternate" type="application/rss+xml" title="pancelor dot com" href="/feed.xml" />
 <link href="/stylesheets/mailchimp.css" rel="stylesheet" type="text/css">
 <%- include ("/_meta.ejs") %>
 </head>
