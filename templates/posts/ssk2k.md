@@ -102,7 +102,7 @@ To summarize, here are all the things that combined in a perfect storm to produc
 * Pico-8's framerate compensation
 * Calling `rnd()` during `_draw`
 
-It's a wonderful tale of many many small things interacting in non-obvious ways to produce an incredible result -- Mer and I agree that the only-sometimes glitched death screens are an unambiguous improvement to the game. Play our game [here](https://pancelor.itch.io/space-shark-killer-2000) if you like, and check out her [other games](https://mergrazzini.itch.io/)!
+It's a wonderful tale of many many small things interacting in non-obvious ways to produce an incredible result -- Mer and I agree that the only-sometimes-glitched death screens are an unambiguous improvement to the game we meant to make. Play our game [here](https://pancelor.itch.io/space-shark-killer-2000) if you like, and check out her [other games](https://mergrazzini.itch.io/)!
 
 </section>
 <%- include ("/_footer.ejs") %>
