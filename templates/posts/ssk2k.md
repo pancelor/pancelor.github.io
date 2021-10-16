@@ -113,7 +113,7 @@ It's a wonderful tale of many many small things interacting in non-obvious ways 
 
 <hr>
 
-[comments](https://twitter.com/pancelor) |
+[comments](https://twitter.com/pancelor/status/1449501390968016898) |
 [more posts](/blog)
 
 </section>
