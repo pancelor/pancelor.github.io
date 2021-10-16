@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+<channel>
+  <title>pancelor's blog</title>
+  <link>http://pancelor.com/</link>
+  <description></description>
+  <image>
+    <url>https://pancelor.com/assets/pancelor-128x128.png</url>
+    <title>pancelor dot com</title>
+    <link>https://pancelor.com/</link>
+    <width>128</width>
+    <height>128</height>
+  </image>
+
+  <item>
+    <title>tetris clone</title>
+    <link>http://pancelor.com/posts/tetris-clone</link>
+    <description></description>
+  </item>
+  <item>
+    <title>fishy</title>
+    <link>http://pancelor.com/posts/fishy</link>
+    <description></description>
+  </item>
+  <item>
+    <title>linecook / tangible code</title>
+    <link>http://pancelor.com/posts/linecook</link>
+    <description></description>
+  </item>
+  <item>
+    <title>SPACESHARKKILLER2000</title>
+    <link>http://pancelor.com/posts/ssk2k</link>
+    <description></description>
+  </item>
+</channel>
+</rss>

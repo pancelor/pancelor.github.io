@@ -15,6 +15,7 @@
 This site is a perpetual work-in-progress, and I haven't made a dedicated blog space yet. Once I do, I'll be sure to move my existing blog posts here:
 
 <ul>
+  <li><a href="/posts/ssk2k">SPACESHARKKILLER2000</a></li>
   <li><a href="/posts/linecook">linecook / tangible code</a></li>
   <li><a href="/posts/tetris-clone">tetris clone</a></li>
   <li><a href="/posts/purple-gun-game">purple gun game</a></li>
@@ -23,6 +24,10 @@ This site is a perpetual work-in-progress, and I haven't made a dedicated blog s
   <li><a href="/posts/software-renderer">software renderer</a></li>
   <li><a href="/posts/fishy">fishy</a></li>
 </ul>
+
+## RSS feed
+
+Here's an [RSS feed](/feed.xml) for my blog. It should work, but please [let me know](/contact) if there's some issue!
 
 </section>
 <%- include ("/_footer.ejs") %>
