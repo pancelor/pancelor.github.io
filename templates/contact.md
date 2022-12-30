@@ -16,9 +16,11 @@
 
 ### follow me:
 
-* **twitter**: [@pancelor](https://twitter.com/pancelor) (warning: weird)
 * **itch**: [pancelor](https://pancelor.itch.io) for published games
+* **cohost**: [pancelor](https://cohost.org/pancelor) for blog posts and devlogs
+* **mastodon**: [@pancelor@mastodon.social](https://mastodon.social/@pancelor). the hot new internet town square
 * **twitch**: [pancelor](https://twitch.com/pancelor) for game dev streams and indie variety streams
+* **twitter**: [@pancelor](https://twitter.com/pancelor)
 
 <div class="mailing-list-card">
 
@@ -35,7 +37,7 @@ If you like my projects, join my mailing list! I'll email you about the cool stu
 
 ### contact me right here directly from this website, pancelor dot com:
 
-yes this is kinda janky but hey I bet it could be useful!
+leave me a note here:
 
 <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSe8o5Fr7OIhgRqF6QUxTTKGJLWOerumoWotJeXFd9iupRlOsA/viewform?embedded=true" width="720" height="405" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
 
