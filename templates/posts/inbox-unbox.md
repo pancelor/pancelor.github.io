@@ -11,7 +11,7 @@
 <%- include ("/_nav.ejs") %>
 <section class="main-content">
 <h1 class="post-title">Inbox Unbox</h1>
-<h4 class="post-meta">2019-03 - 2021</h4>
+<h4 class="post-meta">2019-03 - ?</h4>
 
 This is my upcoming puzzle game about pushing boxes into other boxes. It's 10\~30 hours long? (It's hard to estimate puzzle game times...)
 
@@ -42,7 +42,6 @@ Here's a slower-paced video, showing off a single puzzle. Can you solve it just 
 </figure>
 
 If this game looks up your alley, be sure to also check out [Patrick's Parabox](https://store.steampowered.com/app/1260520/Patricks_Parabox/)! It starts from a similar premise (we were both inspired by sokosoko) but explores the ideas in different ways.
-I've played the demo and I'm excited to play the full release!
 
 </section>
 <%- include ("/_footer.ejs") %>
