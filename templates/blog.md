@@ -11,13 +11,6 @@
 <%- include ("/_nav.ejs") %>
 <section id="main-content">
 
-Hi! I'm trying out a new blogging system but I can't figure a way to "redirect" this feed to the new url. so you'll have to do it manually -- sorry!
-
-Here's the new URL; either one should work:
-
-https://pancelor.bearblog.dev/feed/
-https://pancelor.bearblog.dev/feed/?type=rss
-
 ## NEW blog
 
 [It's here!](https://pancelor.bearblog.dev/)

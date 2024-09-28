@@ -13,6 +13,8 @@
 <h1 class="post-title">Inbox Unbox</h1>
 <h4 class="post-meta">2019-03 - ?</h4>
 
+_Inbox Unbox is still in-progress! It's on the back burner for now; I painted myself into a design corner and have been letting it simmer._
+
 This is my upcoming puzzle game about pushing boxes into other boxes. It's 10\~30 hours long? (It's hard to estimate puzzle game times...)
 
 Inspired by: [sokosoko](https://juner.itch.io/sokosoko)
@@ -27,7 +29,7 @@ Coming soon to [Steam](https://store.steampowered.com/app/1552300/Inbox_Unbox/) 
 
 <div class="mailing-list-card">
 
-Inbox Unbox is releasing in 2021! For updates, [follow my twitter](https://www.twitter.com/pancelor) or join my [mailing list](/contact) -- I'll send out the call for playtesters to my mailing list first!
+For updates, [follow my blog](/blog) or [mailing list, mastodon, etc](/contact). If you just want a notification when it's ready, wishlist it on steam or join my mailing list:
 
 <div><%- md("/_mail.ejs") %></div>
 </div>

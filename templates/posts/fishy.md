@@ -22,7 +22,7 @@ Play it online [here](https://pancelor.itch.io/fishy)! It's pretty small but I'm
   <video loop controls autoplay muted>
     <source src="/assets/fishy.mp4" type="video/mp4">
   </video>
-  <figcaption>my highscore is getting to level 11; <a href="https://twitter.com/pancelor/status/1326391289676443648">let me know</a> if you manage to get farther!</figcaption>
+  <figcaption>my highscore is getting to level 11; <a href="/contact">let me know</a> if you manage to get farther!</figcaption>
 </figure>
 
 ### the code

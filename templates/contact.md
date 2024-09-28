@@ -26,7 +26,7 @@ bot email: <a href="mailto:honeypot@pancelor.com">honeypot@pancelor.com</a>
 
 ### join my mailing list!
 
-If you like my projects, join my mailing list! I send rare emails, usually when I release a major project. If you're interested, enter your email here:
+If you like my projects, join my mailing list! I occasionally send emails, usually when I release a major project. If you're interested, enter your email here:
 
 <div><%- md("/_mail.ejs") %></div>
 </div>

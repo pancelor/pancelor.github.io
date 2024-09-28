@@ -18,7 +18,7 @@ _(I wish the itch.io embedded widget said "by pancelor, Mer Grazzini", but itch 
 
 ## 1-hour game jam
 
-A few months ago, [Mer Grazzini](https://twitter.com/MerGrazzini) and I teamed up for a 1-hour game jam. We did a brief bit of planning beforehand: we would use pico-8, I would write the code, and she would draw the art. I made sure to let her know that pico-8 only allows 16 colors, and sent her the palette. I hadn't forgot to tell her any other important restrictions, had I? The 16-color restriction was the main one an artist would need to know... right?
+A few months ago, [Mer Grazzini](https://mergrazzini.itch.io/) and I teamed up for a 1-hour game jam. We did a brief bit of planning beforehand: we would use pico-8, I would write the code, and she would draw the art. I made sure to let her know that pico-8 only allows 16 colors, and sent her the palette. I hadn't forgot to tell her any other important restrictions, had I? The 16-color restriction was the main one an artist would need to know... right?
 
 The theme was revealed ("floating") and the clock began ticking. 60 minutes left! We brainstormed and decided to make an arcade-style space shooter:
 

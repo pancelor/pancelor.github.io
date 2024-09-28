@@ -26,7 +26,7 @@ Linecook is a frantic arcade game about feeding birds from conveyor belts (very 
 
 ### inspiration
 
-The idea for this game jam is super neat: you take 2 weeks to make a 1-minute game that is somehow inspired by the previous game in the chain, and then you nominate 2\~3 people to continue the chain. [Patrick](https://twitter.com/clockworkpat) nominated me, so I played his game [Arithmetic Bounce](https://patrickgh3.itch.io/arithmetic-bounce) to see what inspiration would strike:
+The idea for this game jam is super neat: you take 2 weeks to make a 1-minute game that is somehow inspired by the previous game in the chain, and then you nominate 2\~3 people to continue the chain. [Patrick](https://cwpat.me/) nominated me, so I played his game [Arithmetic Bounce](https://patrickgh3.itch.io/arithmetic-bounce) to see what inspiration would strike:
 
 <figure>
   <video preload="auto" controls loop autoplay muted src="/assets/linecook/arithmetic-bounce.mp4"></video>
@@ -170,13 +170,7 @@ Okay, that's it. Thanks for reading! Go play [linecook](https://pancelor.itch.io
   <figcaption>my best run: 7-1-0 in 5:26.66 on hard mode</figcaption>
 </figure>
 
-And hey, since you've read this far, you might enjoy being on my [mailing list](/contact); that's probably the best way to be notified when I write more posts like this!
-
----
-
-_If you want to leave me a comment, drop it in [this dedicated twitter thread](https://twitter.com/pancelor) I guess? You could also [email me](mailto:hello@pancelor.com) if you like. (Sorry, I haven't figured out a good comments system for my site yet)_
-
-_secret note: there is no twitter thread yet; come back tomorrow after I tweet this out ;)_
+If you've read this far, you might enjoy subscribing to [my blog](https://pancelor.bearblog.dev/)? RSS feeds are cool; try [inoreader](https://www.inoreader.com/) if you're new to them.
 
 </section>
 <%- include ("/_footer.ejs") %>

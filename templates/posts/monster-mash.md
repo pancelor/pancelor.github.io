@@ -10,9 +10,9 @@
 <h1 class="post-title">Monster Mash</h1>
 <h4 class="post-meta">2020-10</h4>
 
-<iframe frameborder="0" src="https://itch.io/embed/804519?bg_color=8ecc74&amp;fg_color=291814&amp;link_color=e0964c&amp;border_color=f2cfb8" width="552" height="167"><a href="https://pancelor.itch.io/monster-mash">monster mash by pancelor, cryss</a></iframe>
+<iframe frameborder="0" src="https://itch.io/embed/804519?bg_color=8ecc74&amp;fg_color=291814&amp;link_color=e0964c&amp;border_color=f2cfb8" width="552" height="167"><a href="https://pancelor.itch.io/monster-mash">monster mash by pancelor, tallywinkle</a></iframe>
 
-A cute game that [@princryss](https://www.twitter.com/princryss) and I made together for halloween! Cryss did the game design + art + sound, I did the programming.
+A cute game that [@tallywinkle](https://tallywinkle.itch.io/) and I made together for halloween! tally did the game design + art + sound, I did the programming.
 
 Play it online [here](https://pancelor.itch.io/monster-mash)! It's a 5\~10 minute game.
 
