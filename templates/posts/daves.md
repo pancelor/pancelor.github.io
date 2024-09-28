@@ -6,7 +6,7 @@
 <body>
 <div class="wrapper">
 <%- include ("/_nav.ejs") %>
-<section class="main-content">
+<section id="main-content">
 <h1 class="post-title">Too Many Daves</h1>
 <h4 class="post-meta">2021-06</h4>
 

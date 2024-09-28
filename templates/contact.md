@@ -7,7 +7,7 @@
 <body>
 <div class="wrapper">
 <%- include ("/_nav.ejs") %>
-<section class="main-content">
+<section id="main-content">
 
 ### contact me:
 

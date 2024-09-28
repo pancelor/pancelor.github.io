@@ -9,7 +9,7 @@
 <body>
 <div class="wrapper">
 <%- include ("/_nav.ejs") %>
-<section class="main-content">
+<section id="main-content">
 <h1 class="post-title">Inbox Unbox</h1>
 <h4 class="post-meta">2019-03 - ?</h4>
 

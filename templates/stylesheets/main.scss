@@ -15,7 +15,7 @@ h2 { color: $c-text-black; }
 h3 { color: $c-text-black; }
 h4 { color: $c-text-black; }
 
-// make sure media fits within its container
+/* make sure media fits within its container */
 video {
   max-width: 100%;
   max-height: 100%;
@@ -148,7 +148,7 @@ nav div a {
   padding-bottom: 20px;
 }
 
-.main-content {
+#main-content {
   /*display: block;*/
   margin: auto;
   max-width: 90%;
@@ -297,4 +297,27 @@ figcaption {
   font-style: italic;
   padding: 2px;
   text-align: center;
+}
+
+/* https://webaim.org/techniques/css/invisiblecontent/ */
+.sr-only {
+  position:absolute;
+  left:-10000px;
+  top:auto;
+  width:1px;
+  height:1px;
+  overflow:hidden;
+}
+#skip-header a {
+  position:absolute;
+  left:-10000px;
+  top:auto;
+  width:1px;
+  height:1px;
+  overflow:hidden;
+}
+#skip-header a:focus {
+  position:static;
+  width:auto;
+  height:auto;
 }
