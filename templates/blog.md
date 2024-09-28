@@ -11,24 +11,29 @@
 <%- include ("/_nav.ejs") %>
 <section id="main-content">
 
-## Blog: coming soon!
+Hi! I'm trying out a new blogging system but I can't figure a way to "redirect" this feed to the new url. so you'll have to do it manually -- sorry!
 
-This site is a perpetual work-in-progress, and I haven't made a dedicated blog space yet. Once I do, I'll be sure to move my existing blog posts here:
+Here's the new URL; either one should work:
 
-<ul>
-  <li><a href="/posts/ssk2k">SPACESHARKKILLER2000</a></li>
-  <li><a href="/posts/linecook">linecook / tangible code</a></li>
-  <li><a href="/posts/tetris-clone">tetris clone</a></li>
-  <li><a href="/posts/purple-gun-game">purple gun game</a></li>
-  <li><a href="/posts/vmj2020">variety mega jam</a></li>
-  <li><a href="/posts/monster-mash">monster mash</a></li>
-  <li><a href="/posts/software-renderer">software renderer</a></li>
-  <li><a href="/posts/fishy">fishy</a></li>
-</ul>
+https://pancelor.bearblog.dev/feed/
+https://pancelor.bearblog.dev/feed/?type=rss
 
-## RSS feed
+## NEW blog
 
-Here's an [RSS feed](/feed.xml) for my blog. It should work, but please [let me know](/contact) if there's some issue!
+[It's here!](https://pancelor.bearblog.dev/)
+
+## old blog
+
+And here's a list of the blog posts on this current site. I haven't migrated them all to the new blog:
+
+- [SPACESHARKKILLER2000](/posts/ssk2k)
+- [linecook / tangible code](/posts/linecook)
+- [tetris clone](/posts/tetris-clone)
+- [purple gun game](/posts/purple-gun-game)
+- [variety mega jam](/posts/vmj2020)
+- [monster mash](/posts/monster-mash)
+- [software renderer](/posts/software-renderer)
+- [fishy](/posts/fishy)
 
 </section>
 <%- include ("/_footer.ejs") %>

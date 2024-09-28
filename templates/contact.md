@@ -9,24 +9,24 @@
 <%- include ("/_nav.ejs") %>
 <section id="main-content">
 
-### contact me:
+<div hidden style="display: none;">
+bot email: <a href="mailto:honeypot@pancelor.com">honeypot@pancelor.com</a>
+</div>
+
+### contact / follow / etc:
 
 * **email**: [hello@pancelor.com](mailto:hello@pancelor.com)
-* **twitter DM**: [@pancelor](https://twitter.com/pancelor)
-
-### follow me:
-
-* **itch**: [pancelor](https://pancelor.itch.io) for published games
-* **cohost**: [pancelor](https://cohost.org/pancelor) for blog posts and devlogs
+* **itch**: [pancelor](https://pancelor.itch.io). for published games
+* **blog**: [pancelor](https://pancelor.bearblog.dev/). for blog posts and devlogs ([rss](https://pancelor.bearblog.dev/feed/?type=rss))
 * **mastodon**: [@pancelor@mastodon.social](https://mastodon.social/@pancelor). the hot new internet town square
-* **twitch**: [pancelor](https://twitch.com/pancelor) for game dev streams and indie variety streams
-* **twitter**: [@pancelor](https://twitter.com/pancelor)
+* **bluesky**: [@pancelor.bsky.social](https://bsky.app/profile/pancelor.bsky.social). the other hot new internet town square
+* **twitch**: [pancelor](https://twitch.com/pancelor). for game dev streams and indie variety streams
 
 <div class="mailing-list-card">
 
 ### join my mailing list!
 
-If you like my projects, join my mailing list! I'll email you about the cool stuff I'm making, you'll be the first place I turn to when looking for playtesters for [Inbox Unbox](/posts/inbox-unbox). If you're interested, enter your email here:
+If you like my projects, join my mailing list! I send rare emails, usually when I release a major project. If you're interested, enter your email here:
 
 <div><%- md("/_mail.ejs") %></div>
 </div>
