@@ -98,6 +98,22 @@ body::-webkit-scrollbar-thumb:hover { border-right: 8px solid #FFA300; }
   background-image: url(/assets/nav-blog-hover.png);
 }
 
+.nav-links {
+  background-image: url(/assets/nav-links.png);
+  background-repeat: no-repeat;
+  background-position: left top;
+  transition: background-image 0.1s ease-in-out 0s;
+
+  margin:auto;
+  width: 92px;
+  height: 28px;
+  max-width: none;
+  max-height: none;
+}
+.nav-links:hover {
+  background-image: url(/assets/nav-links-hover.png);
+}
+
 .nav-contact {
   background-image: url(/assets/nav-contact.png);
   background-repeat: no-repeat;
