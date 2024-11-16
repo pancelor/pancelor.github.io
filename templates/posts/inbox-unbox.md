@@ -4,7 +4,6 @@
 <title>Inbox Unbox</title>
 <%- include ("/_header.ejs") %>
 <link href="/stylesheets/mailchimp.css" rel="stylesheet" type="text/css">
-<%- include ("/_meta.ejs") %>
 </head>
 <body>
 <div class="wrapper">

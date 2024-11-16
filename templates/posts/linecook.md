@@ -2,7 +2,6 @@
 <html>
 <head>
 <%- include ("/_header.ejs") %>
-<%- include ("/_meta.ejs") %>
 </head>
 <body>
 <div class="wrapper">
