@@ -47,7 +47,7 @@ body::-webkit-scrollbar-thumb:hover { border-right: 8px solid #FFA300; }
   /*display: grid;*/
   /*grid-template-columns: 400px min-content;*/
 }
-.header-banner {
+#header-banner {
   background-image: url(/assets/banner.png);
   background-repeat: no-repeat;
   background-position: left top;
@@ -59,14 +59,14 @@ body::-webkit-scrollbar-thumb:hover { border-right: 8px solid #FFA300; }
   max-width: none;
   max-height: none;
 }
-.header-banner:hover {
+#header-banner:hover {
   background-image: url(/assets/banner-hover.png);
 }
 .header a {
   text-decoration: none;
 }
 
-.nav-portfolio {
+#nav-portfolio {
   background-image: url(/assets/nav-portfolio.png);
   background-repeat: no-repeat;
   background-position: left top;
@@ -78,11 +78,11 @@ body::-webkit-scrollbar-thumb:hover { border-right: 8px solid #FFA300; }
   max-width: none;
   max-height: none;
 }
-.nav-portfolio:hover {
+#nav-portfolio:hover {
   background-image: url(/assets/nav-portfolio-hover.png);
 }
 
-.nav-blog {
+#nav-blog {
   background-image: url(/assets/nav-blog.png);
   background-repeat: no-repeat;
   background-position: left top;
@@ -94,11 +94,11 @@ body::-webkit-scrollbar-thumb:hover { border-right: 8px solid #FFA300; }
   max-width: none;
   max-height: none;
 }
-.nav-blog:hover {
+#nav-blog:hover {
   background-image: url(/assets/nav-blog-hover.png);
 }
 
-.nav-links {
+#nav-links {
   background-image: url(/assets/nav-links.png);
   background-repeat: no-repeat;
   background-position: left top;
@@ -110,11 +110,11 @@ body::-webkit-scrollbar-thumb:hover { border-right: 8px solid #FFA300; }
   max-width: none;
   max-height: none;
 }
-.nav-links:hover {
+#nav-links:hover {
   background-image: url(/assets/nav-links-hover.png);
 }
 
-.nav-contact {
+#nav-contact {
   background-image: url(/assets/nav-contact.png);
   background-repeat: no-repeat;
   background-position: left top;
@@ -126,7 +126,7 @@ body::-webkit-scrollbar-thumb:hover { border-right: 8px solid #FFA300; }
   max-width: none;
   max-height: none;
 }
-.nav-contact:hover {
+#nav-contact:hover {
   background-image: url(/assets/nav-contact-hover.png);
 }
 
