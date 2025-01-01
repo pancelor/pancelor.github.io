@@ -32,8 +32,6 @@ body::-webkit-scrollbar-thumb:hover { border-right: 8px solid #FFA300; }
 
 .wrapper {
   background-color: $c-orange-light;
-  background-position: left top;
-  background-attachment: fixed;
   width: 800px;
   margin-top: 0;
   margin-right: auto;
@@ -48,10 +46,7 @@ body::-webkit-scrollbar-thumb:hover { border-right: 8px solid #FFA300; }
   /*grid-template-columns: 400px min-content;*/
 }
 #header-banner {
-  background-image: url(/assets/banner.png);
-  background-repeat: no-repeat;
-  background-position: left top;
-  transition: background-image 0.1s ease-in-out 0s;
+  background: url(/assets/banner.png) no-repeat 0 0;
 
   margin:auto;
   width: 800px;
@@ -60,17 +55,14 @@ body::-webkit-scrollbar-thumb:hover { border-right: 8px solid #FFA300; }
   max-height: none;
 }
 #header-banner:hover {
-  background-image: url(/assets/banner-hover.png);
+  background-position: 0 -132px;
 }
 .header a {
   text-decoration: none;
 }
 
 #nav-portfolio {
-  background-image: url(/assets/nav-portfolio.png);
-  background-repeat: no-repeat;
-  background-position: left top;
-  transition: background-image 0.1s ease-in-out 0s;
+  background: url(/assets/nav-portfolio.png) no-repeat 0 0;
 
   margin:auto;
   width: 156px;
@@ -79,14 +71,11 @@ body::-webkit-scrollbar-thumb:hover { border-right: 8px solid #FFA300; }
   max-height: none;
 }
 #nav-portfolio:hover {
-  background-image: url(/assets/nav-portfolio-hover.png);
+  background-position: 0 -28px;
 }
 
 #nav-blog {
-  background-image: url(/assets/nav-blog.png);
-  background-repeat: no-repeat;
-  background-position: left top;
-  transition: background-image 0.1s ease-in-out 0s;
+  background: url(/assets/nav-blog.png) no-repeat 0 0;
 
   margin:auto;
   width: 76px;
@@ -95,14 +84,11 @@ body::-webkit-scrollbar-thumb:hover { border-right: 8px solid #FFA300; }
   max-height: none;
 }
 #nav-blog:hover {
-  background-image: url(/assets/nav-blog-hover.png);
+  background-position: 0 -28px;
 }
 
 #nav-links {
-  background-image: url(/assets/nav-links.png);
-  background-repeat: no-repeat;
-  background-position: left top;
-  transition: background-image 0.1s ease-in-out 0s;
+  background: url(/assets/nav-links.png) no-repeat 0 0;
 
   margin:auto;
   width: 92px;
@@ -111,14 +97,11 @@ body::-webkit-scrollbar-thumb:hover { border-right: 8px solid #FFA300; }
   max-height: none;
 }
 #nav-links:hover {
-  background-image: url(/assets/nav-links-hover.png);
+  background-position: 0 -28px;
 }
 
 #nav-contact {
-  background-image: url(/assets/nav-contact.png);
-  background-repeat: no-repeat;
-  background-position: left top;
-  transition: background-image 0.1s ease-in-out 0s;
+  background: url(/assets/nav-contact.png) no-repeat 0 0;
 
   margin:auto;
   width: 124px;
@@ -127,7 +110,7 @@ body::-webkit-scrollbar-thumb:hover { border-right: 8px solid #FFA300; }
   max-height: none;
 }
 #nav-contact:hover {
-  background-image: url(/assets/nav-contact-hover.png);
+  background-position: 0 -28px;
 }
 
 nav {
