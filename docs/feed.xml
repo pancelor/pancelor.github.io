@@ -1,33 +1,5 @@
-<?xml version="1.0"?>
-<rss version="2.0"
-  xmlns:atom="https://www.w3.org/2005/Atom">
-<channel>
-  <title>pancelor blog feed</title>
-  <link>https://pancelor.com/</link>
-  <description></description>
-  <atom:link href="https://pancelor.com/feed.xml" rel="self" type="application/rss+xml" />
-  <image>
-    <url>https://pancelor.com/assets/pancelor-128x128.png</url>
-    <title>pancelor blog feed</title>
-    <link>https://pancelor.com/</link>
-    <width>128</width>
-    <height>128</height>
-  </image>
-
-  <item>
-    <title>my rss feed has moved! (please update your reader)</title>
-    <link>https://pancelor.com/blog</link>
-    <description><p>Hi! I’m trying out a new blogging system but I can’t figure a way to “redirect” this feed to the new url. so you’ll have to do it manually – sorry!</p><p>Here’s the new URL; either one should work:</p><p><a href="https://pancelor.bearblog.dev/feed/">https://pancelor.bearblog.dev/feed/</a><a href="https://pancelor.bearblog.dev/feed/?type=rss">https://pancelor.bearblog.dev/feed/?type=rss</a></p></description>
-  </item>
-  <item>
-    <title>linecook / tangible code</title>
-    <link>https://pancelor.com/posts/linecook</link>
-    <description></description>
-  </item>
-  <item>
-    <title>SPACESHARKKILLER2000</title>
-    <link>https://pancelor.com/posts/ssk2k</link>
-    <description></description>
-  </item>
-</channel>
-</rss>
+<redirect>
+<newLocation>
+https://pancelor.bearblog.dev/feed/?type=rss
+</newLocation>
+</redirect> 
