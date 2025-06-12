@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <link href="/stylesheets/mailchimp.css" rel="stylesheet" type="text/css">
 <%- include ("/_header.ejs") %>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <title>Inbox Unbox</title>
 <%- include ("/_header.ejs") %>

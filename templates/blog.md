@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <%- include ("/_header.ejs") %>
 <link rel="alternate" type="application/rss+xml" title="pancelor dot com" href="/feed.xml" />

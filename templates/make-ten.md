@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<title>Make Ten Deluxe</title>
 <meta http-equiv="refresh" content="0;url=/posts/make-ten-deluxe">
 <link rel="canonical" href="/posts/make-ten-deluxe">
 <%- include ("/_header.ejs") %>
