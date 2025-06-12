@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<title>Make Ten Deluxe</title>
 <%- include ("/_header.ejs") %>
 </head>
 <body>
